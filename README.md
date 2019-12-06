@@ -1,6 +1,6 @@
 ## Playthem front constructor
 
-### `git clone git@gitlab.com:playthem36/front-constructor.git`
+### `git clone git@gitlab.com:Sirotenko/front-constructor.git`
 
 ### `cd front-constructor`
 

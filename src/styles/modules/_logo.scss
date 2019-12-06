@@ -1,0 +1,12 @@
+.logo {
+  background: url('../../assets/images/icons/logo_label.svg') no-repeat scroll 0 0 / 100% auto transparent;
+  height: 6rem;
+  width: 15rem;
+
+  &__mobile{
+    background: url('../../assets/images/logo_mobile.svg') no-repeat scroll 0 0 / 100% auto transparent;
+    height: 5rem;
+    width: 15rem;
+  }
+}
+

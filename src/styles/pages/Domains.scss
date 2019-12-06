@@ -1,0 +1,61 @@
+@import '../core/base';
+@import '../modules/buttons';
+@import '../mixins/flex';
+@import '../modules/tabs';
+.domains {
+  display: flex;
+  height: 100%;
+  &__inner {
+    margin: auto;
+  }
+  &__img {
+    max-width: 400px;
+  }
+  &__list{
+    padding: 25px 35px;
+    min-width: 480px;
+    position: relative;
+    &_close{
+      position: absolute;
+      top: 30px;
+      right: 35px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      border: none;
+      padding-left: 35px;
+      background: url(../../assets/images/icons/close.svg) no-repeat 0;
+      cursor: pointer;
+    }
+    li{
+      @include flex(center, flex-start);
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid transparent;
+      &:hover{
+        background: rgba(206,225,246,0.2);
+        border: 1px solid $color-blue-light;
+      }
+    }
+
+    &_img{
+      @include flex(center, center);
+      margin-right: 15px;
+      width: 40px;
+      height: 40px;
+      border-radius: 3px;
+      background: #E8EFF7;
+      line-height: 40px;
+      padding: 10px;
+    }
+    h3{
+      padding-bottom: 5px;
+      font-size: 1.4rem;
+      line-height: 1.1;
+    }
+    p{
+      font-size: 1.2rem;
+      line-height: 1.1;
+    }
+  }
+}

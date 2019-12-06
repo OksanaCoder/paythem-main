@@ -1,0 +1,64 @@
+.tabs_indicator {
+  display: none;
+}
+.tab {
+  &__btn {
+    min-width: 11.3rem;
+    width: 11.3rem;
+    height: 11.3rem;
+    margin: 10px;
+    line-height: 1.1;
+    border-radius: 20px;
+    text-transform: capitalize;
+    transition: all 0.3s ease-out;
+    i{
+      font-style: normal;
+      width: 75%;
+    }
+  }
+  &_active,
+  &__btn:hover {
+    background: #fff;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2)
+  }
+  &__icon {
+    width: 6rem;
+    height: 6rem;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    transition: all 0.5s ease-out;
+    &_gameSettings {
+      background-image: url('../../../assets/images/tab_img_0.svg');
+    }
+    &_winSettings {
+      background-image: url('../../../assets/images/tab_img_1.svg');
+    }
+    &_editCoupons {
+      background-image: url('../../../assets/images/tab_img_2.svg');
+    }
+    &_globalSettings {
+      background-image: url('../../../assets/images/tab_img_3.svg');
+    }
+    &_editWidget {
+      background-image: url('../../../assets/images/tab_img_4.svg');
+    }
+  }
+  &__btn:hover &__icon,
+  &_active &__icon {
+    &_gameSettings {
+      background-image: url('../../../assets/images/tab_img_hover_0.svg');
+    }
+    &_winSettings {
+      background-image: url('../../../assets/images/tab_img_hover_1.svg');
+    }
+    &_editCoupons {
+      background-image: url('../../../assets/images/tab_img_hover_2.svg');
+    }
+    &_globalSettings {
+      background-image: url('../../../assets/images/tab_img_hover_3.svg');
+    }
+    &_editWidget {
+      background-image: url('../../../assets/images/tab_img_hover_4.svg');
+    }
+  }
+}

@@ -1,0 +1,163 @@
+
+.button{
+  padding: 10px 20px !important;
+  border-radius: 35px !important;
+  color: $color-main;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  max-width: 250px;
+  width: 90%;
+  white-space: nowrap;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms !important;
+  &__blue{
+    background: linear-gradient(131.54deg, #9444B7 -6.35%, #23C0EE 99.8%);
+  }
+  &__pink{
+    background: linear-gradient(101.22deg, #FF844D 3.45%, #FF5DC5 97.92%);
+  }
+  &__dark_blue{
+    background: #1E115F;
+    padding: 5px 10px !important;
+    &:hover, &:focus{
+      background: #241088;
+    }
+  }
+}
+.button{
+  &__blue{
+    background: #4E91D9 !important;
+    text-transform: none !important;
+    font-weight: normal !important;
+    box-shadow: none !important;
+    justify-content: left !important;
+    color: #fff !important;
+    font-size: 1.4rem;
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 600 !important;
+    padding: 3px 10px 3px 2px !important;
+    margin: 0 4px !important;
+    &:hover{
+      background: #4080c5  !important;
+    }
+    &:disabled{
+      background: #A7C8EC !important;
+    }
+  }
+  &__top{
+    background: none !important;
+    box-shadow: none !important;
+    color: $color-text !important;
+    text-transform: inherit !important;
+    font-weight: 600 !important;
+    font-family: 'Open Sans', sans-serif !important;
+    border: 1px solid transparent !important;
+    padding: 3px 10px 3px 2px !important;
+    margin: 0 4px !important;
+    min-width: 40px !important;
+    display: inline-flex;
+    border-radius: 4px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    
+    &:disabled{
+      color: #9B9B9B !important;
+    }
+    &:hover{
+      background: rgba(206,225,246,0.2) !important;
+      border: 1px solid $color-blue-light !important;
+    }
+    &_lightBlue{
+      background: rgba(206,225,246,0.2) !important;
+      border: 1px solid $color-blue-light !important;
+      &:hover{
+        background: rgba(206,225,246,0.4) !important;
+      }
+    }
+    &_lightBg{
+      background: rgba(206,225,246,0.3) !important;
+      border: 1px solid rgba(78,145,217,0.5) !important;
+    }
+    &_white{
+      color: #fff !important;
+    }
+    &_icon{
+      padding: 3px 2px !important;
+    }
+  }
+  &__constructor{
+    width: 100%;
+    min-width: 40px !important;
+    max-width: 100% !important;
+    background-color: #fff !important;
+    min-height: 40px !important;
+    background-image: url('../../assets/images/icons/arrow-right.svg') !important;
+    background-repeat: no-repeat;
+    background-position: center right;
+    box-shadow: none !important;
+    color: $color-text !important;
+    text-transform: inherit !important;
+    font-weight: 600 !important;
+    font-family: 'Open Sans', sans-serif !important;
+    border: 1px solid transparent !important;
+    padding: 3px 10px 3px 2px !important;
+    margin: 0 !important;
+    display: inline-flex;
+    border-radius: 4px;
+    position: relative;
+    align-items: center;
+    justify-content: left;
+    box-sizing: border-box;
+    opacity: 1 !important;
+    &:hover{
+      background-color: rgba(206,225,246,0.2) !important;
+      border: 1px solid $color-blue-light !important;
+    }
+  }
+}
+
+.buttonGroup {
+  @include flex(center, space-between);
+  padding: 2.4rem 0 0;
+  width: 100%;
+  @include mobile-md {
+    flex-direction: column;
+  }
+  &__item {
+    padding-right: 1.5rem;
+    @include mobile-md {
+      padding-right: 0;
+      padding-bottom: 1.2rem;
+      width: 100%;
+    }
+    &:last-child {
+      padding-right: 0;
+      @include mobile-md {
+        padding-bottom: 0;
+      }
+    }
+    & button {
+      margin-right: 1.5rem;
+      @include mobile-md {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+        width: 100%;
+      }
+      &:last-child {
+        margin-right: 0;
+        @include mobile-md {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  &_end {
+    justify-content: flex-end;
+  }
+  &_offset {
+    padding-bottom: 2.4rem;
+  }
+}
+

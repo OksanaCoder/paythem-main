@@ -1,0 +1,41 @@
+@import '../core/base';
+@import '../modules/buttons';
+@import '../mixins/flex';
+
+.addWebsite{
+  &__form{
+    padding: 35px;
+    max-width: 40.8rem;
+    h3{
+      font-size: 1.8rem;
+    }
+    h4{
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color:  #899BB0;
+      padding-bottom: 8px;
+    }
+    h5{
+      font-weight: 600;
+      font-size: 1.2rem;
+      color:  #899BB0;
+    }
+    button{
+      margin: 10px 5px;
+    }
+    &_script{
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #CEE1F6;
+      margin-bottom: 30px;
+      font-size: 1.2rem;
+      color: #899BB0;
+    }
+  }
+}
+.deleteWebsite__dialog{
+  @include flex(center, center);
+  flex-direction: column;
+  text-align: center;
+}

@@ -1,0 +1,78 @@
+@import '../../core/base';
+// @import '../../modules/buttons';
+
+.tab__content{
+  &_form {
+    background: #fff;
+    padding: 20px 15px 20px 35px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    min-width: 700px;
+  }
+}
+.form{
+  padding: 15px;
+  &__formControl {
+    display: block;
+    border-bottom: 1px solid #C3C3C4;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    &_element {
+      margin-left: -11px;
+      * {
+        vertical-align: middle;
+      }
+      &Label,
+      &Label i {
+        font-style: normal;
+        font-size: 15px;
+        color: #484848;
+      }
+      input {
+        width: 50px;
+        margin-left: 10px;
+      }
+      textarea {
+        width: calc(100% - 30px) !important;
+        background: #E5E5E5;
+        border: none;
+        margin: 5px 0 5px 30px;
+        padding: 10px;
+        font-weight: normal;
+      }
+      p {
+        color: #C5C5C5;
+        font-size: 12px;
+        margin-left: 30px;
+      }
+      &Input {
+        width: 250px;
+        input {
+          width: 100%;
+        }
+      }
+    }
+    &_label {
+      span {
+        font-size: 15px;
+      }
+    }
+  }
+  & legend {
+    font-size: 15px;
+    font-weight: bold;
+    color: #484848;
+    margin-bottom: 20px;
+  }
+  
+  .checkbox {
+     &__group {
+      margin-left: 20px;
+    }
+  }
+  
+  button {
+    display: block;
+    margin: 15px auto;
+  }
+}

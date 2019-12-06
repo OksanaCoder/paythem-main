@@ -1,0 +1,28 @@
+@import './vars';
+@import '../mixins/flex';
+@import '../mixins/mobile';
+
+
+.form {
+  max-width: 58rem;
+  &_input{
+    margin-bottom: 20px !important;
+    input{
+      padding: 12px 18px!important;
+      &:focus{
+        background: #DCE9F7;
+      }
+    }
+    fieldset{
+      border: 1px solid $color-blue-light !important;	
+    }
+  }
+  &_inputError{
+    color: #d25555  !important;
+  }
+}
+
+.text_center{
+  text-align: center;
+}
+

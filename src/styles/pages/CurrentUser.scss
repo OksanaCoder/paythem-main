@@ -1,0 +1,13 @@
+@import '../core/base';
+@import '../modules/buttons';
+@import '../modules/tabs';
+
+body .tabs{
+  &__list{
+    &_label{
+      padding: 0;
+      margin: 0;
+      font-size: 1.2rem;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.fetching {
+  position: relative;
+  width: 100%;
+  &__progress {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 7rem;
+    padding: 1.5rem 0;
+    position: absolute;
+    top: -1.5rem;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    &_initial {
+      position: initial;
+    }
+    &_background {
+      background-color: rgba(241, 241, 243, 0.7);
+    }
+    &_reset {
+      min-height: auto;
+      padding: 0;
+      top: 0;
+    }
+  }
+  &_height {
+    height: 100%;
+  }
+}

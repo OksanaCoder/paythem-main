@@ -1,0 +1,154 @@
+.tabs {
+  position: relative;
+  &__container {
+    display: flex;
+    &_offset_top {
+      padding-top: .5rem;
+    }
+  }
+  &__nav {
+    background-color: $color-gray-light;
+    border-bottom: 0.1rem solid rgba(224, 224, 224, 0.3);
+    & button {
+      min-height: 5.2rem;
+      & span {
+        @include mobile-lg {
+          padding: 0;
+        }
+      }
+      @include mobile-lg {
+        flex-shrink: 1;
+        font-size: 1rem;
+        margin-right: 1rem;
+      }
+    }
+    &_fixed {
+      margin: -2.4rem -2.4rem 2.4rem;
+      padding: 0 2.4rem;
+    }
+  }
+  &__list {
+    position: relative;
+  }
+  &__inner {
+    min-height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  // tabs_vertical
+  &_vertical {
+    @include flex(flex-start, flex-start);
+    width: 100%;
+  }
+  &_vertical &__list > div > div {
+    & > div {
+      flex-direction: column !important;
+      & button {
+        border: .1rem solid transparent;
+        border-radius: 5px 0 0 5px;
+        border-right: 0;
+        min-height: 6rem;
+        text-align: left;
+        padding: 0 1rem;
+        transition: background-color .23s ease-out 0s;
+      }
+      :global button[aria-selected="true"] {
+        pointer-events: none;
+        background: #fff;
+        border-color: rgba(224, 224, 224, 0.5);
+        position: relative;
+        cursor: default;
+        z-index: 1;
+      }
+    }
+    & div + span {
+      display: none;
+    }
+  }
+  &_vertical &__nav {
+    background-color: transparent;
+    overflow: hidden;
+    border-bottom: 0;
+    height: 100%;
+    max-height: calc(100vh - 30rem);
+    max-width: 22rem;
+    width: 100%;
+    & button {
+      @include mobile-lg {
+        margin-right: 0;
+      }
+    }
+  }
+  &_vertical &__content {
+    background-color: #fff;
+    border: 0.1rem solid rgba(224, 224, 224, 0.5);
+    border-radius: 0 .5rem .5rem 0;
+    margin-top: 0;
+    padding: 2.4rem;
+    margin-left: -.1rem;
+    height: 100%;
+    width: 100%;
+  }
+
+   // tabs_horizontal
+   &_horizontal {
+    @include flex(flex-start, flex-start, column);
+    width: 100%;
+  }
+  &_horizontal &__list > div > div {
+    & > div {
+      flex-direction: row !important;
+      justify-content: space-between;
+      & button {
+        border: .1rem solid transparent;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 0;
+        min-height: 6rem;
+        text-align: center;
+        padding: 0 1rem;
+        transition: background-color .23s ease-out 0s;
+      }
+      :global button[aria-selected="true"] {
+        background: #fff;
+        border-color: rgba(224, 224, 224, 0.5);
+        pointer-events: none;
+        position: relative;
+        cursor: default;
+        z-index: 1;
+      }
+    }
+    & div + span {
+      display: none;
+    }
+  }
+  &_horizontal &__nav {
+    background-color: transparent;
+    border-bottom: 0;
+    overflow: hidden;
+    height: 100%;
+    max-height: calc(100vh - 30rem);
+    max-width: 100%;
+    width: auto;
+    & button {
+      @include mobile-lg {
+        margin-right: 0;
+      }
+    }
+  }
+  &_horizontal &__content {
+    background-color: #fff;
+    border: 0.1rem solid rgba(224, 224, 224, 0.5);
+    border-radius: 0 .5rem .5rem 0;
+    margin-top: 0;
+    padding: 2.4rem;
+    margin-top: -.1rem;
+    height: 100%;
+    width: 100%;
+    @include mobile-lg {
+      padding: 1.5rem;
+    }
+  }
+}

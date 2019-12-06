@@ -68,16 +68,16 @@
       padding: 30px;
       position: relative;
       overflow: hidden;
-    }
-    &_menuBlock{
-      margin: 30px 0;
       h4{
         text-transform: uppercase;
         font-size: 1.2rem;
         font-weight: 600;
         color: #899BB0;
-        padding: 0;
+        padding-bottom: 5px;
       }
+    }
+    &_menuBlock{
+      margin: 30px 0;
     }
     &_tabContent{
       position: absolute;
@@ -117,3 +117,57 @@
   }
 }
 
+body .radio_root{
+  height: 16px;
+  width: 16px;
+  border-radius: 4px;
+  background-color: #4E91D9 !important;
+  margin: 12px;
+  position: relative;
+  padding: 0;
+
+  &:nth-child(1){
+    background-color: #4E91D9 !important;
+  }
+  &:nth-child(2){
+    background-color: #4ED98C !important;
+  }
+  &:nth-child(3){
+    background-color: #D94E4E !important;
+  }
+  &:nth-child(4){
+    background-color: #D9844E !important;
+  }
+  &:nth-child(5){
+    background-color: #FFD948 !important;
+  }
+  &:nth-child(6){
+    background-color: #fff !important;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  &:hover{
+    &:before{
+      content: '';
+      display: block;
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      background: rgba(206,225,246,0.2);
+      border: 1px solid #CEE1F6;
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  svg{
+    width: 0;
+    height: 0;
+  }
+}
+
+body .radioGroup_root{
+  flex-direction: row;
+}

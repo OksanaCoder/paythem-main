@@ -61,7 +61,7 @@ const GamesListForDomainComponent = ({
               <div>
                 <CustomSwitch
                   checked={gameItem.status}
-                  onChange={handleCheckedStatus}
+                  onChange={e => handleCheckedStatus(e, gameItem.status)}
                   value={gameItem._id}
                 />
                 <h4>{gameItem.game}</h4>

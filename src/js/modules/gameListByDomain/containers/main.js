@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -53,16 +54,16 @@ class GameListByDomain extends Component {
     removeGameAction(params).then(res => !res.error && this.loadGameList());
   };
 
-  handleCheckedStatus = event => {
+  handleCheckedStatus = (event, gameStatus) => {
+    console.log(gameStatus);
     const { domainSelected, updateGameStatusAction } = this.props;
     const params = {
       domainId: domainSelected.data._id,
       gameId: event.target.value,
     };
 
-    const status = {
-      status: true,
-    };
+    const status = gameStatus ? { status: false } : { status: true };
+
     updateGameStatusAction(params, status).then(res => !res.error && this.loadGameList());
   };
 

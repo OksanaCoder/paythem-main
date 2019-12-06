@@ -31,7 +31,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 class Main extends React.Component {
   state = {
-    tabValue: false,
+    tabValue: 'tabGame4',
     paramsGlobal: PARAMS_DEFAULT,
   };
 

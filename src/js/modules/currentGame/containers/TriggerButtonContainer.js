@@ -1,34 +1,72 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import cx from 'classnames';
-import { FormControl, OutlinedInput, FormHelperText } from '@material-ui/core';
+import {
+  FormControl,
+  FormControlLabel,
+  OutlinedInput,
+  FormHelperText,
+  RadioGroup,
+  makeStyles,
+  Radio,
+} from '@material-ui/core';
 
 import Formik from 'helpers/Formik';
 import { TriggerButtonTextSchema } from 'helpers/Formik/validation';
-
-import { CloseIcon } from 'assets/images/icons';
 
 import TabContentCurrentGameComponent from 'modules/currentGame/components/TabContentCurrentGameComponent';
 
 import css from 'styles/pages/CurrentGame.scss';
 
+// Inspired by blueprintjs
+function StyledRadio(props) {
+  return (
+    <Radio
+      classes={{
+        root: css.radio_root,
+        icon: css.radio_icon,
+      }}
+      disableRipple
+      color="default"
+      {...props}
+    />
+  );
+}
+
 class TriggerButtonContainer extends React.Component {
-  state = {
-    // eslint-disable-next-line react/no-unused-state
-    tabValue: false,
-  };
+  constructor(props) {
+    super(props);
+    const { editWidgetData } = props;
 
-  handleEditTitle = values => {
-    console.log('values', values);
+    this.state = {
+      editWidgetDefault: editWidgetData,
+    };
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { editWidgetData } = nextProps;
+  }
+
+  handleEditTriggerButton = e => {
     const { editWidgetData } = this.props;
+    const { name, value } = e.currentTarget;
+    const { editWidgetDefault } = this.state;
 
-    const editWidgetDataUpdated = { ...editWidgetData };
-    editWidgetDataUpdated.title = values.title;
-
-    Object.assign(editWidgetData, editWidgetDataUpdated);
+    const editWidgetDataUpdated = { ...editWidgetDefault };
+    editWidgetDataUpdated[name] = value;
+    this.setState(
+      {
+        editWidgetDefault: editWidgetDataUpdated,
+      },
+      () => {
+        Object.assign(editWidgetData, editWidgetDefault);
+      },
+    );
   };
 
   render() {
+    const { editWidgetDefault } = this.state;
     const { handleCloseTabContent, tabValue, editWidgetData } = this.props;
     console.log('editWidgetData', editWidgetData);
     return (
@@ -38,31 +76,59 @@ class TriggerButtonContainer extends React.Component {
         tabValue={tabValue}
         handleCloseTabContent={handleCloseTabContent}
       >
-        <Formik
-          initialValues={{
-            title: editWidgetData.title,
-          }}
-          validationSchema={TriggerButtonTextSchema}
-          onSubmit={this.handleEditTitle}
-          //  onChange={this.handleEditTitle}
-        >
-          {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
-            <form onSubmit={handleSubmit}>
+        <Formik validationSchema={TriggerButtonTextSchema} onSubmit={this.handleEditTitle}>
+          {({ errors, touched }) => (
+            <form>
               <FormControl fullWidth className={css.form_input}>
                 <h4>Title</h4>
                 <OutlinedInput
                   name="title"
                   placeholder="Get free gift!"
-                  onChange={handleChange}
+                  onChange={this.handleEditTriggerButton}
                   error={errors.title && touched.title}
-                  value={values.title}
+                  value={editWidgetDefault.title}
                   aria-describedby="error-text"
                 />
-                {errors.domain && touched.domain && (
+                {errors.title && touched.title && (
                   <FormHelperText className={css.form_inputError} id="error-text">
                     {errors.title}
                   </FormHelperText>
                 )}
+              </FormControl>
+              <FormControl fullWidth className={css.form_input}>
+                <h4>Text Color</h4>
+                <RadioGroup
+                  classes={{
+                    root: css.radioGroup_root,
+                  }}
+                  defaultValue="text-color"
+                  name="customized-radios"
+                >
+                  <StyledRadio value="blue" />
+                  <StyledRadio value="green" />
+                  <StyledRadio value="red" />
+                  <StyledRadio value="orange" />
+                  <StyledRadio value="yellow" />
+                  <StyledRadio value="white" />
+                </RadioGroup>
+              </FormControl>
+
+              <FormControl fullWidth className={css.form_input}>
+                <h4>Background Color</h4>
+                <RadioGroup
+                  classes={{
+                    root: css.radioGroup_root,
+                  }}
+                  defaultValue="text-color"
+                  name="customized-radios"
+                >
+                  <StyledRadio value="blue" />
+                  <StyledRadio value="green" />
+                  <StyledRadio value="red" />
+                  <StyledRadio value="orange" />
+                  <StyledRadio value="yellow" />
+                  <StyledRadio value="white" />
+                </RadioGroup>
               </FormControl>
             </form>
           )}

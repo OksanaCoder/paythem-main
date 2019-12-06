@@ -21,7 +21,7 @@ class HomeContainer extends React.Component {
       openWebsiteDialog: false,
       openInstallationCodeDialog: false,
       openTooltipCopySuccess: false,
-      openGameFullscreenDialog: false,
+      openGameFullscreenDialog: true,
       rightPanel: false,
     };
   }

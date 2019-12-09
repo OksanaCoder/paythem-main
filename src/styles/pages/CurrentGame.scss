@@ -93,6 +93,60 @@
         box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.3);
       }
     }
+    &_game{
+      @include flex(center, center);
+      width: calc(100% - 362px);
+      height: 100%;
+      position: relative;
+    }
+    &_gameBlock{
+      width: 702px;
+      height: 720px;
+      background: #4E91D9;
+      border-radius: 20px;
+    }
+    &_gameTrigger{
+      position: absolute;
+      top: 200px;
+      right: 0;
+    }
+    &_gameWidget{
+      width: 50px;
+      padding: 0;
+      background: #fff;
+      border-radius: 5px;
+      border: none;
+      box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.4);
+      padding-bottom: 50px;
+      cursor: pointer;
+      position: relative;
+      height: auto;
+      min-height: 155px;
+      h3 {
+        font-size: 14px;
+        writing-mode: tb;
+        transform: rotate(180deg);
+        line-height: 20px;
+        margin: 10px 15px;
+        padding: 0;
+        display: block;
+        position: relative;
+        
+      }
+      &__icon{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 55px;
+        text-align: center;
+        svg{
+          height: 40px;
+          width: auto;
+          max-width: 80%;
+        }
+      }
+    }
   }
 
   &__btnClose{
@@ -118,48 +172,67 @@
 }
 
 body .radio_root{
-  height: 16px;
-  width: 16px;
+  height: 32px;
+  width: 32px;
   border-radius: 4px;
-  background-color: #4E91D9 !important;
-  margin: 12px;
-  position: relative;
   padding: 0;
+  margin: 5px;
+  position: relative;
+  
 
-  &:nth-child(1){
+  div{
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
     background-color: #4E91D9 !important;
   }
+
+  &:nth-child(1){
+    div{
+      background-color: #4E91D9 !important;
+    }
+  }
   &:nth-child(2){
-    background-color: #4ED98C !important;
+    div{
+      background-color: #4ED98C !important;
+    }
   }
   &:nth-child(3){
-    background-color: #D94E4E !important;
+    div{
+      background-color: #D94E4E !important;
+    }
   }
   &:nth-child(4){
-    background-color: #D9844E !important;
+    div{
+      background-color: #D9844E !important;
+    }
   }
   &:nth-child(5){
-    background-color: #FFD948 !important;
+    div{
+      background-color: #FFD948 !important;
+    }
   }
   &:nth-child(6){
-    background-color: #fff !important;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    div{
+      background-color: #fff !important;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+  }
+  &:nth-child(7){
+    div{
+      background-color: #fff !important;
+      background-image: url(../../assets/images/icons/arrow-right.svg);
+      background-position: 50%;
+      background-repeat: no-repeat;
+      box-sizing: border-box;
+    }
   }
 
-  &:hover{
-    &:before{
-      content: '';
-      display: block;
-      position: absolute;
-      top: -8px;
-      left: -8px;
-      background: rgba(206,225,246,0.2);
-      border: 1px solid #CEE1F6;
-      border-radius: 4px;
-      width: 32px;
-      height: 32px;
-    }
+  &:hover,
+  &[class*="Mui-checked"]{
+    border: 1px solid #CEE1F6;
+    background: rgba(112, 133, 156, 0.1);
   }
 
   svg{

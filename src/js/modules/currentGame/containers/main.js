@@ -133,8 +133,6 @@ class Main extends React.Component {
   render() {
     const { openGameFullscreenDialog, handleClose, gameSelected, domainSelected } = this.props;
     const { tabValue, paramsGlobal } = this.state;
-    console.log('gameSelected', gameSelected);
-    console.log('domainSelected', domainSelected);
 
     return (
       <Dialog
@@ -172,6 +170,17 @@ class Main extends React.Component {
               )}
 
               {tabValue === 'tabGame3' && <div>Test 3</div>}
+            </div>
+            <div className={css.currentGame__content_game}>
+              <div className={css.currentGame__content_gameBlock} />
+              <div className={css.currentGame__content_gameTrigger}>
+                <button type="button" className={css.currentGame__content_gameWidget}>
+                  <h3 style={{ color: paramsGlobal.edit_widget.textColor }}>
+                    {paramsGlobal.edit_widget.title}
+                  </h3>
+                  <div className={css.currentGame__content_gameWidget_icon}>icon</div>
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -1,38 +1,15 @@
-/* eslint-disable camelcase */
+/* eslint-disable react/no-unused-state */
 /* eslint-disable no-unused-vars */
+/* eslint-disable camelcase */
 import React from 'react';
-import cx from 'classnames';
-import {
-  FormControl,
-  FormControlLabel,
-  OutlinedInput,
-  FormHelperText,
-  RadioGroup,
-  makeStyles,
-  Radio,
-} from '@material-ui/core';
-
+import { FormControl, FormHelperText, OutlinedInput } from '@material-ui/core';
 import Formik from 'helpers/Formik';
 import { TriggerButtonTextSchema } from 'helpers/Formik/validation';
 
 import TabContentCurrentGameComponent from 'modules/currentGame/components/TabContentCurrentGameComponent';
+import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
 
 import css from 'styles/pages/CurrentGame.scss';
-
-// Inspired by blueprintjs
-function StyledRadio(props) {
-  return (
-    <Radio
-      classes={{
-        root: css.radio_root,
-        icon: css.radio_icon,
-      }}
-      disableRipple
-      color="default"
-      {...props}
-    />
-  );
-}
 
 class TriggerButtonContainer extends React.Component {
   constructor(props) {
@@ -46,6 +23,9 @@ class TriggerButtonContainer extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { editWidgetData } = nextProps;
+    this.setState({
+      editWidgetDefault: editWidgetData,
+    });
   }
 
   handleEditTriggerButton = e => {
@@ -54,7 +34,27 @@ class TriggerButtonContainer extends React.Component {
     const { editWidgetDefault } = this.state;
 
     const editWidgetDataUpdated = { ...editWidgetDefault };
+
     editWidgetDataUpdated[name] = value;
+
+    this.setState(
+      {
+        editWidgetDefault: editWidgetDataUpdated,
+      },
+      () => {
+        Object.assign(editWidgetData, editWidgetDefault);
+      },
+    );
+  };
+
+  handleEditColor = trigger => color => {
+    console.log('COLOR', color);
+    const { editWidgetData } = this.props;
+    const { editWidgetDefault } = this.state;
+
+    const editWidgetDataUpdated = { ...editWidgetDefault };
+
+    editWidgetDataUpdated[trigger] = color;
     this.setState(
       {
         editWidgetDefault: editWidgetDataUpdated,
@@ -68,6 +68,7 @@ class TriggerButtonContainer extends React.Component {
   render() {
     const { editWidgetDefault } = this.state;
     const { handleCloseTabContent, tabValue, editWidgetData } = this.props;
+
     console.log('editWidgetData', editWidgetData);
     return (
       <TabContentCurrentGameComponent
@@ -76,7 +77,7 @@ class TriggerButtonContainer extends React.Component {
         tabValue={tabValue}
         handleCloseTabContent={handleCloseTabContent}
       >
-        <Formik validationSchema={TriggerButtonTextSchema} onSubmit={this.handleEditTitle}>
+        <Formik validationSchema={TriggerButtonTextSchema}>
           {({ errors, touched }) => (
             <form>
               <FormControl fullWidth className={css.form_input}>
@@ -95,41 +96,17 @@ class TriggerButtonContainer extends React.Component {
                   </FormHelperText>
                 )}
               </FormControl>
-              <FormControl fullWidth className={css.form_input}>
-                <h4>Text Color</h4>
-                <RadioGroup
-                  classes={{
-                    root: css.radioGroup_root,
-                  }}
-                  defaultValue="text-color"
-                  name="customized-radios"
-                >
-                  <StyledRadio value="blue" />
-                  <StyledRadio value="green" />
-                  <StyledRadio value="red" />
-                  <StyledRadio value="orange" />
-                  <StyledRadio value="yellow" />
-                  <StyledRadio value="white" />
-                </RadioGroup>
-              </FormControl>
 
-              <FormControl fullWidth className={css.form_input}>
-                <h4>Background Color</h4>
-                <RadioGroup
-                  classes={{
-                    root: css.radioGroup_root,
-                  }}
-                  defaultValue="text-color"
-                  name="customized-radios"
-                >
-                  <StyledRadio value="blue" />
-                  <StyledRadio value="green" />
-                  <StyledRadio value="red" />
-                  <StyledRadio value="orange" />
-                  <StyledRadio value="yellow" />
-                  <StyledRadio value="white" />
-                </RadioGroup>
-              </FormControl>
+              <ChooseColorContainer
+                title="Text Color"
+                color={editWidgetData.textColor}
+                handleEditColor={this.handleEditColor('textColor')}
+              />
+              <ChooseColorContainer
+                title="Background Color"
+                color={editWidgetData.backgroundColor}
+                handleEditColor={this.handleEditColor('backgroundColor')}
+              />
             </form>
           )}
         </Formik>

@@ -1,4 +1,6 @@
 
+@import '../modules/logo';
+
 .button{
   padding: 10px 20px !important;
   border-radius: 35px !important;
@@ -88,14 +90,15 @@
     }
   }
   &__constructor{
+    @extend .icon-right;
     width: 100%;
     min-width: 40px !important;
     max-width: 100% !important;
-    background-color: #fff !important;
-    min-height: 40px !important;
-    background-image: url('../../assets/images/icons/arrow-right.svg') !important;
-    background-repeat: no-repeat;
-    background-position: center right;
+    // background-color: #fff !important;
+    // min-height: 40px !important;
+    // // background-image: url('../../assets/images/icons/arrow-right.svg') !important;
+    // background-repeat: no-repeat;
+    // background-position: center right;
     box-shadow: none !important;
     color: $color-text !important;
     text-transform: inherit !important;

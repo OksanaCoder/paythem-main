@@ -34,6 +34,8 @@ import {
   CouponIcon,
   ConfigurationIcon2,
   TriggerButtonIcon,
+  AddIcon,
+  DoneIcon2,
 } from 'assets/images/icons/constructorIcons';
 
 export {
@@ -70,4 +72,6 @@ export {
   CouponIcon,
   ConfigurationIcon2,
   TriggerButtonIcon,
+  AddIcon,
+  DoneIcon2,
 };

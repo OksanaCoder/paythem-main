@@ -88,4 +88,16 @@ export const TriggerButtonTextSchema = () =>
       .required(strings.validation.required),
   });
 
+export const CouponsSchema = () =>
+  Yup.object().shape({
+    name: Yup.string()
+      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .required(strings.validation.required),
+    code: Yup.string()
+      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .required(strings.validation.required),
+  });
+
 export default SignupSchema;

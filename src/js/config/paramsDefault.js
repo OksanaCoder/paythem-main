@@ -113,8 +113,8 @@ const PARAMS_DEFAULT = {
   ],
   edit_widget: {
     title: 'Win a prize',
-    textColor: 'blue',
-    backgroundColor: 'blue',
+    textColor: '#363636',
+    backgroundColor: '#ffffff',
   },
   global_settings: {},
 };

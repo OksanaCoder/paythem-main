@@ -107,7 +107,6 @@
     }
     &_gameTrigger{
       position: absolute;
-      top: 200px;
       right: 0;
     }
     &_gameWidget{
@@ -127,23 +126,25 @@
         writing-mode: tb;
         transform: rotate(180deg);
         line-height: 20px;
-        margin: 10px 15px;
+        margin: 5px 15px;
         padding: 0;
         display: block;
         position: relative;
         
       }
-      &__icon{
+      &_icon{
+        @include flex(center, center);
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 55px;
-        text-align: center;
-        svg{
-          height: 40px;
+        height: 50px;
+        line-height: 50px;
+        svg,
+        img{
+          height: 30px;
           width: auto;
-          max-width: 80%;
+          max-width: 70%;
         }
       }
     }
@@ -169,78 +170,4 @@
       width: 0;
     }
   }
-}
-
-body .radio_root{
-  height: 32px;
-  width: 32px;
-  border-radius: 4px;
-  padding: 0;
-  margin: 5px;
-  position: relative;
-  
-
-  div{
-    height: 16px;
-    width: 16px;
-    border-radius: 4px;
-    background-color: #4E91D9 !important;
-  }
-
-  &:nth-child(1){
-    div{
-      background-color: #4E91D9 !important;
-    }
-  }
-  &:nth-child(2){
-    div{
-      background-color: #4ED98C !important;
-    }
-  }
-  &:nth-child(3){
-    div{
-      background-color: #D94E4E !important;
-    }
-  }
-  &:nth-child(4){
-    div{
-      background-color: #D9844E !important;
-    }
-  }
-  &:nth-child(5){
-    div{
-      background-color: #FFD948 !important;
-    }
-  }
-  &:nth-child(6){
-    div{
-      background-color: #fff !important;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-  }
-  &:nth-child(7){
-    div{
-      background-color: #fff !important;
-      background-image: url(../../assets/images/icons/arrow-right.svg);
-      background-position: 50%;
-      background-repeat: no-repeat;
-      box-sizing: border-box;
-    }
-  }
-
-  &:hover,
-  &[class*="Mui-checked"]{
-    border: 1px solid #CEE1F6;
-    background: rgba(112, 133, 156, 0.1);
-  }
-
-  svg{
-    width: 0;
-    height: 0;
-  }
-}
-
-body .radioGroup_root{
-  flex-direction: row;
 }

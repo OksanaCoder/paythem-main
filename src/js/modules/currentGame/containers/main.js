@@ -22,6 +22,9 @@ import HeaderCurrentGameComponent from 'modules/currentGame/components/HeaderCur
 import TabsListCurrentGameComponent from 'modules/currentGame/components/TabsListCurrentGameComponent';
 import PopupBackgroundContainer from 'modules/currentGame/containers/PopupBackgroundContainer';
 import TriggerButtonContainer from 'modules/currentGame/containers/TriggerButtonContainer';
+import CouponsOptionsContainer from 'modules/currentGame/containers/CouponsOptionsContainer';
+
+import presentIcon from 'assets/images/icons/present-icon.svg';
 
 import css from 'styles/pages/CurrentGame.scss';
 
@@ -31,7 +34,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 class Main extends React.Component {
   state = {
-    tabValue: 'tabGame4',
+    tabValue: {
+      tabs1: false,
+      tabs2: false,
+      tabs3: 'tabBehaviour1',
+    },
     paramsGlobal: PARAMS_DEFAULT,
   };
 
@@ -117,17 +124,28 @@ class Main extends React.Component {
       const params = { domainId };
       getGameListAction(params);
     }
-
     // Close fullscreen dialog
     handleClose();
   };
 
-  handleChangeTabsIntegration = (e, tabValue) => {
-    this.setState({ tabValue });
+  handleChangeTabsIntegration = target => (e, value) => {
+    const { tabValue } = this.state;
+    this.setState({
+      tabValue: {
+        ...tabValue,
+        [target]: value,
+      },
+    });
   };
 
   handleCloseTabContent = () => {
-    this.setState({ tabValue: false });
+    this.setState({
+      tabValue: {
+        tabs1: false,
+        tabs2: false,
+        tabs3: false,
+      },
+    });
   };
 
   render() {
@@ -154,22 +172,30 @@ class Main extends React.Component {
                 handleChangeTabsIntegration={this.handleChangeTabsIntegration}
               />
 
-              {tabValue === 'tabGame1' && (
+              {tabValue.tabs1 === 'tabGame1' && (
                 <PopupBackgroundContainer
                   handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue={tabValue}
+                  tabValue="tabGame1"
                 />
               )}
 
-              {tabValue === 'tabGame4' && (
+              {tabValue.tabs1 === 'tabGame4' && (
                 <TriggerButtonContainer
                   handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue={tabValue}
+                  tabValue="tabGame4"
                   editWidgetData={paramsGlobal.edit_widget}
                 />
               )}
 
-              {tabValue === 'tabGame3' && <div>Test 3</div>}
+              {tabValue.tabs2 === 'tabContent1' && <div>tabContent1</div>}
+              {tabValue.tabs3 === 'tabBehaviour1' && (
+                <CouponsOptionsContainer
+                  handleCloseTabContent={this.handleCloseTabContent}
+                  tabValue="tabBehaviour1"
+                  editWidgetData={paramsGlobal.edit_widget}
+                  couponsData={paramsGlobal.coupons}
+                />
+              )}
             </div>
             <div className={css.currentGame__content_game}>
               <div className={css.currentGame__content_gameBlock} />
@@ -178,7 +204,9 @@ class Main extends React.Component {
                   <h3 style={{ color: paramsGlobal.edit_widget.textColor }}>
                     {paramsGlobal.edit_widget.title}
                   </h3>
-                  <div className={css.currentGame__content_gameWidget_icon}>icon</div>
+                  <div className={css.currentGame__content_gameWidget_icon}>
+                    <img src={presentIcon} alt="present icon" />
+                  </div>
                 </button>
               </div>
             </div>

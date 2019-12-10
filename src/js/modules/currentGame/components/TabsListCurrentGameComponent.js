@@ -1,5 +1,5 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { Tabs, Tab } from '@material-ui/core';
 
 import {
   ImgIcon,
@@ -12,136 +12,84 @@ import {
   ConfigurationIcon2,
   TriggerButtonIcon,
 } from 'assets/images/icons';
-import css from 'styles/pages/CurrentGame.scss';
+
+import InnerTabsListCurrentGameComponent from 'modules/currentgame/components/InnerTabsListCurrentGameComponent';
+
+const TabsArr1 = [
+  {
+    label: 'Popup Background',
+    icon: ImgIcon,
+    value: 'tabGame1',
+  },
+  {
+    label: 'Color Sheme',
+    icon: BrushIcon,
+    value: 'tabGame2',
+  },
+  {
+    label: 'Primary Icon',
+    icon: PrizeIcon,
+    value: 'tabGame3',
+  },
+  {
+    label: 'Trigger Button',
+    icon: TriggerButtonIcon,
+    value: 'tabGame4',
+  },
+];
+
+const TabsArr2 = [
+  {
+    label: 'Start Screen',
+    icon: CounterIcon1,
+    value: 'tabContent1',
+  },
+  {
+    label: 'Progress Screen',
+    icon: CounterIcon2,
+    value: 'tabContent2',
+  },
+  {
+    label: 'Finish Screen',
+    icon: CounterIcon3,
+    value: 'tabContent3',
+  },
+];
+
+const TabsArr3 = [
+  {
+    label: 'Coupons Options',
+    icon: CouponIcon,
+    value: 'tabBehaviour1',
+  },
+  {
+    label: 'General Settings',
+    icon: ConfigurationIcon2,
+    value: 'tabBehaviour2',
+  },
+];
 
 const TabsListCurrentGameComponent = ({ tabValue, handleChangeTabsIntegration }) => {
   return (
     <React.Fragment>
-      <div className={css.currentGame__content_menuBlock}>
-        <h4>Game Style</h4>
-        <Tabs
-          classes={{
-            indicator: css.currentGame__tabs_indicator,
-          }}
-          orientation="vertical"
-          variant="scrollable"
-          value={tabValue}
-          onChange={handleChangeTabsIntegration}
-        >
-          <Tab
-            classes={{
-              wrapper: css.currentGame__tabs_iconLabelWrapper,
-              labelContainer: css.currentGame__tabs_labelContainer,
-            }}
-            className={css.button__constructor}
-            label="Popup Background"
-            icon={<ImgIcon />}
-            value="tabGame1"
-          />
-          <Tab
-            classes={{
-              wrapper: css.currentGame__tabs_iconLabelWrapper,
-              labelContainer: css.currentGame__tabs_labelContainer,
-            }}
-            className={css.button__constructor}
-            label="Color Sheme"
-            icon={<BrushIcon />}
-            value="tabGame2"
-          />
-          <Tab
-            classes={{
-              wrapper: css.currentGame__tabs_iconLabelWrapper,
-              labelContainer: css.currentGame__tabs_labelContainer,
-            }}
-            className={css.button__constructor}
-            label="Primary Icon"
-            icon={<PrizeIcon />}
-            value="tabGame3"
-          />
-          <Tab
-            classes={{
-              wrapper: css.currentGame__tabs_iconLabelWrapper,
-              labelContainer: css.currentGame__tabs_labelContainer,
-            }}
-            className={css.button__constructor}
-            label="Trigger Button"
-            icon={<TriggerButtonIcon />}
-            value="tabGame4"
-          />
-        </Tabs>
-      </div>
-
-      <div className={css.currentGame__content_menuBlock}>
-        <h4>Text Content</h4>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={tabValue}
-          onChange={handleChangeTabsIntegration}
-        >
-          <Tab
-            classes={{
-              wrapper: css.currentGame__tabs_iconLabelWrapper,
-              labelContainer: css.currentGame__tabs_labelContainer,
-            }}
-            className={css.button__constructor}
-            label="Start Screen"
-            icon={<CounterIcon1 />}
-            value="tabContent1"
-          />
-          <Tab
-            classes={{
-              wrapper: css.currentGame__tabs_iconLabelWrapper,
-              labelContainer: css.currentGame__tabs_labelContainer,
-            }}
-            className={css.button__constructor}
-            label="Progress Screen"
-            icon={<CounterIcon2 />}
-            value="tabContent2"
-          />
-          <Tab
-            classes={{
-              wrapper: css.currentGame__tabs_iconLabelWrapper,
-              labelContainer: css.currentGame__tabs_labelContainer,
-            }}
-            className={css.button__constructor}
-            label="Finish Screen"
-            icon={<CounterIcon3 />}
-            value="tabContent3"
-          />
-        </Tabs>
-      </div>
-
-      <div className={css.currentGame__content_menuBlock}>
-        <h4>Behaviour</h4>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={tabValue}
-          onChange={handleChangeTabsIntegration}
-        >
-          <Tab
-            classes={{
-              wrapper: css.currentGame__tabs_iconLabelWrapper,
-              labelContainer: css.currentGame__tabs_labelContainer,
-            }}
-            className={css.button__constructor}
-            label="Coupons Options"
-            icon={<CouponIcon />}
-            value="tabBehaviour1"
-          />
-          <Tab
-            classes={{
-              wrapper: css.currentGame__tabs_iconLabelWrapper,
-              labelContainer: css.currentGame__tabs_labelContainer,
-            }}
-            className={css.button__constructor}
-            label="General Settings"
-            icon={<ConfigurationIcon2 />}
-            value="tabBehaviour2"
-          />
-        </Tabs>
-      </div>
+      <InnerTabsListCurrentGameComponent
+        tabValue={tabValue.tabs1}
+        handleChangeTabsIntegration={handleChangeTabsIntegration('tabs1')}
+        tabsArr={TabsArr1}
+        tabsTitle="Game Style"
+      />
+      <InnerTabsListCurrentGameComponent
+        tabValue={tabValue.tabs2}
+        handleChangeTabsIntegration={handleChangeTabsIntegration('tabs2')}
+        tabsArr={TabsArr2}
+        tabsTitle="Text Content"
+      />
+      <InnerTabsListCurrentGameComponent
+        tabValue={tabValue.tabs3}
+        handleChangeTabsIntegration={handleChangeTabsIntegration('tabs3')}
+        tabsArr={TabsArr3}
+        tabsTitle="Behaviour"
+      />
     </React.Fragment>
   );
 };

@@ -1,12 +1,14 @@
 .logo {
-  background: url('../../assets/images/icons/logo_label.svg') no-repeat scroll 0 0 / 100% auto transparent;
-  height: 6rem;
-  width: 15rem;
-
-  &__mobile{
-    background: url('../../assets/images/logo_mobile.svg') no-repeat scroll 0 0 / 100% auto transparent;
-    height: 5rem;
-    width: 15rem;
-  }
+  //background-image: url('../../assets/images/icons/logo_label.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
 }
 
+.icon-right{
+  background-color: #fff !important;
+  min-height: 40px !important;
+  //background-image: url('assets/images/icons/arrow-right.svg') !important;
+  background-repeat: no-repeat;
+  background-position: center right;
+}

@@ -1,13 +1,8 @@
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-unused-vars */
-/* eslint-disable camelcase */
 import React from 'react';
-import { FormControl, RadioGroup, Radio, Popover } from '@material-ui/core';
+import { FormControl, Radio, Popover } from '@material-ui/core';
 import { SketchPicker } from 'react-color';
 
-import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame/ChooseColor.scss';
 
 // Inspired by blueprintjs
 function StyledRadio(props) {
@@ -33,14 +28,15 @@ class ChooseColorContainer extends React.Component {
       openPopover: false,
       anchorEl: null,
       color,
-      customColor: 'pink',
+      customColor: '#000',
     };
   }
 
   handleChooseColor = e => {
     const { value } = e.currentTarget;
+    const { color } = this.state;
     const { handleEditColor } = this.props;
-    this.setState({ color: value }, () => handleEditColor(this.state.color));
+    this.setState({ color: value }, () => handleEditColor(color));
   };
 
   handleClose = () => {
@@ -59,10 +55,9 @@ class ChooseColorContainer extends React.Component {
 
   handleChangeComplete = color => {
     if (color) {
+      const { customColor } = this.state;
       const { handleEditColor } = this.props;
-      this.setState({ customColor: color.hex, color: false }, () =>
-        handleEditColor(this.state.customColor),
-      );
+      this.setState({ customColor: color.hex, color: false }, () => handleEditColor(customColor));
     }
   };
 
@@ -77,39 +72,39 @@ class ChooseColorContainer extends React.Component {
           <h4>{title}</h4>
           <div>
             <StyledRadio
-              checked={color === 'blue'}
+              checked={color === '#4E91D9'}
               onChange={this.handleChooseColor}
-              value="blue"
+              value="#4E91D9"
               name="color"
             />
             <StyledRadio
-              checked={color === 'green'}
+              checked={color === '#4ED98C'}
               onChange={this.handleChooseColor}
-              value="green"
+              value="#4ED98C"
               name="color"
             />
             <StyledRadio
-              checked={color === 'red'}
+              checked={color === '#D94E4E'}
               onChange={this.handleChooseColor}
-              value="red"
+              value="#D94E4E"
               name="color"
             />
             <StyledRadio
-              checked={color === 'orange'}
+              checked={color === '#D9844E'}
               onChange={this.handleChooseColor}
-              value="orange"
+              value="#D9844E"
               name="color"
             />
             <StyledRadio
-              checked={color === 'yellow'}
+              checked={color === '#FFD948'}
               onChange={this.handleChooseColor}
-              value="yellow"
+              value="#FFD948"
               name="color"
             />
             <StyledRadio
-              checked={color === 'white'}
+              checked={color === '#ffffff'}
               onChange={this.handleChooseColor}
-              value="white"
+              value="#ffffff"
               name="color"
             />
             <StyledRadio

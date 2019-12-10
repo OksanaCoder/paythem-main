@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import React from 'react';
 import { FormControl, FormHelperText, OutlinedInput } from '@material-ui/core';
@@ -69,7 +67,7 @@ class TriggerButtonContainer extends React.Component {
     const { editWidgetDefault } = this.state;
     const { handleCloseTabContent, tabValue, editWidgetData } = this.props;
 
-    console.log('editWidgetData', editWidgetData);
+    // console.log('editWidgetData', editWidgetData);
     return (
       <TabContentCurrentGameComponent
         title="Trigger Button"

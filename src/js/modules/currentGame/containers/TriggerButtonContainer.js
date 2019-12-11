@@ -4,7 +4,7 @@ import { FormControl, FormHelperText, OutlinedInput } from '@material-ui/core';
 import Formik from 'helpers/Formik';
 import { TriggerButtonTextSchema } from 'helpers/Formik/validation';
 
-import TabContentCurrentGameComponent from 'modules/currentGame/components/TabContentCurrentGameComponent';
+import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
 
 import css from 'styles/pages/CurrentGame.scss';
@@ -63,29 +63,52 @@ class TriggerButtonContainer extends React.Component {
     );
   };
 
+  handleSubmitTitle = values => {
+    const { editWidgetData, handleCloseTabContent } = this.props;
+    const { title } = values;
+    const { editWidgetDefault } = this.state;
+
+    const editWidgetDataUpdated = { ...editWidgetDefault };
+
+    editWidgetDataUpdated.title = title;
+
+    this.setState(
+      {
+        editWidgetDefault: editWidgetDataUpdated,
+      },
+      () => {
+        Object.assign(editWidgetData, editWidgetDefault);
+      },
+    );
+    handleCloseTabContent();
+  };
+
   render() {
     const { editWidgetDefault } = this.state;
-    const { handleCloseTabContent, tabValue, editWidgetData } = this.props;
+    const { tabValue, editWidgetData } = this.props;
 
-    // console.log('editWidgetData', editWidgetData);
     return (
-      <TabContentCurrentGameComponent
-        title="Trigger Button"
-        description="Here you can customize the button which should oprn the popup window."
-        tabValue={tabValue}
-        handleCloseTabContent={handleCloseTabContent}
+      <Formik
+        initialValues={{ title: editWidgetDefault.title }}
+        validationSchema={TriggerButtonTextSchema}
+        onSubmit={this.handleSubmitTitle}
       >
-        <Formik validationSchema={TriggerButtonTextSchema}>
-          {({ errors, touched }) => (
+        {({ values, errors, touched, handleChange, handleSubmit }) => (
+          <TabContentComponent
+            title="Trigger Button"
+            description="Here you can customize the button which should open the popup window."
+            tabValue={tabValue}
+            handleCloseTabContent={handleSubmit}
+          >
             <form>
               <FormControl fullWidth className={css.form_input}>
                 <h4>Title</h4>
                 <OutlinedInput
                   name="title"
                   placeholder="Get free gift!"
-                  onChange={this.handleEditTriggerButton}
+                  onChange={handleChange}
                   error={errors.title && touched.title}
-                  value={editWidgetDefault.title}
+                  value={values.title}
                   aria-describedby="error-text"
                 />
                 {errors.title && touched.title && (
@@ -106,9 +129,9 @@ class TriggerButtonContainer extends React.Component {
                 handleEditColor={this.handleEditColor('backgroundColor')}
               />
             </form>
-          )}
-        </Formik>
-      </TabContentCurrentGameComponent>
+          </TabContentComponent>
+        )}
+      </Formik>
     );
   }
 }

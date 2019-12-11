@@ -1,3 +1,7 @@
+.form_input{
+  margin-bottom: 15px;
+}
+
 body .radio_root{
   height: 32px;
   width: 32px;
@@ -49,7 +53,7 @@ body .radio_root{
   &:nth-child(7){
     div{
       background-color: #fff !important;
-      background-image: url(../../../assets/images/icons/arrow-right.svg);
+      background-image: url(../../../assets/images/icons/color.svg);
       background-position: 50%;
       background-repeat: no-repeat;
       box-sizing: border-box;

@@ -1,31 +1,35 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
-import cx from 'classnames';
-import { Dialog, Slide, Button } from '@material-ui/core';
+// import {  } from '@material-ui/core';
 
-import { CloseIcon } from 'assets/images/icons';
+import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
+import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
 
-import TabContentCurrentGameComponent from 'modules/currentGame/components/TabContentCurrentGameComponent';
-
-import css from 'styles/pages/CurrentGame.scss';
+// import css from 'styles/pages/CurrentGame.scss';
 
 class PopupBackgroundContainer extends React.Component {
-  state = {
-    // eslint-disable-next-line react/no-unused-state
-    tabValue: false,
+  handleEditColor = trigger => color => {
+    // color format rgba
+    console.log('trigger', trigger);
+    console.log('COLOR', color);
   };
 
   render() {
     const { handleCloseTabContent, tabValue } = this.props;
     return (
-      <TabContentCurrentGameComponent
+      <TabContentComponent
         title="Popup Background"
         description="Below you can find the customization options of the background"
         tabValue={tabValue}
         handleCloseTabContent={handleCloseTabContent}
       >
-        Test
-      </TabContentCurrentGameComponent>
+        <h4>Background image</h4>
+
+        <ChooseColorContainer
+          title="Overlay color"
+          color="red"
+          handleEditColor={this.handleEditColor('overlayColor')}
+        />
+      </TabContentComponent>
     );
   }
 }

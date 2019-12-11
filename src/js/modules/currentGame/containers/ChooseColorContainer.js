@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormControl, Radio, Popover } from '@material-ui/core';
-import { SketchPicker } from 'react-color';
+import { ChromePicker } from 'react-color';
 
 import css from 'styles/pages/CurrentGame/ChooseColor.scss';
 
@@ -54,10 +54,11 @@ class ChooseColorContainer extends React.Component {
   };
 
   handleChangeComplete = color => {
+    console.log('color', color.rgb);
     if (color) {
       const { customColor } = this.state;
       const { handleEditColor } = this.props;
-      this.setState({ customColor: color.hex, color: false }, () => handleEditColor(customColor));
+      this.setState({ customColor: color.rgb, color: false }, () => handleEditColor(customColor));
     }
   };
 
@@ -130,7 +131,7 @@ class ChooseColorContainer extends React.Component {
             horizontal: 'left',
           }}
         >
-          <SketchPicker color={customColor} onChangeComplete={this.handleChangeComplete} />
+          <ChromePicker color={customColor} onChangeComplete={this.handleChangeComplete} />
         </Popover>
       </>
     );

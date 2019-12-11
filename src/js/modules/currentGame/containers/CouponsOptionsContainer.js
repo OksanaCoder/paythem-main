@@ -4,7 +4,7 @@ import uuidv5 from 'uuid';
 import cx from 'classnames';
 import { Button, Popover } from '@material-ui/core';
 
-import TabContentCurrentGameComponent from 'modules/currentGame/components/TabContentCurrentGameComponent';
+import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 import CouponItemComponent from 'modules/currentGame/components/CouponItemComponent';
 import CouponPopoverComponent from 'modules/currentGame/components/CouponPopoverComponent';
 
@@ -123,7 +123,7 @@ class CouponsOptionsContainer extends React.Component {
     const id = open ? 'simple-popover' : undefined;
 
     return (
-      <TabContentCurrentGameComponent
+      <TabContentComponent
         title="Coupon Options"
         description="Here you can customize the data of each coupon from the game."
         tabValue={tabValue}
@@ -166,7 +166,7 @@ class CouponsOptionsContainer extends React.Component {
           dataLength={couponsData.length}
           couponItemEdit={couponItemEdit}
         />
-      </TabContentCurrentGameComponent>
+      </TabContentComponent>
     );
   }
 }

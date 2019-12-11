@@ -19,10 +19,13 @@ import {
 import { PARAMS_DEFAULT } from 'config';
 
 import HeaderCurrentGameComponent from 'modules/currentGame/components/HeaderCurrentGameComponent';
-import TabsListCurrentGameComponent from 'modules/currentGame/components/TabsListCurrentGameComponent';
+import TabsListComponent from 'modules/currentGame/components/TabsListComponent';
 import PopupBackgroundContainer from 'modules/currentGame/containers/PopupBackgroundContainer';
 import TriggerButtonContainer from 'modules/currentGame/containers/TriggerButtonContainer';
 import CouponsOptionsContainer from 'modules/currentGame/containers/CouponsOptionsContainer';
+import ColorSchemeContainer from 'modules/currentGame/containers/ColorSchemeContainer';
+import StartScreenContainer from 'modules/currentGame/containers/StartScreenContainer';
+import ProgressScreenContainer from 'modules/currentGame/containers/ProgressScreenContainer';
 
 import presentIcon from 'assets/images/icons/present-icon.svg';
 
@@ -37,7 +40,7 @@ class Main extends React.Component {
     tabValue: {
       tabs1: false,
       tabs2: false,
-      tabs3: 'tabBehaviour1',
+      tabs3: false,
     },
     paramsGlobal: PARAMS_DEFAULT,
   };
@@ -167,7 +170,7 @@ class Main extends React.Component {
               <h3>Customizations</h3>
               <p>Here you can customize the appereance and data of your popup on this section.</p>
 
-              <TabsListCurrentGameComponent
+              <TabsListComponent
                 tabValue={tabValue}
                 handleChangeTabsIntegration={this.handleChangeTabsIntegration}
               />
@@ -179,6 +182,13 @@ class Main extends React.Component {
                 />
               )}
 
+              {tabValue.tabs1 === 'tabGame2' && (
+                <ColorSchemeContainer
+                  handleCloseTabContent={this.handleCloseTabContent}
+                  tabValue="tabGame2"
+                />
+              )}
+
               {tabValue.tabs1 === 'tabGame4' && (
                 <TriggerButtonContainer
                   handleCloseTabContent={this.handleCloseTabContent}
@@ -187,7 +197,22 @@ class Main extends React.Component {
                 />
               )}
 
-              {tabValue.tabs2 === 'tabContent1' && <div>tabContent1</div>}
+              {tabValue.tabs2 === 'tabContent1' && (
+                <StartScreenContainer
+                  handleCloseTabContent={this.handleCloseTabContent}
+                  tabValue="tabContent1"
+                  // startScreenData={}
+                />
+              )}
+
+              {tabValue.tabs2 === 'tabContent2' && (
+                <ProgressScreenContainer
+                  handleCloseTabContent={this.handleCloseTabContent}
+                  tabValue="tabContent2"
+                  // progressScreenData={}
+                />
+              )}
+
               {tabValue.tabs3 === 'tabBehaviour1' && (
                 <CouponsOptionsContainer
                   handleCloseTabContent={this.handleCloseTabContent}

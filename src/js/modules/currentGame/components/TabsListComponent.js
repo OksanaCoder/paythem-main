@@ -13,7 +13,7 @@ import {
   TriggerButtonIcon,
 } from 'assets/images/icons';
 
-import InnerTabsListCurrentGameComponent from 'modules/currentgame/components/InnerTabsListCurrentGameComponent';
+import InnerTabsListComponent from 'modules/currentgame/components/InnerTabsListComponent';
 
 const TabsArr1 = [
   {
@@ -69,22 +69,22 @@ const TabsArr3 = [
   },
 ];
 
-const TabsListCurrentGameComponent = ({ tabValue, handleChangeTabsIntegration }) => {
+const TabsListComponent = ({ tabValue, handleChangeTabsIntegration }) => {
   return (
     <React.Fragment>
-      <InnerTabsListCurrentGameComponent
+      <InnerTabsListComponent
         tabValue={tabValue.tabs1}
         handleChangeTabsIntegration={handleChangeTabsIntegration('tabs1')}
         tabsArr={TabsArr1}
         tabsTitle="Game Style"
       />
-      <InnerTabsListCurrentGameComponent
+      <InnerTabsListComponent
         tabValue={tabValue.tabs2}
         handleChangeTabsIntegration={handleChangeTabsIntegration('tabs2')}
         tabsArr={TabsArr2}
         tabsTitle="Text Content"
       />
-      <InnerTabsListCurrentGameComponent
+      <InnerTabsListComponent
         tabValue={tabValue.tabs3}
         handleChangeTabsIntegration={handleChangeTabsIntegration('tabs3')}
         tabsArr={TabsArr3}
@@ -94,4 +94,4 @@ const TabsListCurrentGameComponent = ({ tabValue, handleChangeTabsIntegration })
   );
 };
 
-export default TabsListCurrentGameComponent;
+export default TabsListComponent;

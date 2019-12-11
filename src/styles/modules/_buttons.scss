@@ -1,6 +1,4 @@
 
-@import '../modules/logo';
-
 .button{
   padding: 10px 20px !important;
   border-radius: 35px !important;
@@ -87,36 +85,6 @@
     }
     &_icon{
       padding: 3px 2px !important;
-    }
-  }
-  &__constructor{
-    @extend .icon-right;
-    width: 100%;
-    min-width: 40px !important;
-    max-width: 100% !important;
-    // background-color: #fff !important;
-    // min-height: 40px !important;
-    // // background-image: url('../../assets/images/icons/arrow-right.svg') !important;
-    // background-repeat: no-repeat;
-    // background-position: center right;
-    box-shadow: none !important;
-    color: $color-text !important;
-    text-transform: inherit !important;
-    font-weight: 600 !important;
-    font-family: 'Open Sans', sans-serif !important;
-    border: 1px solid transparent !important;
-    padding: 3px 10px 3px 2px !important;
-    margin: 0 !important;
-    display: inline-flex;
-    border-radius: 4px;
-    position: relative;
-    align-items: center;
-    justify-content: left;
-    box-sizing: border-box;
-    opacity: 1 !important;
-    &:hover{
-      background-color: rgba(206,225,246,0.2) !important;
-      border: 1px solid $color-blue-light !important;
     }
   }
 }

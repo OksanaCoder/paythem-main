@@ -157,17 +157,17 @@
     margin: 0 !important;
     padding: 0 !important;
   }
-  &__tabs{
-    &_iconLabelWrapper{
-      flex-direction: row;
-      margin-bottom: 0;
-      justify-content: left;
-      svg{
-        margin-bottom: 0 !important;
-      }
-    }
-    &_indicator{
-      width: 0;
-    }
-  }
+  // &__tabs{
+  //   &_iconLabelWrapper{
+  //     flex-direction: row;
+  //     margin-bottom: 0;
+  //     justify-content: left;
+  //     svg{
+  //       margin-bottom: 0 !important;
+  //     }
+  //   }
+  //   &_indicator{
+  //     width: 0;
+  //   }
+  // }
 }

@@ -20,6 +20,14 @@
   &_inputError{
     color: #d25555  !important;
   }
+  &_checkboxLabel{
+    span{
+      font-family: 'Open Sans', sans-serif !important;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+   
+  }
 }
 
 .text_center{

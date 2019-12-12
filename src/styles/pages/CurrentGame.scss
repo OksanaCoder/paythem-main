@@ -75,6 +75,12 @@
         color: #899BB0;
         padding-bottom: 5px;
       }
+      h5{
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #899BB0;
+        padding-bottom: 5px;
+      }
     }
     &_menuBlock{
       margin: 30px 0;
@@ -149,7 +155,47 @@
       }
     }
   }
-
+  &__iconsList{
+    @include flex(center, space-between);
+    margin: 10px 0 25px 0;
+    flex-wrap: wrap;
+    &:after{
+      content: "";
+      flex: auto;
+    }
+    
+    li{
+      @include flex(center, left);
+      margin: 5px;
+      button{
+        border: none;
+        background: none;
+        display: block;
+        width: 72px;
+        height: 72px;
+        padding: 15px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        cursor: pointer;
+        
+        &:hover{
+          background-color: rgba(206,225,246,0.2);
+          border: 1px solid #CEE1F6;
+        }
+        svg{
+          width: 100%;
+          height: 100%;
+        }
+      } 
+    }
+    
+  }
+  &__activeIcon{
+    button{
+      background-color: rgba(206,225,246,0.2) !important;
+      border: 1px solid #CEE1F6 !important;
+    }
+  }
   &__btnClose{
     position: absolute;
     top: 20px;
@@ -171,3 +217,4 @@
   //   }
   // }
 }
+

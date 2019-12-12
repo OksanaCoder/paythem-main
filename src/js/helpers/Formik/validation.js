@@ -116,4 +116,16 @@ export const StartScreenSchema = () =>
       .required(strings.validation.required),
   });
 
+export const ProgressScreenSchema = () =>
+  Yup.object().shape({
+    title: Yup.string()
+      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .required(strings.validation.required),
+    subTitle: Yup.string()
+      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .required(strings.validation.required),
+  });
+
 export default SignupSchema;

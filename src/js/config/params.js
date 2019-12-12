@@ -1,4 +1,4 @@
-import { Icon1, Icon2, Icon3 } from 'assets/images/components/widget/widgetIcons';
+import { Icon1, Icon2, Icon3, Icon4 } from 'assets/images/components/widget/widgetIcons';
 
 const PARAMS = {
   family: ['roboto', 'georgia', 'verdana'],
@@ -8,6 +8,10 @@ const PARAMS = {
   font_style: ['italic', 'bold_italic'],
   transform: ['lowercase', 'uppercase'],
   widget_icons: [
+    {
+      name: 'icon4',
+      component: Icon4,
+    },
     {
       name: 'icon1',
       component: Icon1,

@@ -26,6 +26,8 @@ import CouponsOptionsContainer from 'modules/currentGame/containers/CouponsOptio
 import ColorSchemeContainer from 'modules/currentGame/containers/ColorSchemeContainer';
 import StartScreenContainer from 'modules/currentGame/containers/StartScreenContainer';
 import ProgressScreenContainer from 'modules/currentGame/containers/ProgressScreenContainer';
+import FinishScreenContainer from 'modules/currentGame/containers/FinishScreenContainer';
+import PrimaryIconContainer from 'modules/currentGame/containers/PrimaryIconContainer';
 
 import presentIcon from 'assets/images/icons/present-icon.svg';
 
@@ -189,6 +191,14 @@ class Main extends React.Component {
                 />
               )}
 
+              {tabValue.tabs1 === 'tabGame3' && (
+                <PrimaryIconContainer
+                  handleCloseTabContent={this.handleCloseTabContent}
+                  tabValue="tabGame3"
+                  // primaryIconsData={}
+                />
+              )}
+
               {tabValue.tabs1 === 'tabGame4' && (
                 <TriggerButtonContainer
                   handleCloseTabContent={this.handleCloseTabContent}
@@ -210,6 +220,14 @@ class Main extends React.Component {
                   handleCloseTabContent={this.handleCloseTabContent}
                   tabValue="tabContent2"
                   // progressScreenData={}
+                />
+              )}
+
+              {tabValue.tabs2 === 'tabContent3' && (
+                <FinishScreenContainer
+                  handleCloseTabContent={this.handleCloseTabContent}
+                  tabValue="tabContent3"
+                  // finishScreenData={}
                 />
               )}
 

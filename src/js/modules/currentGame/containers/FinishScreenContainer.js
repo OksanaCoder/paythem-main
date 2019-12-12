@@ -7,13 +7,14 @@ import TabContentComponent from 'modules/currentGame/components/TabContentCompon
 
 import css from 'styles/pages/CurrentGame.scss';
 
-class ProgressScreenContainer extends React.Component {
+class FinishScreenContainer extends React.Component {
   handleSubmitForm = values => {
     console.log(values);
 
     const data = {
       title: values.title,
       subTitle: values.subTitle,
+      disclamerText: values.disclamerText,
     };
     console.log('data', data);
     const { handleCloseTabContent } = this.props;
@@ -28,14 +29,15 @@ class ProgressScreenContainer extends React.Component {
         initialValues={{
           title: 'Title',
           subTitle: 'Test Subtitle',
+          disclamerText: 'In order to use this discount add it to the relevant field in checkout',
         }}
         validationSchema={ProgressScreenSchema}
         onSubmit={this.handleSubmitForm}
       >
         {({ values, errors, touched, handleChange, handleSubmit }) => (
           <TabContentComponent
-            title="Progress Screen"
-            description="Here you can edit the content which shoudl be shown on this section"
+            title="Finish Screen"
+            description="Here you can edit the content which should be shown on this section"
             tabValue={tabValue}
             handleCloseTabContent={handleSubmit}
           >
@@ -44,16 +46,14 @@ class ProgressScreenContainer extends React.Component {
                 <h4>Title</h4>
                 <OutlinedInput
                   name="title"
-                  placeholder="Get your Christmas present!"
+                  placeholder="Almost there! And you got…"
                   onChange={handleChange}
                   error={errors.title && touched.title}
                   value={values.title}
                   aria-describedby="error-text"
                 />
                 {errors.title && touched.title && (
-                  <FormHelperText className={css.form_inputError} id="error-text">
-                    {errors.title}
-                  </FormHelperText>
+                  <FormHelperText className={css.form_inputError}>{errors.title}</FormHelperText>
                 )}
               </FormControl>
 
@@ -61,7 +61,7 @@ class ProgressScreenContainer extends React.Component {
                 <h4>Sub Title</h4>
                 <TextField
                   name="subTitle"
-                  placeholder="One of our awesome gifts already yours! One step more to receive it."
+                  placeholder="Please wait few second"
                   multiline
                   variant="outlined"
                   onChange={handleChange}
@@ -69,10 +69,24 @@ class ProgressScreenContainer extends React.Component {
                   value={values.subTitle}
                 />
                 {errors.subTitle && touched.subTitle && (
-                  <FormHelperText className={css.form_inputError} id="error-text">
-                    {errors.subTitle}
-                  </FormHelperText>
+                  <FormHelperText className={css.form_inputError}>{errors.subTitle}</FormHelperText>
                 )}
+              </FormControl>
+
+              <FormControl fullWidth className={css.form_input}>
+                <h4>Company Logo</h4>
+              </FormControl>
+
+              <FormControl fullWidth className={css.form_input}>
+                <h4>Disclamer Text</h4>
+                <TextField
+                  name="disclamerText"
+                  placeholder="In order to use this discount add it to the relevant field in checkout"
+                  multiline
+                  variant="outlined"
+                  onChange={handleChange}
+                  value={values.disclamerText}
+                />
               </FormControl>
             </form>
           </TabContentComponent>
@@ -82,4 +96,4 @@ class ProgressScreenContainer extends React.Component {
   }
 }
 
-export default ProgressScreenContainer;
+export default FinishScreenContainer;

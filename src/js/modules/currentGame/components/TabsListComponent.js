@@ -31,11 +31,6 @@ const TabsArr1 = [
     icon: PrizeIcon,
     value: 'tabGame3',
   },
-  {
-    label: 'Trigger Button',
-    icon: TriggerButtonIcon,
-    value: 'tabGame4',
-  },
 ];
 
 const TabsArr2 = [
@@ -58,14 +53,19 @@ const TabsArr2 = [
 
 const TabsArr3 = [
   {
+    label: 'Trigger Button',
+    icon: TriggerButtonIcon,
+    value: 'tabBehaviour1',
+  },
+  {
     label: 'Coupons Options',
     icon: CouponIcon,
-    value: 'tabBehaviour1',
+    value: 'tabBehaviour2',
   },
   {
     label: 'General Settings',
     icon: ConfigurationIcon2,
-    value: 'tabBehaviour2',
+    value: 'tabBehaviour3',
   },
 ];
 
@@ -88,7 +88,7 @@ const TabsListComponent = ({ tabValue, handleChangeTabsIntegration }) => {
         tabValue={tabValue.tabs3}
         handleChangeTabsIntegration={handleChangeTabsIntegration('tabs3')}
         tabsArr={TabsArr3}
-        tabsTitle="Behaviour"
+        tabsTitle="Behavior"
       />
     </React.Fragment>
   );

@@ -27,7 +27,7 @@ const WelcomeComponent = ({
           variant="contained"
           color="primary"
           className={css.button__blue}
-          onClick={() => handleOpen(target)}
+          onClick={handleOpen}
         >
           <AddWebsitesIcon2 />
           Add New Website

@@ -46,7 +46,6 @@ class HomeContainer extends React.Component {
   };
 
   handleOpen = target => () => {
-    console.log('click');
     if (target === 'openGameFullscreenDialog') {
       this.setState({ rightPanel: false });
     }
@@ -161,8 +160,8 @@ class HomeContainer extends React.Component {
               {domains.length === 0 && (
                 <WelcomeComponent
                   openWebsiteDialog={openWebsiteDialog}
-                  handleOpen={this.handleOpen}
-                  handleClose={this.handleClose}
+                  handleOpen={this.handleOpen('openWebsiteDialog')}
+                  handleClose={this.handleClose('openWebsiteDialog')}
                   handleSubmitWebsite={this.handleUpdateWebsite}
                   target="openWebsiteDialog"
                 />

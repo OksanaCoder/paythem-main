@@ -28,6 +28,7 @@ import StartScreenContainer from 'modules/currentGame/containers/StartScreenCont
 import ProgressScreenContainer from 'modules/currentGame/containers/ProgressScreenContainer';
 import FinishScreenContainer from 'modules/currentGame/containers/FinishScreenContainer';
 import PrimaryIconContainer from 'modules/currentGame/containers/PrimaryIconContainer';
+import GeneralSettingsContainer from 'modules/currentGame/containers/GeneralSettingsContainer';
 
 import presentIcon from 'assets/images/icons/present-icon.svg';
 
@@ -42,7 +43,7 @@ class Main extends React.Component {
     tabValue: {
       tabs1: false,
       tabs2: false,
-      tabs3: false,
+      tabs3: 'tabBehaviour3',
     },
     paramsGlobal: PARAMS_DEFAULT,
   };
@@ -199,14 +200,6 @@ class Main extends React.Component {
                 />
               )}
 
-              {tabValue.tabs1 === 'tabGame4' && (
-                <TriggerButtonContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabGame4"
-                  editWidgetData={paramsGlobal.edit_widget}
-                />
-              )}
-
               {tabValue.tabs2 === 'tabContent1' && (
                 <StartScreenContainer
                   handleCloseTabContent={this.handleCloseTabContent}
@@ -232,11 +225,26 @@ class Main extends React.Component {
               )}
 
               {tabValue.tabs3 === 'tabBehaviour1' && (
-                <CouponsOptionsContainer
+                <TriggerButtonContainer
                   handleCloseTabContent={this.handleCloseTabContent}
                   tabValue="tabBehaviour1"
-                  editWidgetData={paramsGlobal.edit_widget}
-                  couponsData={paramsGlobal.coupons}
+                  editWidgetData={paramsGlobal.behavior.trigger_button}
+                />
+              )}
+
+              {tabValue.tabs3 === 'tabBehaviour2' && (
+                <CouponsOptionsContainer
+                  handleCloseTabContent={this.handleCloseTabContent}
+                  tabValue="tabBehaviour2"
+                  couponsData={paramsGlobal.behavior.coupons}
+                />
+              )}
+
+              {tabValue.tabs3 === 'tabBehaviour3' && (
+                <GeneralSettingsContainer
+                  handleCloseTabContent={this.handleCloseTabContent}
+                  tabValue="tabBehaviour3"
+                  generalSettingsData={paramsGlobal.behavior.general_settings}
                 />
               )}
             </div>
@@ -244,8 +252,8 @@ class Main extends React.Component {
               <div className={css.currentGame__content_gameBlock} />
               <div className={css.currentGame__content_gameTrigger}>
                 <button type="button" className={css.currentGame__content_gameWidget}>
-                  <h3 style={{ color: paramsGlobal.edit_widget.textColor }}>
-                    {paramsGlobal.edit_widget.title}
+                  <h3 style={{ color: paramsGlobal.behavior.trigger_button.text_color }}>
+                    {paramsGlobal.behavior.trigger_button.title}
                   </h3>
                   <div className={css.currentGame__content_gameWidget_icon}>
                     <img src={presentIcon} alt="present icon" />

@@ -129,7 +129,7 @@ const PARAMS_DEFAULT = {
         // },
       ],
       show_on_leaving: true,
-      where_game_show: ['todo-list.ho.ua/about'],
+      where_game_show: ['about'],
       trigger_button: true,
       email_repeat: true,
       show_count: 10,
@@ -138,7 +138,7 @@ const PARAMS_DEFAULT = {
         value: ['5', 'days'],
       },
       send_on_email: false,
-      exp_copied: 'timestamp',
+      exp_copied: '10',
     },
     trigger_button: {
       title: 'Get a gift',

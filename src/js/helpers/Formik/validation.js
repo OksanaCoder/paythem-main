@@ -8,11 +8,11 @@ const SignupSchema = () =>
       .email(strings.validation.invalid_email)
       .required(strings.validation.required),
     password: Yup.string()
-      .min(8, strings.formatString(strings.validation.min, { num: 5 }))
+      .min(8, strings.formatString(strings.validation.min, { num: 8 }))
       .max(100, strings.formatString(strings.validation.max, { num: 100 }))
       .required(strings.validation.required),
     confirmPassword: Yup.string()
-      .min(8, strings.formatString(strings.validation.min, { num: 5 }))
+      .min(8, strings.formatString(strings.validation.min, { num: 8 }))
       .max(100, strings.formatString(strings.validation.max, { num: 100 }))
       .oneOf([Yup.ref('password'), null], strings.validation.password_not_match)
       .required(strings.validation.required),
@@ -84,47 +84,68 @@ export const TriggerButtonTextSchema = () =>
   Yup.object().shape({
     title: Yup.string()
       .min(5, strings.formatString(strings.validation.min, { num: 5 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .max(20, strings.formatString(strings.validation.max, { num: 20 }))
       .required(strings.validation.required),
   });
 
 export const CouponsSchema = () =>
   Yup.object().shape({
     name: Yup.string()
-      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .min(3, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(20, strings.formatString(strings.validation.max, { num: 20 }))
       .required(strings.validation.required),
     code: Yup.string()
-      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .min(3, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(20, strings.formatString(strings.validation.max, { num: 20 }))
       .required(strings.validation.required),
   });
 
 export const StartScreenSchema = () =>
   Yup.object().shape({
     title: Yup.string()
-      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .min(3, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(20, strings.formatString(strings.validation.max, { num: 20 }))
       .required(strings.validation.required),
     subTitle: Yup.string()
-      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .min(3, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(20, strings.formatString(strings.validation.max, { num: 20 }))
       .required(strings.validation.required),
     startBtnLabel: Yup.string()
-      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 10 }))
+      .min(3, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(10, strings.formatString(strings.validation.max, { num: 10 }))
       .required(strings.validation.required),
   });
 
 export const ProgressScreenSchema = () =>
   Yup.object().shape({
     title: Yup.string()
-      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .min(3, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(50, strings.formatString(strings.validation.max, { num: 50 }))
       .required(strings.validation.required),
     subTitle: Yup.string()
-      .min(5, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 20 }))
+      .min(3, strings.formatString(strings.validation.min, { num: 3 }))
+      .max(50, strings.formatString(strings.validation.max, { num: 50 }))
+      .required(strings.validation.required),
+  });
+
+export const GeneralSettingsSchema = () =>
+  Yup.object().shape({
+    show_count: Yup.number()
+      .min(1, strings.formatString(strings.validation.min, { num: 1 }))
+      .max(100, strings.formatString(strings.validation.max, { num: 100 }))
+      .positive("Number can't be negative")
+      .required(strings.validation.required),
+    exp_copied: Yup.number()
+      .min(1, strings.formatString(strings.validation.min, { num: 1 }))
+      .max(999, strings.formatString(strings.validation.max, { num: 999 }))
+      .positive("Number can't be negative")
+      .required(strings.validation.required),
+  });
+
+export const AddSiteUrlSchema = () =>
+  Yup.object().shape({
+    siteUrl: Yup.string()
+      .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .required(strings.validation.required),
   });
 

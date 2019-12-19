@@ -216,5 +216,31 @@
   //     width: 0;
   //   }
   // }
+
+  &__settings{
+    padding: 0 20px 20px 10px;
+    *{
+      font-size: 1.4rem;
+    }
+
+    &_list{
+      padding: 0 !important;
+      li{
+        padding: 0;
+        margin-bottom: 7px;
+      }
+    }
+    &_input{
+      div{
+        width: 100%;
+      }
+    }
+    &_input50{
+      width: 50%;
+    }
+    &_btnAdd{
+      margin-top: 20px !important;
+    }
+  }
 }
 

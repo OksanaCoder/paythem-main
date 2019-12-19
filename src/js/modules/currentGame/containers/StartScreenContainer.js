@@ -24,6 +24,12 @@ class StartScreenContainer extends React.Component {
     this.setState({ [name]: event.target.checked });
   };
 
+  handleChange = e => {
+    const { name, value } = e.target;
+
+    this.setState({ [name]: value });
+  };
+
   handleSubmitForm = values => {
     console.log(values);
     const { checkedName, checkedPhone } = this.state;
@@ -53,7 +59,7 @@ class StartScreenContainer extends React.Component {
         validationSchema={StartScreenSchema}
         onSubmit={this.handleSubmitForm}
       >
-        {({ values, errors, touched, handleChange, handleSubmit }) => (
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
           <TabContentComponent
             title="Start Screen"
             description="Here you can edit the content which shoudl be shown on this section"
@@ -67,6 +73,7 @@ class StartScreenContainer extends React.Component {
                   name="title"
                   placeholder="Get your Christmas present!"
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   error={errors.title && touched.title}
                   value={values.title}
                   aria-describedby="error-text"
@@ -86,6 +93,7 @@ class StartScreenContainer extends React.Component {
                   multiline
                   variant="outlined"
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   error={errors.subTitle && touched.subTitle}
                   value={values.subTitle}
                 />
@@ -102,6 +110,7 @@ class StartScreenContainer extends React.Component {
                   name="startBtnLabel"
                   placeholder="START"
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   error={errors.startBtnLabel && touched.startBtnLabel}
                   value={values.startBtnLabel}
                   aria-describedby="error-text"

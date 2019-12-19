@@ -251,7 +251,8 @@ class GeneralSettingsContainer extends React.Component {
                         error={subformik.errors.siteUrl && subformik.touched.siteUrl}
                         startAdornment={
                           <InputAdornment position="start">
-                            {domainSelected.data.domain}/
+                            {domainSelected.data.domain}
+                            <>/</>
                           </InputAdornment>
                         }
                       />

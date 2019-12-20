@@ -77,7 +77,7 @@ const GamesListForDomainComponent = ({
                 </li>
                 <li>
                   {gameItem.statistics.ctr}
-                  <span>crt%</span>
+                  <span>ctr%</span>
                 </li>
                 <li>
                   <>4</>

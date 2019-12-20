@@ -7,14 +7,39 @@ import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorCont
 // import css from 'styles/pages/CurrentGame.scss';
 
 class PopupBackgroundContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    const { popupData } = props;
+    console.log(popupData);
+    this.state = {
+      image: popupData.bg_image,
+    };
+  }
+
   handleEditColor = trigger => color => {
     // color format rgba
     console.log('trigger', trigger);
     console.log('COLOR', color);
   };
 
+  handleChangeImage = e => {
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.onload = upload => {
+      this.setState({
+        image: upload.target.result,
+      });
+    };
+    reader.readAsDataURL(file);
+
+    console.log('Uploaded');
+  };
+
   render() {
     const { handleCloseTabContent, tabValue } = this.props;
+    const { image } = this.state;
+    console.log(image);
     return (
       <TabContentComponent
         title="Popup Background"
@@ -23,6 +48,16 @@ class PopupBackgroundContainer extends React.Component {
         handleCloseTabContent={handleCloseTabContent}
       >
         <h4>Background image</h4>
+        <input
+          type="file"
+          name="file"
+          className="upload-file"
+          id="file"
+          onChange={this.handleChangeImage}
+          encType="multipart/form-data"
+          required
+        />
+        {image && <img src={image} alt="Background" />}
 
         <ChooseColorContainer
           title="Overlay color"

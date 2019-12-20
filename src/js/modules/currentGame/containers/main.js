@@ -182,6 +182,7 @@ class Main extends React.Component {
                 <PopupBackgroundContainer
                   handleCloseTabContent={this.handleCloseTabContent}
                   tabValue="tabGame1"
+                  popupData={paramsGlobal.game_style.popup_bg}
                 />
               )}
 

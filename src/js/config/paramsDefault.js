@@ -44,14 +44,14 @@ const PARAMS_DEFAULT = {
       ],
     },
     progress: {
-      title: 'Almost there...',
-      subtitle: 'Please...',
+      title: 'Almost there! And your got',
+      subtitle: 'Please wait few second',
     },
     finish: {
-      title: 'Congratulations',
-      subtitle: '....',
-      company_logo: 'base64',
-      privacy: 'tra ta ta',
+      title: 'Congratulations!',
+      subtitle: 'You got an awesome gift from us',
+      company_logo: 'http://localhost:3001/assets/images/9fddff081fa2158d16a4db5009379b6f.svg',
+      privacy: 'In order to use this discount add it to the relevant field in checkout',
     },
   },
   behavior: {

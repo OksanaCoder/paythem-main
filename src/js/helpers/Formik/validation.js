@@ -104,11 +104,11 @@ export const StartScreenSchema = () =>
   Yup.object().shape({
     title: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(20, strings.formatString(strings.validation.max, { num: 20 }))
+      .max(30, strings.formatString(strings.validation.max, { num: 30 }))
       .required(strings.validation.required),
     subTitle: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(20, strings.formatString(strings.validation.max, { num: 20 }))
+      .max(70, strings.formatString(strings.validation.max, { num: 70 }))
       .required(strings.validation.required),
     startBtnLabel: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))

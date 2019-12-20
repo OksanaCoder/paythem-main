@@ -22,7 +22,7 @@ const TabsArr1 = [
     value: 'tabGame1',
   },
   {
-    label: 'Color Sheme',
+    label: 'Color Scheme',
     icon: BrushIcon,
     value: 'tabGame2',
   },

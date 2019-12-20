@@ -21,7 +21,7 @@ class HomeContainer extends React.Component {
       openWebsiteDialog: false,
       openInstallationCodeDialog: false,
       openTooltipCopySuccess: false,
-      openGameFullscreenDialog: true,
+      openGameFullscreenDialog: false,
       rightPanel: false,
     };
   }
@@ -107,6 +107,7 @@ class HomeContainer extends React.Component {
 
   render() {
     const { domainItemSelected } = this.props;
+    console.log('home');
     const {
       openUpdateWebsiteDialog,
       openWebsiteDialog,

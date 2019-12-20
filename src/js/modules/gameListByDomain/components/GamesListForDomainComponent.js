@@ -76,12 +76,11 @@ const GamesListForDomainComponent = ({
                   <span>hits</span>
                 </li>
                 <li>
-                  {gameItem.statistics.ctr}
+                  {gameItem.statistics.ctr.toFixed(2)}
                   <span>ctr%</span>
                 </li>
                 <li>
-                  <>4</>
-                  <span>days</span>
+                  1<span>days</span>
                 </li>
               </ul>
               <div>

@@ -100,9 +100,12 @@ class HomeContainer extends React.Component {
   };
 
   handleCopy = copyText => {
+    const range = document.createRange();
+    range.selectNode(copyText);
+    window.getSelection().addRange(range);
     document.execCommand('copy');
     this.setState({ openTooltipCopySuccess: true });
-    console.log(`Copied the text: ${copyText.innerText}`);
+    // console.log(Copied the text: ${copyText.innerText});
   };
 
   render() {
@@ -119,12 +122,14 @@ class HomeContainer extends React.Component {
     } = this.state;
     const { domainsLoaded, domainsLoading, domains } = this.getDomains();
 
-    const scriptToCopy = `
-      <script>
-        snhb.queue.push(function(){
-          snhb.startAuction(["main_leaderboard", "wide_skyscraper", "bottom_medium_rectangle", "right_bottom_medium_rectangle"]);
-        });
-      </script>`;
+    const scriptToCopy = `<!-- Playthem Widget -->
+<script src="http://157.230.112.210:5000/uploads/playthem-widget.min.js"></script>
+<script>
+  new PTW({
+    accessKey: '${domainItemSelected.data.access_key}',
+  });
+</script>
+<!-- End Playthem Widget -->`;
 
     return (
       <section className={css.home__container}>

@@ -28,9 +28,9 @@ class TriggerButtonContainer extends React.Component {
 
   handleEditTriggerButton = e => {
     const { editWidgetData } = this.props;
-    const { name, value } = e.currentTarget;
     const { editWidgetDefault } = this.state;
 
+    const { name, value } = e.currentTarget;
     const editWidgetDataUpdated = { ...editWidgetDefault };
 
     editWidgetDataUpdated[name] = value;

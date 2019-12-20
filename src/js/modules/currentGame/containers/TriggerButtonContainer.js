@@ -123,12 +123,12 @@ class TriggerButtonContainer extends React.Component {
 
               <ChooseColorContainer
                 title="Text Color"
-                color={editWidgetData.textColor}
+                color={editWidgetData.text_color}
                 handleEditColor={this.handleEditColor('text_color')}
               />
               <ChooseColorContainer
                 title="Background Color"
-                color={editWidgetData.backgroundColor}
+                color={editWidgetData.bg_color}
                 handleEditColor={this.handleEditColor('bg_color')}
               />
             </form>

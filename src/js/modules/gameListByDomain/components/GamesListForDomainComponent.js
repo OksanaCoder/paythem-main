@@ -81,7 +81,7 @@ const GamesListForDomainComponent = ({
                   <span>ctr%</span>
                 </li>
                 <li>
-                  1<span>days</span>
+                  <span>1 days</span>
                 </li>
               </ul>
               <div>

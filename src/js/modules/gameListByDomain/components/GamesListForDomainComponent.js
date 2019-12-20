@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
@@ -105,19 +106,19 @@ const GamesListForDomainComponent = ({
               Preview
             </Button>
 
-            <Link
+            {/* <Link
               to={`/domain/${id}/game/${gameItem._id}`}
               className={cx(css.button__top, css.button__top_lightBlue, css.button__top_icon)}
             >
               <EditIcon />
-            </Link>
+            </Link> */}
             <Button
               variant="contained"
               color="primary"
               className={cx(css.button__top, css.button__top_lightBlue, css.button__top_icon)}
               onClick={() => handleChooseGame(gameItem)}
             >
-              Test Edit
+              <EditIcon />
             </Button>
             <Button
               variant="contained"

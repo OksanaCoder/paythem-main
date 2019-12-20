@@ -21,13 +21,13 @@ class ProgressScreenContainer extends React.Component {
   };
 
   render() {
-    const { tabValue } = this.props;
+    const { tabValue, progressScreenData } = this.props;
 
     return (
       <Formik
         initialValues={{
-          title: 'Title',
-          subTitle: 'Test Subtitle',
+          title: progressScreenData.title,
+          subTitle: progressScreenData.subtitle,
         }}
         validationSchema={ProgressScreenSchema}
         onSubmit={this.handleSubmitForm}
@@ -45,7 +45,10 @@ class ProgressScreenContainer extends React.Component {
                 <OutlinedInput
                   name="title"
                   placeholder="Get your Christmas present!"
-                  onChange={handleChange}
+                  onChange={e => {
+                    handleChange(e);
+                    progressScreenData.title = e.target.value;
+                  }}
                   error={errors.title && touched.title}
                   value={values.title}
                   aria-describedby="error-text"
@@ -64,7 +67,10 @@ class ProgressScreenContainer extends React.Component {
                   placeholder="One of our awesome gifts already yours! One step more to receive it."
                   multiline
                   variant="outlined"
-                  onChange={handleChange}
+                  onChange={e => {
+                    handleChange(e);
+                    progressScreenData.subtitle = e.target.value;
+                  }}
                   error={errors.subTitle && touched.subTitle}
                   value={values.subTitle}
                 />

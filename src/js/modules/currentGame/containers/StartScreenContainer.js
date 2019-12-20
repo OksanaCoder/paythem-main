@@ -16,8 +16,8 @@ import css from 'styles/pages/CurrentGame.scss';
 
 class StartScreenContainer extends React.Component {
   state = {
-    checkedName: false,
-    checkedPhone: false,
+    name: false,
+    phone: false,
   };
 
   handleChangeCheckbox = name => event => {
@@ -31,30 +31,32 @@ class StartScreenContainer extends React.Component {
   };
 
   handleSubmitForm = values => {
+    const { startScreenData, handleCloseTabContent } = this.props;
+
     console.log(values);
-    const { checkedName, checkedPhone } = this.state;
+
     const data = {
       title: values.title,
-      subTitle: values.subTitle,
-      startBtnLabel: values.startBtnLabel,
-      checkedName,
-      checkedPhone,
+      subtitle: values.subTitle,
+      button: values.startBtnLabel,
     };
-    console.log('data', data);
-    const { handleCloseTabContent } = this.props;
+
+    Object.assign(startScreenData, data);
+
     handleCloseTabContent();
   };
 
   render() {
-    const { checkedName, checkedPhone } = this.state;
-    const { tabValue } = this.props;
+    const { tabValue, startScreenData } = this.props;
+    const { name, phone } = this.state;
+    console.log('start');
 
     return (
       <Formik
         initialValues={{
-          title: 'Title',
-          subTitle: 'Test Subtitle',
-          startBtnLabel: 'START',
+          title: startScreenData.title,
+          subTitle: startScreenData.subtitle,
+          startBtnLabel: startScreenData.button,
         }}
         validationSchema={StartScreenSchema}
         onSubmit={this.handleSubmitForm}
@@ -72,7 +74,10 @@ class StartScreenContainer extends React.Component {
                 <OutlinedInput
                   name="title"
                   placeholder="Get your Christmas present!"
-                  onChange={handleChange}
+                  onChange={e => {
+                    handleChange(e);
+                    startScreenData.title = e.target.value;
+                  }}
                   onBlur={handleBlur}
                   error={errors.title && touched.title}
                   value={values.title}
@@ -92,7 +97,10 @@ class StartScreenContainer extends React.Component {
                   placeholder="One of our awesome gifts already yours! One step more to receive it."
                   multiline
                   variant="outlined"
-                  onChange={handleChange}
+                  onChange={e => {
+                    handleChange(e);
+                    startScreenData.subtitle = e.target.value;
+                  }}
                   onBlur={handleBlur}
                   error={errors.subTitle && touched.subTitle}
                   value={values.subTitle}
@@ -109,7 +117,10 @@ class StartScreenContainer extends React.Component {
                 <OutlinedInput
                   name="startBtnLabel"
                   placeholder="START"
-                  onChange={handleChange}
+                  onChange={e => {
+                    handleChange(e);
+                    startScreenData.button = e.target.value;
+                  }}
                   onBlur={handleBlur}
                   error={errors.startBtnLabel && touched.startBtnLabel}
                   value={values.startBtnLabel}
@@ -133,9 +144,9 @@ class StartScreenContainer extends React.Component {
                   classes={{ root: css.form_checkboxLabel }}
                   control={
                     <Checkbox
-                      checked={checkedName}
-                      onChange={this.handleChangeCheckbox('checkedName')}
-                      value="checkedName"
+                      checked={name}
+                      onChange={this.handleChangeCheckbox('name')}
+                      value="name"
                       color="secondary"
                     />
                   }
@@ -145,9 +156,9 @@ class StartScreenContainer extends React.Component {
                   classes={{ root: css.form_checkboxLabel }}
                   control={
                     <Checkbox
-                      checked={checkedPhone}
-                      onChange={this.handleChangeCheckbox('checkedPhone')}
-                      value="checkedPhone"
+                      checked={phone}
+                      onChange={this.handleChangeCheckbox('phone')}
+                      value="phone"
                       color="secondary"
                     />
                   }

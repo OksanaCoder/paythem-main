@@ -106,7 +106,10 @@ class TriggerButtonContainer extends React.Component {
                 <OutlinedInput
                   name="title"
                   placeholder="Get free gift!"
-                  onChange={handleChange}
+                  onChange={e => {
+                    handleChange(e);
+                    editWidgetData.title = e.target.value;
+                  }}
                   error={errors.title && touched.title}
                   value={values.title}
                   aria-describedby="error-text"
@@ -120,13 +123,13 @@ class TriggerButtonContainer extends React.Component {
 
               <ChooseColorContainer
                 title="Text Color"
-                color={editWidgetData.textColor}
-                handleEditColor={this.handleEditColor('textColor')}
+                color={editWidgetData.text_color}
+                handleEditColor={this.handleEditColor('text_color')}
               />
               <ChooseColorContainer
                 title="Background Color"
-                color={editWidgetData.backgroundColor}
-                handleEditColor={this.handleEditColor('backgroundColor')}
+                color={editWidgetData.bg_color}
+                handleEditColor={this.handleEditColor('bg_color')}
               />
             </form>
           </TabContentComponent>

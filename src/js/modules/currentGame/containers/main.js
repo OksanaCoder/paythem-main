@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
 // import cx from 'classnames';
 import { Dialog, Slide } from '@material-ui/core';
 
 import {
-  getParams,
   createGame,
   gameSettings,
   screenView,
@@ -39,48 +39,30 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 class Main extends React.Component {
-  state = {
-    tabValue: {
-      tabs1: false,
-      tabs2: false,
-      tabs3: false,
-    },
-    paramsGlobal: PARAMS_DEFAULT,
-  };
+  constructor(props) {
+    super(props);
 
-  loadParamsByDomainAndGameIds = () => {
-    const { getParamsAction, gameSelected, domainSelected } = this.props;
-    const domainId = domainSelected.data._id;
-    const gameId = gameSelected.data._id;
-    getParamsAction({ domainId, gameId }).then(res => {
-      if (!res.error) {
-        const { paramsDataByIds } = this.getParamsByDomainAndGameIds();
-        this.setState({ paramsGlobal: paramsDataByIds });
-      }
-    });
-  };
-
-  getParamsByDomainAndGameIds = () => {
-    const {
-      paramsData: { data, loaded, loading },
-    } = this.props;
-    const paramsDataByIds = loaded && data.data.data.params;
-    return { paramsDataByIds, loaded, loading };
-  };
-
-  addGameByDomainId = () => {
-    const { createGameAction, gameSelected, domainSelected } = this.props;
-    const domainId = domainSelected.data._id;
-    const gameName = gameSelected.data.name;
-    const { paramsGlobal } = this.state;
-    const params = { domainId };
-    const data = { game: gameName, params: paramsGlobal };
-    const notice = {
-      success: 'Game created',
-      error: 'Game error',
+    this.state = {
+      tabValue: {
+        tabs1: false,
+        tabs2: false,
+        tabs3: false,
+      },
+      paramsGlobal: PARAMS_DEFAULT,
     };
-    createGameAction(params, data).then(res => this.results(res, notice, true));
-  };
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const {
+      paramsData: { loaded, data },
+    } = nextProps;
+    const params = loaded && data.data.data.params;
+    if (loaded) {
+      this.setState({
+        paramsGlobal: params,
+      });
+    }
+  }
 
   updateGameParamsByDomainAndGameId = () => {
     const { updateParamsAction, gameSelected, domainSelected } = this.props;
@@ -109,7 +91,7 @@ class Main extends React.Component {
     if (isCreated) {
       this.setState({ paramsGlobal: PARAMS_DEFAULT });
     } else {
-      this.loadParamsByDomainAndGameIds();
+      // this.loadParamsByDomainAndGameIds();
     }
 
     addNotificationAction({
@@ -119,10 +101,25 @@ class Main extends React.Component {
     return false;
   };
 
+  addGameByDomainId = () => {
+    const { createGameAction, gameSelected, domainSelected } = this.props;
+    const { paramsGlobal } = this.state;
+
+    const params = { domainId: domainSelected.data._id };
+    const data = { game: gameSelected.data.name, params: paramsGlobal };
+
+    const notice = {
+      success: 'Game created',
+      error: 'Game error',
+    };
+    createGameAction(params, data).then(res => this.results(res, notice, true));
+  };
+
   handleSubmit = () => {
     const { handleClose, getGameListAction, gameSelected, domainSelected } = this.props;
     const domainId = domainSelected.data._id;
     const gameId = gameSelected.data._id;
+
     if (domainId && gameId) {
       this.updateGameParamsByDomainAndGameId();
     } else {
@@ -132,6 +129,7 @@ class Main extends React.Component {
     }
     // Close fullscreen dialog
     handleClose();
+    this.handleCloseTabContent();
   };
 
   handleChangeTabsIntegration = target => (e, value) => {
@@ -205,7 +203,7 @@ class Main extends React.Component {
                 <StartScreenContainer
                   handleCloseTabContent={this.handleCloseTabContent}
                   tabValue="tabContent1"
-                  // startScreenData={}
+                  startScreenData={paramsGlobal.content.start}
                 />
               )}
 
@@ -213,7 +211,7 @@ class Main extends React.Component {
                 <ProgressScreenContainer
                   handleCloseTabContent={this.handleCloseTabContent}
                   tabValue="tabContent2"
-                  // progressScreenData={}
+                  progressScreenData={paramsGlobal.content.progress}
                 />
               )}
 
@@ -221,7 +219,7 @@ class Main extends React.Component {
                 <FinishScreenContainer
                   handleCloseTabContent={this.handleCloseTabContent}
                   tabValue="tabContent3"
-                  // finishScreenData={}
+                  finishScreenData={paramsGlobal.content.finish}
                 />
               )}
 
@@ -279,7 +277,6 @@ export default connect(
     gameSelected: state.other.gameSelected,
   }),
   dispatch => ({
-    getParamsAction: params => dispatch(getParams(params)),
     updateParamsAction: (params, data) => dispatch(updateParams(params, data)),
     screenViewAction: value => dispatch(screenView(value)),
     gameSettingsAction: value => dispatch(gameSettings(value)),

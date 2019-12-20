@@ -18,7 +18,7 @@ const NoGamesComponent = ({ toggleDrawer }) => {
           variant="contained"
           color="primary"
           className={css.button__blue}
-          onClick={() => toggleDrawer('rightPanel', true)}
+          onClick={toggleDrawer('rightPanel', true)}
         >
           <AddWidgetIcon />
           Add Game

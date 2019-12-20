@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
@@ -34,10 +35,10 @@ const GamesListComponent = ({ toggleDrawer, handleChooseGame }) => {
                     <EyeIcon />
                     Preview
                   </Button>
-                  <Link to={`/game/${item.name}`} className={css.button__top}>
+                  {/* <Link to={`/game/${item.name}`} className={css.button__top}>
                     <AddWebsitesIcon />
                     Select
-                  </Link>
+                  </Link> */}
 
                   <Button
                     variant="contained"
@@ -45,8 +46,8 @@ const GamesListComponent = ({ toggleDrawer, handleChooseGame }) => {
                     className={css.button__top}
                     onClick={() => handleChooseGame(item)}
                   >
-                    <EyeIcon />
-                    TEST
+                    <AddWebsitesIcon />
+                    Select
                   </Button>
                 </div>
               </div>

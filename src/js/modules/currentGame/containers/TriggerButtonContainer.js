@@ -1,73 +1,140 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable camelcase */
 import React from 'react';
-import cx from 'classnames';
-import { FormControl, OutlinedInput, FormHelperText } from '@material-ui/core';
-
+import { FormControl, FormHelperText, OutlinedInput } from '@material-ui/core';
 import Formik from 'helpers/Formik';
 import { TriggerButtonTextSchema } from 'helpers/Formik/validation';
 
-import { CloseIcon } from 'assets/images/icons';
-
-import TabContentCurrentGameComponent from 'modules/currentGame/components/TabContentCurrentGameComponent';
+import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
+import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
 
 import css from 'styles/pages/CurrentGame.scss';
 
 class TriggerButtonContainer extends React.Component {
-  state = {
-    // eslint-disable-next-line react/no-unused-state
-    tabValue: false,
+  constructor(props) {
+    super(props);
+    const { editWidgetData } = props;
+
+    this.state = {
+      editWidgetDefault: editWidgetData,
+    };
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { editWidgetData } = nextProps;
+    this.setState({
+      editWidgetDefault: editWidgetData,
+    });
+  }
+
+  handleEditTriggerButton = e => {
+    const { editWidgetData } = this.props;
+    const { editWidgetDefault } = this.state;
+
+    const { name, value } = e.currentTarget;
+    const editWidgetDataUpdated = { ...editWidgetDefault };
+
+    editWidgetDataUpdated[name] = value;
+
+    this.setState(
+      {
+        editWidgetDefault: editWidgetDataUpdated,
+      },
+      () => {
+        Object.assign(editWidgetData, editWidgetDefault);
+      },
+    );
   };
 
-  handleEditTitle = values => {
-    console.log('values', values);
+  handleEditColor = trigger => color => {
+    console.log('COLOR', color);
     const { editWidgetData } = this.props;
+    const { editWidgetDefault } = this.state;
 
-    const editWidgetDataUpdated = { ...editWidgetData };
-    editWidgetDataUpdated.title = values.title;
+    const editWidgetDataUpdated = { ...editWidgetDefault };
 
-    Object.assign(editWidgetData, editWidgetDataUpdated);
+    editWidgetDataUpdated[trigger] = color;
+    this.setState(
+      {
+        editWidgetDefault: editWidgetDataUpdated,
+      },
+      () => {
+        Object.assign(editWidgetData, editWidgetDefault);
+      },
+    );
+  };
+
+  handleSubmitTitle = values => {
+    const { editWidgetData, handleCloseTabContent } = this.props;
+    const { title } = values;
+    const { editWidgetDefault } = this.state;
+
+    const editWidgetDataUpdated = { ...editWidgetDefault };
+
+    editWidgetDataUpdated.title = title;
+
+    this.setState(
+      {
+        editWidgetDefault: editWidgetDataUpdated,
+      },
+      () => {
+        Object.assign(editWidgetData, editWidgetDefault);
+      },
+    );
+    handleCloseTabContent();
   };
 
   render() {
-    const { handleCloseTabContent, tabValue, editWidgetData } = this.props;
-    console.log('editWidgetData', editWidgetData);
+    const { editWidgetDefault } = this.state;
+    const { tabValue, editWidgetData } = this.props;
+
     return (
-      <TabContentCurrentGameComponent
-        title="Trigger Button"
-        description="Here you can customize the button which should oprn the popup window."
-        tabValue={tabValue}
-        handleCloseTabContent={handleCloseTabContent}
+      <Formik
+        initialValues={{ title: editWidgetDefault.title }}
+        validationSchema={TriggerButtonTextSchema}
+        onSubmit={this.handleSubmitTitle}
       >
-        <Formik
-          initialValues={{
-            title: editWidgetData.title,
-          }}
-          validationSchema={TriggerButtonTextSchema}
-          onSubmit={this.handleEditTitle}
-          //  onChange={this.handleEditTitle}
-        >
-          {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
-            <form onSubmit={handleSubmit}>
+        {({ values, errors, touched, handleChange, handleSubmit }) => (
+          <TabContentComponent
+            title="Trigger Button"
+            description="Here you can customize the button which should open the popup window."
+            tabValue={tabValue}
+            handleCloseTabContent={handleSubmit}
+          >
+            <form>
               <FormControl fullWidth className={css.form_input}>
                 <h4>Title</h4>
                 <OutlinedInput
                   name="title"
                   placeholder="Get free gift!"
-                  onChange={handleChange}
+                  onChange={e => {
+                    handleChange(e);
+                    editWidgetData.title = e.target.value;
+                  }}
                   error={errors.title && touched.title}
                   value={values.title}
                   aria-describedby="error-text"
                 />
-                {errors.domain && touched.domain && (
+                {errors.title && touched.title && (
                   <FormHelperText className={css.form_inputError} id="error-text">
                     {errors.title}
                   </FormHelperText>
                 )}
               </FormControl>
+
+              <ChooseColorContainer
+                title="Text Color"
+                color={editWidgetData.text_color}
+                handleEditColor={this.handleEditColor('text_color')}
+              />
+              <ChooseColorContainer
+                title="Background Color"
+                color={editWidgetData.bg_color}
+                handleEditColor={this.handleEditColor('bg_color')}
+              />
             </form>
-          )}
-        </Formik>
-      </TabContentCurrentGameComponent>
+          </TabContentComponent>
+        )}
+      </Formik>
     );
   }
 }

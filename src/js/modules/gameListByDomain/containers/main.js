@@ -1,7 +1,9 @@
+/* eslint-disable no-unneeded-ternary */
+/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getGameList, removeGame, updateGameStatus, gameSelected } from 'actions';
+import { getParams, getGameList, removeGame, updateGameStatus, gameSelected } from 'actions';
 import Fetching from 'components/Fetching';
 
 import GamesListForDomainComponent from 'modules/gameListByDomain/components/GamesListForDomainComponent';
@@ -22,6 +24,26 @@ class GameListByDomain extends Component {
       this.loadGameList(nextProps);
     }
   }
+
+  // loadParamsByDomainAndGameIds = () => {
+  //   const { getParamsAction, gameSelected, domainSelected } = this.props;
+  //   const domainId = domainSelected.data._id;
+  //   const gameId = gameSelected.data._id;
+  //   getParamsAction({ domainId, gameId }).then(res => {
+  //     if (!res.error) {
+  //       const { paramsDataByIds } = this.getParamsByDomainAndGameIds();
+  //       this.setState({ paramsGlobal: paramsDataByIds });
+  //     }
+  //   });
+  // };
+
+  // getParamsByDomainAndGameIds = () => {
+  //   const {
+  //     paramsData: { data, loaded, loading },
+  //   } = this.props;
+  //   const paramsDataByIds = loaded && data.data.data.params;
+  //   return { paramsDataByIds, loaded, loading };
+  // };
 
   loadGameList = async nextProps => {
     const { getGameListAction } = this.props;
@@ -53,24 +75,29 @@ class GameListByDomain extends Component {
     removeGameAction(params).then(res => !res.error && this.loadGameList());
   };
 
-  handleCheckedStatus = event => {
+  handleCheckedStatus = (event, gameStatus) => {
+    console.log(gameStatus);
     const { domainSelected, updateGameStatusAction } = this.props;
     const params = {
       domainId: domainSelected.data._id,
       gameId: event.target.value,
     };
 
-    const status = {
-      status: true,
-    };
+    const status = gameStatus ? { status: false } : { status: true };
+
     updateGameStatusAction(params, status).then(res => !res.error && this.loadGameList());
   };
 
   handleChooseGame = data => {
-    const { handleOpen, gameSelectedAction } = this.props;
+    const { getParamsAction, handleOpen, domainSelected, gameSelectedAction } = this.props;
+    const params = {
+      domainId: domainSelected.data._id,
+      gameId: data._id,
+    };
 
     handleOpen('openGameFullscreenDialog')();
     gameSelectedAction(data);
+    getParamsAction(params);
   };
 
   render() {
@@ -80,8 +107,11 @@ class GameListByDomain extends Component {
       },
       toggleDrawer,
       rightPanel,
+      // paramsData,
+      games,
     } = this.props;
     const { gameList, loaded, loading } = this.getGameList();
+    console.log('games', games);
 
     return (
       <section>
@@ -110,10 +140,12 @@ class GameListByDomain extends Component {
 export default connect(
   state => ({
     domainSelected: state.other.domainSelected,
+    paramsData: state.get.getParams,
     games: state.get.gameList,
   }),
   dispatch => ({
     getGameListAction: params => dispatch(getGameList(params)),
+    getParamsAction: params => dispatch(getParams(params)),
     removeGameAction: params => dispatch(removeGame(params)),
     updateGameStatusAction: (params, data) => dispatch(updateGameStatus(params, data)),
     gameSelectedAction: data => dispatch(gameSelected(data)),

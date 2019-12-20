@@ -3,39 +3,34 @@ import cx from 'classnames';
 import { Button } from '@material-ui/core';
 import { TrashIcon } from 'assets/images/icons';
 
+import { PARAMS } from 'config';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
-import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
 
 import css from 'styles/pages/CurrentGame.scss';
 
-class PopupBackgroundContainer extends React.Component {
+class PrimaryIconContainer extends React.Component {
   constructor(props) {
     super(props);
-    const { popupData } = props;
-
+    const { iconData } = props;
     this.state = {
-      image: popupData.bg_image,
+      activeIcon: iconData.icon,
+      image: iconData.icon,
       bigSize: false,
     };
   }
 
-  handleEditColor = trigger => value => {
-    // color format rgba
-    console.log('trigger', trigger);
-    console.log('COLOR', value);
-    let color = '';
-    if (typeof value === 'object') {
-      const { r, g, b, a } = value;
-      color = `rgba(${r},${g},${b},${a})`;
-    } else {
-      color = value;
-    }
-    const { popupData } = this.props;
-    popupData[trigger] = color;
+  handleChooseIcon = e => {
+    const { iconData } = this.props;
+    const { value } = e.currentTarget;
+    this.setState({
+      activeIcon: value,
+      image: '',
+    });
+    iconData.icon = value;
   };
 
   handleChangeImage = e => {
-    const { popupData } = this.props;
+    const { iconData } = this.props;
     const reader = new FileReader();
     const file = e.target.files[0];
 
@@ -44,8 +39,9 @@ class PopupBackgroundContainer extends React.Component {
         this.setState({
           image: upload.target.result,
           bigSize: false,
+          activeIcon: upload.target.result,
         });
-        popupData.bg_image = upload.target.result;
+        iconData.icon = upload.target.result;
       };
       reader.readAsDataURL(file);
     } else {
@@ -56,26 +52,45 @@ class PopupBackgroundContainer extends React.Component {
   };
 
   handleDeleteImage = () => {
-    const { popupData } = this.props;
+    const { iconData } = this.props;
     this.setState({
       image: '',
       bigSize: false,
+      activeIcon: PARAMS.widget_icons[0].url,
     });
-    popupData.bg_image = '';
+    iconData.icon = PARAMS.widget_icons[0].url;
   };
 
   render() {
+    const { activeIcon, image, bigSize } = this.state;
     const { handleCloseTabContent, tabValue } = this.props;
-    const { image, bigSize } = this.state;
-    console.log(image);
+    // console.log(activeIcon);
     return (
       <TabContentComponent
-        title="Popup Background"
-        description="Below you can find the customization options of the background"
+        title="Primary Icon"
+        description="Below you can select the requred icon for your game popup"
         tabValue={tabValue}
         handleCloseTabContent={handleCloseTabContent}
       >
-        <h4>Background image</h4>
+        <h4>Predefined Icons</h4>
+        <ul className={css.currentGame__iconsList}>
+          {PARAMS.widget_icons.map(icon => (
+            <li
+              key={icon.name}
+              className={activeIcon === icon.url ? css.currentGame__activeIcon : null}
+            >
+              <button
+                type="button"
+                onClick={this.handleChooseIcon}
+                name="activeIcon"
+                value={icon.url}
+              >
+                <img src={icon.url} alt="icon" />
+              </button>
+            </li>
+          ))}
+        </ul>
+        <h4>Custom Icon</h4>
         <div className={css.currentGame__imageBlock}>
           {image ? (
             <>
@@ -102,15 +117,10 @@ class PopupBackgroundContainer extends React.Component {
           )}
         </div>
         {bigSize && <p className={css.form_inputError}>Image size has to be max 9Mb</p>}
-
-        <ChooseColorContainer
-          title="Overlay color"
-          color="red"
-          handleEditColor={this.handleEditColor('bg_overlay')}
-        />
+        <h5>Note: Please use the PNG format with a transparent background.</h5>
       </TabContentComponent>
     );
   }
 }
 
-export default PopupBackgroundContainer;
+export default PrimaryIconContainer;

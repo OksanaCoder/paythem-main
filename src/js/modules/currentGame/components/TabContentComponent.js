@@ -5,13 +5,7 @@ import { Button } from '@material-ui/core';
 import { CloseIcon } from 'assets/images/icons';
 import css from 'styles/pages/CurrentGame.scss';
 
-const TabContentCurrentGameComponent = ({
-  tabValue,
-  handleCloseTabContent,
-  title,
-  description,
-  children,
-}) => {
+const TabContentComponent = ({ tabValue, handleCloseTabContent, title, description, children }) => {
   return (
     <div
       className={
@@ -37,4 +31,4 @@ const TabContentCurrentGameComponent = ({
   );
 };
 
-export default TabContentCurrentGameComponent;
+export default TabContentComponent;

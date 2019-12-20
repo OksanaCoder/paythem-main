@@ -1,7 +1,6 @@
 @import '../core/base';
 @import '../mixins/flex';
 @import '../modules/menu';
-@import '../modules/logo';
 @import '../modules/buttons';
 
 .header {
@@ -45,6 +44,7 @@
     }
     
     &_icon {
+      // @extend .logo;
       background-image: url('../../assets/images/icons/logo_label.svg');
       background-repeat: no-repeat;
       background-size: contain;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
@@ -61,7 +62,7 @@ const GamesListForDomainComponent = ({
               <div>
                 <CustomSwitch
                   checked={gameItem.status}
-                  onChange={handleCheckedStatus}
+                  onChange={e => handleCheckedStatus(e, gameItem.status)}
                   value={gameItem._id}
                 />
                 <h4>{gameItem.game}</h4>
@@ -76,12 +77,11 @@ const GamesListForDomainComponent = ({
                   <span>hits</span>
                 </li>
                 <li>
-                  {gameItem.statistics.ctr}
-                  <span>crt%</span>
+                  {gameItem.statistics.ctr.toFixed(2)}
+                  <span>ctr%</span>
                 </li>
                 <li>
-                  <>4</>
-                  <span>days</span>
+                  <span>1 days</span>
                 </li>
               </ul>
               <div>
@@ -106,19 +106,19 @@ const GamesListForDomainComponent = ({
               Preview
             </Button>
 
-            <Link
+            {/* <Link
               to={`/domain/${id}/game/${gameItem._id}`}
               className={cx(css.button__top, css.button__top_lightBlue, css.button__top_icon)}
             >
               <EditIcon />
-            </Link>
+            </Link> */}
             <Button
               variant="contained"
               color="primary"
               className={cx(css.button__top, css.button__top_lightBlue, css.button__top_icon)}
               onClick={() => handleChooseGame(gameItem)}
             >
-              Test Edit
+              <EditIcon />
             </Button>
             <Button
               variant="contained"

@@ -68,16 +68,22 @@
       padding: 30px;
       position: relative;
       overflow: hidden;
-    }
-    &_menuBlock{
-      margin: 30px 0;
       h4{
         text-transform: uppercase;
         font-size: 1.2rem;
         font-weight: 600;
         color: #899BB0;
-        padding: 0;
+        padding-bottom: 5px;
       }
+      h5{
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #899BB0;
+        padding-bottom: 5px;
+      }
+    }
+    &_menuBlock{
+      margin: 30px 0;
     }
     &_tabContent{
       position: absolute;
@@ -93,8 +99,103 @@
         box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.3);
       }
     }
+    &_game{
+      @include flex(center, center);
+      width: calc(100% - 362px);
+      height: 100%;
+      position: relative;
+    }
+    &_gameBlock{
+      width: 702px;
+      height: 720px;
+      background: #4E91D9;
+      border-radius: 20px;
+    }
+    &_gameTrigger{
+      position: absolute;
+      right: 0;
+    }
+    &_gameWidget{
+      width: 50px;
+      padding: 0;
+      background: #fff;
+      border-radius: 5px;
+      border: none;
+      box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.4);
+      padding-bottom: 50px;
+      cursor: pointer;
+      position: relative;
+      height: auto;
+      min-height: 155px;
+      h3 {
+        font-size: 14px;
+        writing-mode: tb;
+        transform: rotate(180deg);
+        line-height: 20px;
+        margin: 5px 15px;
+        padding: 0;
+        display: block;
+        position: relative;
+        
+      }
+      &_icon{
+        @include flex(center, center);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        svg,
+        img{
+          height: 30px;
+          width: auto;
+          max-width: 70%;
+        }
+      }
+    }
   }
-
+  &__iconsList{
+    @include flex(center, space-between);
+    margin: 10px 0 25px 0;
+    flex-wrap: wrap;
+    &:after{
+      content: "";
+      flex: auto;
+    }
+    
+    li{
+      @include flex(center, left);
+      margin: 5px;
+      button{
+        border: none;
+        background: none;
+        display: block;
+        width: 72px;
+        height: 72px;
+        padding: 15px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        cursor: pointer;
+        
+        &:hover{
+          background-color: rgba(206,225,246,0.2);
+          border: 1px solid #CEE1F6;
+        }
+        svg{
+          width: 100%;
+          height: 100%;
+        }
+      } 
+    }
+    
+  }
+  &__activeIcon{
+    button{
+      background-color: rgba(206,225,246,0.2) !important;
+      border: 1px solid #CEE1F6 !important;
+    }
+  }
   &__btnClose{
     position: absolute;
     top: 20px;
@@ -102,17 +203,46 @@
     margin: 0 !important;
     padding: 0 !important;
   }
-  &__tabs{
-    &_iconLabelWrapper{
-      flex-direction: row;
-      margin-bottom: 0;
-      justify-content: left;
-      svg{
-        margin-bottom: 0 !important;
+
+  &__settings{
+    padding: 0 20px 20px 10px;
+    *{
+      font-size: 1.4rem;
+    }
+
+    &_list{
+      padding: 0 !important;
+      li{
+        padding: 0;
+        margin-bottom: 7px;
       }
     }
-    &_indicator{
-      width: 0;
+    &_input{
+      div{
+        width: 100%;
+      }
+    }
+    &_input50{
+      width: 50%;
+    }
+    &_btnAdd{
+      margin-top: 20px !important;
+    }
+  }
+  &__imageBlock{
+    @include flex(center, space-between);
+    padding: 15px;
+    border: 1px dashed rgba(78,145,217,0.5);
+    width: 100%;
+    height: 115px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+
+    img{
+      width: 120px;
+      height: 80px;
+      border-radius: 3px;
+      object-fit: cover;
     }
   }
 }

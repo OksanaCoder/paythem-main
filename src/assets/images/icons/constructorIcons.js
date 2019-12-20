@@ -160,3 +160,30 @@ export const TriggerButtonIcon = () => (
     </g>
   </svg>
 );
+
+export const AddIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <path
+      fill="#4E91D9"
+      fillOpacity="0.3"
+      fillRule="evenodd"
+      stroke="#4E91D9"
+      strokeWidth="1"
+      d="M17.5 14.5H22a1.5 1.5 0 010 3h-4.5V22a1.5 1.5 0 01-3 0v-4.5H10a1.5 1.5 0 010-3h4.5V10a1.5 1.5 0 013 0v4.5z"
+      transform="rotate(90 16 16)"
+    ></path>
+  </svg>
+);
+
+export const DoneIcon2 = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <path
+      fill="#4E91D9"
+      fillOpacity="0.3"
+      fillRule="evenodd"
+      stroke="#4E91D9"
+      strokeWidth="1"
+      d="M22.316 11.023h0a1.783 1.783 0 01.019 2.547l-6.911 7.41c-.724.698-1.87.698-2.622-.03L9.047 16.67a1.781 1.781 0 010-2.57c.724-.694 1.867-.694 2.642.058a204.175 204.175 0 001.045 1.356l.029.036c.536.69.92 1.17.998 1.247a.525.525 0 00.724.007c.104-.104 1.086-1.185 2.593-2.852l.01-.012 1.795-1.987.591-.656c.183-.203.183-.203.249-.273a1.87 1.87 0 012.593 0z"
+    ></path>
+  </svg>
+);

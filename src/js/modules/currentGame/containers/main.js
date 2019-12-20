@@ -188,6 +188,7 @@ class Main extends React.Component {
                 <ColorSchemeContainer
                   handleCloseTabContent={this.handleCloseTabContent}
                   tabValue="tabGame2"
+                  colorSchemeData={paramsGlobal.game_style.color_scheme}
                 />
               )}
 
@@ -195,7 +196,7 @@ class Main extends React.Component {
                 <PrimaryIconContainer
                   handleCloseTabContent={this.handleCloseTabContent}
                   tabValue="tabGame3"
-                  // primaryIconsData={}
+                  iconData={paramsGlobal.game_style}
                 />
               )}
 
@@ -256,7 +257,7 @@ class Main extends React.Component {
                     {paramsGlobal.behavior.trigger_button.title}
                   </h3>
                   <div className={css.currentGame__content_gameWidget_icon}>
-                    <img src={presentIcon} alt="present icon" />
+                    <img src={paramsGlobal.game_style.icon} alt="present icon" />
                   </div>
                 </button>
               </div>

@@ -1,5 +1,7 @@
 import React from 'react';
-// import {  } from '@material-ui/core';
+import cx from 'classnames';
+import { Button } from '@material-ui/core';
+import { TrashIcon } from 'assets/images/icons';
 
 import { PARAMS } from 'config';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
@@ -7,19 +9,62 @@ import TabContentComponent from 'modules/currentGame/components/TabContentCompon
 import css from 'styles/pages/CurrentGame.scss';
 
 class PrimaryIconContainer extends React.Component {
-  state = {
-    activeIcon: 'icon4',
-  };
+  constructor(props) {
+    super(props);
+    const { iconData } = props;
+    this.state = {
+      activeIcon: iconData.icon,
+      image: iconData.icon,
+      bigSize: false,
+    };
+  }
 
   handleChooseIcon = e => {
+    const { iconData } = this.props;
     const { value } = e.currentTarget;
-    this.setState({ activeIcon: value });
+    this.setState({
+      activeIcon: value,
+      image: '',
+    });
+    iconData.icon = value;
+  };
+
+  handleChangeImage = e => {
+    const { iconData } = this.props;
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    if (file.size < 900000) {
+      reader.onload = upload => {
+        this.setState({
+          image: upload.target.result,
+          bigSize: false,
+          activeIcon: upload.target.result,
+        });
+        iconData.icon = upload.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.setState({
+        bigSize: true,
+      });
+    }
+  };
+
+  handleDeleteImage = () => {
+    const { iconData } = this.props;
+    this.setState({
+      image: '',
+      bigSize: false,
+      activeIcon: PARAMS.widget_icons[0].url,
+    });
+    iconData.icon = PARAMS.widget_icons[0].url;
   };
 
   render() {
-    const { activeIcon } = this.state;
+    const { activeIcon, image, bigSize } = this.state;
     const { handleCloseTabContent, tabValue } = this.props;
-    console.log(activeIcon);
+    // console.log(activeIcon);
     return (
       <TabContentComponent
         title="Primary Icon"
@@ -32,20 +77,46 @@ class PrimaryIconContainer extends React.Component {
           {PARAMS.widget_icons.map(icon => (
             <li
               key={icon.name}
-              className={activeIcon === icon.name ? css.currentGame__activeIcon : null}
+              className={activeIcon === icon.url ? css.currentGame__activeIcon : null}
             >
               <button
                 type="button"
                 onClick={this.handleChooseIcon}
                 name="activeIcon"
-                value={icon.name}
+                value={icon.url}
               >
-                <icon.component />
+                <img src={icon.url} alt="icon" />
               </button>
             </li>
           ))}
         </ul>
         <h4>Custom Icon</h4>
+        <div className={css.currentGame__imageBlock}>
+          {image ? (
+            <>
+              <img src={image} alt="Background" />
+              <Button
+                variant="contained"
+                color="primary"
+                className={cx(css.button__top)}
+                onClick={this.handleDeleteImage}
+              >
+                <TrashIcon />
+                Delete
+              </Button>
+            </>
+          ) : (
+            <input
+              type="file"
+              name="file"
+              className="upload-file"
+              id="file"
+              onChange={this.handleChangeImage}
+              encType="multipart/form-data"
+            />
+          )}
+        </div>
+        {bigSize && <p className={css.form_inputError}>Image size has to be max 9Mb</p>}
         <h5>Note: Please use the PNG format with a transparent background.</h5>
       </TabContentComponent>
     );

@@ -34,9 +34,10 @@ class ChooseColorContainer extends React.Component {
 
   handleChooseColor = e => {
     const { value } = e.currentTarget;
-    const { color } = this.state;
+    // const { color } = this.state;
     const { handleEditColor } = this.props;
-    this.setState({ color: value }, () => handleEditColor(color));
+    this.setState({ color: value });
+    handleEditColor(value);
   };
 
   handleClose = () => {
@@ -56,9 +57,10 @@ class ChooseColorContainer extends React.Component {
   handleChangeComplete = color => {
     console.log('color', color.rgb);
     if (color) {
-      const { customColor } = this.state;
+      // const { customColor } = this.state;
       const { handleEditColor } = this.props;
-      this.setState({ customColor: color.rgb, color: false }, () => handleEditColor(customColor));
+      this.setState({ customColor: color.rgb, color: false });
+      handleEditColor(color.rgb);
     }
   };
 
@@ -103,7 +105,7 @@ class ChooseColorContainer extends React.Component {
               name="color"
             />
             <StyledRadio
-              checked={color === '#ffffff'}
+              checked={color === '#fff'}
               onChange={this.handleChooseColor}
               value="#ffffff"
               name="color"

@@ -1,44 +1,72 @@
 import React from 'react';
-// import {  } from '@material-ui/core';
+import cx from 'classnames';
+import { Button } from '@material-ui/core';
+import { TrashIcon } from 'assets/images/icons';
 
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
 
-// import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame.scss';
 
 class PopupBackgroundContainer extends React.Component {
   constructor(props) {
     super(props);
     const { popupData } = props;
-    console.log(popupData);
+
     this.state = {
       image: popupData.bg_image,
+      bigSize: false,
     };
   }
 
-  handleEditColor = trigger => color => {
+  handleEditColor = trigger => value => {
     // color format rgba
     console.log('trigger', trigger);
-    console.log('COLOR', color);
+    console.log('COLOR', value);
+    let color = '';
+    if (typeof value === 'object') {
+      const { r, g, b, a } = value;
+      color = `rgba(${r},${g},${b},${a})`;
+    } else {
+      color = value;
+    }
+    const { popupData } = this.props;
+    popupData[trigger] = color;
   };
 
   handleChangeImage = e => {
+    const { popupData } = this.props;
     const reader = new FileReader();
     const file = e.target.files[0];
 
-    reader.onload = upload => {
+    if (file.size < 900000) {
+      reader.onload = upload => {
+        this.setState({
+          image: upload.target.result,
+          bigSize: false,
+        });
+        popupData.bg_image = upload.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
       this.setState({
-        image: upload.target.result,
+        bigSize: true,
       });
-    };
-    reader.readAsDataURL(file);
+    }
+  };
 
-    console.log('Uploaded');
+  handleDeleteImage = () => {
+    const { popupData } = this.props;
+    this.setState({
+      image: '',
+      bigSize: false,
+    });
+    popupData.bg_image = '';
   };
 
   render() {
     const { handleCloseTabContent, tabValue } = this.props;
-    const { image } = this.state;
+    const { image, bigSize } = this.state;
     console.log(image);
     return (
       <TabContentComponent
@@ -48,21 +76,37 @@ class PopupBackgroundContainer extends React.Component {
         handleCloseTabContent={handleCloseTabContent}
       >
         <h4>Background image</h4>
-        <input
-          type="file"
-          name="file"
-          className="upload-file"
-          id="file"
-          onChange={this.handleChangeImage}
-          encType="multipart/form-data"
-          required
-        />
-        {image && <img src={image} alt="Background" />}
+        <div className={css.currentGame__imageBlock}>
+          {image ? (
+            <>
+              <img src={image} alt="Background" />
+              <Button
+                variant="contained"
+                color="primary"
+                className={cx(css.button__top)}
+                onClick={this.handleDeleteImage}
+              >
+                <TrashIcon />
+                Delete
+              </Button>
+            </>
+          ) : (
+            <input
+              type="file"
+              name="file"
+              className="upload-file"
+              id="file"
+              onChange={this.handleChangeImage}
+              encType="multipart/form-data"
+            />
+          )}
+        </div>
+        {bigSize && <p className={css.form_inputError}>Image size has to be max 9Mb</p>}
 
         <ChooseColorContainer
           title="Overlay color"
           color="red"
-          handleEditColor={this.handleEditColor('overlayColor')}
+          handleEditColor={this.handleEditColor('bg_overlay')}
         />
       </TabContentComponent>
     );

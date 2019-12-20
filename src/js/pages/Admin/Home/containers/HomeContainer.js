@@ -100,6 +100,9 @@ class HomeContainer extends React.Component {
   };
 
   handleCopy = copyText => {
+    const range = document.createRange();
+    range.selectNode(copyText);
+    window.getSelection().addRange(range);
     document.execCommand('copy');
     this.setState({ openTooltipCopySuccess: true });
     console.log(`Copied the text: ${copyText.innerText}`);

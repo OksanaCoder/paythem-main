@@ -1,7 +1,9 @@
 import React from 'react';
-import { FormControl, Radio, Popover } from '@material-ui/core';
+import cx from 'classnames';
+import { FormControl, Radio, Popover, Button } from '@material-ui/core';
 import { ChromePicker } from 'react-color';
 
+import { ColorIcon } from 'assets/images/icons';
 import css from 'styles/pages/CurrentGame/ChooseColor.scss';
 
 // Inspired by blueprintjs
@@ -19,6 +21,27 @@ function StyledRadio(props) {
   );
 }
 
+const defaultColors = [
+  {
+    color: '#4E91D9',
+  },
+  {
+    color: '#4ED98C',
+  },
+  {
+    color: '#D94E4E',
+  },
+  {
+    color: '#D9844E',
+  },
+  {
+    color: '#FFD948',
+  },
+  {
+    color: '#ffffff',
+  },
+];
+
 class ChooseColorContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -28,15 +51,33 @@ class ChooseColorContainer extends React.Component {
       openPopover: false,
       anchorEl: null,
       color,
-      customColor: '#000',
+      customColor: false,
     };
   }
 
+  componentDidMount() {
+    this.checkCustomColor();
+  }
+
+  checkCustomColor = () => {
+    const { color } = this.props;
+    if (defaultColors.some(e => e.color === color)) {
+      this.setState({
+        color,
+        customColor: false,
+      });
+    } else {
+      this.setState({
+        color: false,
+        customColor: color,
+      });
+    }
+  };
+
   handleChooseColor = e => {
     const { value } = e.currentTarget;
-    // const { color } = this.state;
     const { handleEditColor } = this.props;
-    this.setState({ color: value });
+    this.setState({ color: value, customColor: false });
     handleEditColor(value);
   };
 
@@ -51,13 +92,13 @@ class ChooseColorContainer extends React.Component {
     this.setState({
       anchorEl: e.currentTarget,
       openPopover: true,
+      color: false,
     });
   };
 
   handleChangeComplete = color => {
     console.log('color', color.rgb);
     if (color) {
-      // const { customColor } = this.state;
       const { handleEditColor } = this.props;
       this.setState({ customColor: color.rgb, color: false });
       handleEditColor(color.rgb);
@@ -74,48 +115,28 @@ class ChooseColorContainer extends React.Component {
         <FormControl fullWidth className={css.form_input}>
           <h4>{title}</h4>
           <div>
-            <StyledRadio
-              checked={color === '#4E91D9'}
-              onChange={this.handleChooseColor}
-              value="#4E91D9"
-              name="color"
-            />
-            <StyledRadio
-              checked={color === '#4ED98C'}
-              onChange={this.handleChooseColor}
-              value="#4ED98C"
-              name="color"
-            />
-            <StyledRadio
-              checked={color === '#D94E4E'}
-              onChange={this.handleChooseColor}
-              value="#D94E4E"
-              name="color"
-            />
-            <StyledRadio
-              checked={color === '#D9844E'}
-              onChange={this.handleChooseColor}
-              value="#D9844E"
-              name="color"
-            />
-            <StyledRadio
-              checked={color === '#FFD948'}
-              onChange={this.handleChooseColor}
-              value="#FFD948"
-              name="color"
-            />
-            <StyledRadio
-              checked={color === '#fff'}
-              onChange={this.handleChooseColor}
-              value="#ffffff"
-              name="color"
-            />
-            <StyledRadio
-              checked={color === 'custom'}
-              onChange={this.handleOpenPopover}
-              value="custom"
-              name="color"
-            />
+            {defaultColors.map(item => (
+              <StyledRadio
+                key={item.color}
+                checked={color === item.color}
+                onChange={this.handleChooseColor}
+                value={item.color}
+                name="color"
+              />
+            ))}
+
+            <Button
+              variant="contained"
+              color="primary"
+              className={
+                customColor
+                  ? cx(css.button__top, css.button__customColor, css.button__customColorActive)
+                  : cx(css.button__top, css.button__customColor)
+              }
+              onClick={this.handleOpenPopover}
+            >
+              <ColorIcon />
+            </Button>
           </div>
         </FormControl>
 

@@ -29,7 +29,7 @@ import OtherRadio from 'modules/currentGame/components/OtherRadioComponent';
 
 import { AddIcon, TrashIcon, DoneIcon2 } from 'assets/images/icons';
 
-import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame/GeneralSettings.scss';
 
 class GeneralSettingsContainer extends React.Component {
   constructor(props) {
@@ -196,6 +196,7 @@ class GeneralSettingsContainer extends React.Component {
                 <FormControl fullWidth className={css.form_input}>
                   <h4>Show the game when user is leaving the site</h4>
                   <RadioGroup
+                    className={css.form_radioGorizontal}
                     name="show_on_leaving"
                     value={show_on_leaving ? 'yes' : 'no'}
                     onChange={this.handleRadioChange}
@@ -281,6 +282,7 @@ class GeneralSettingsContainer extends React.Component {
                 <FormControl fullWidth className={css.form_input}>
                   <h4>Show trigger button on the site</h4>
                   <RadioGroup
+                    className={css.form_radioGorizontal}
                     name="trigger_button"
                     value={trigger_button ? 'yes' : 'no'}
                     onChange={this.handleRadioChange}
@@ -293,6 +295,7 @@ class GeneralSettingsContainer extends React.Component {
                 <FormControl fullWidth className={css.form_input}>
                   <h4>Allow user to play with the same email</h4>
                   <RadioGroup
+                    className={css.form_radioGorizontal}
                     name="email_repeat"
                     value={email_repeat ? 'yes' : 'no'}
                     onChange={this.handleRadioChange}
@@ -334,6 +337,7 @@ class GeneralSettingsContainer extends React.Component {
                 <FormControl fullWidth className={css.form_input}>
                   <h4>Send coupon to the user email</h4>
                   <RadioGroup
+                    className={css.form_radioGorizontal}
                     name="send_on_email"
                     value={send_on_email ? 'yes' : 'no'}
                     onChange={this.handleRadioChange}

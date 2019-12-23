@@ -1,0 +1,32 @@
+@import '../../core/base';
+@import '../../modules/buttons';
+@import '../../mixins/flex';
+.currentGame{
+  &__settings{
+    padding: 0 20px 20px 13px;
+    *{
+      font-size: 1.2rem;
+      font-weight: 600;
+      
+    }
+
+    &_list{
+      padding: 0 !important;
+      li{
+        padding: 0;
+        margin-bottom: 7px;
+      }
+    }
+    &_input{
+      div{
+        width: 100%;
+      }
+    }
+    &_input50{
+      width: 50%;
+    }
+    &_btnAdd{
+      margin-top: 20px !important;
+    }
+  }
+}

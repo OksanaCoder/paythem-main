@@ -5,7 +5,7 @@ import { ProgressScreenSchema } from 'helpers/Formik/validation';
 
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 
-import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame/Content.scss';
 
 class FinishScreenContainer extends React.Component {
   handleSubmitForm = values => {

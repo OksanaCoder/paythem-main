@@ -6,7 +6,7 @@ import { TrashIcon } from 'assets/images/icons';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
 
-import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame/Content.scss';
 
 class PopupBackgroundContainer extends React.Component {
   constructor(props) {
@@ -16,6 +16,7 @@ class PopupBackgroundContainer extends React.Component {
     this.state = {
       image: popupData.bg_image,
       bigSize: false,
+      color: popupData.bg_overlay,
     };
   }
 
@@ -31,7 +32,7 @@ class PopupBackgroundContainer extends React.Component {
       color = value;
     }
     const { popupData } = this.props;
-    popupData[trigger] = color;
+    popupData.bg_overlay = color;
   };
 
   handleChangeImage = e => {
@@ -66,8 +67,8 @@ class PopupBackgroundContainer extends React.Component {
 
   render() {
     const { handleCloseTabContent, tabValue } = this.props;
-    const { image, bigSize } = this.state;
-    console.log(image);
+    const { image, bigSize, color } = this.state;
+
     return (
       <TabContentComponent
         title="Popup Background"
@@ -105,7 +106,7 @@ class PopupBackgroundContainer extends React.Component {
 
         <ChooseColorContainer
           title="Overlay color"
-          color="red"
+          color={color}
           handleEditColor={this.handleEditColor('bg_overlay')}
         />
       </TabContentComponent>

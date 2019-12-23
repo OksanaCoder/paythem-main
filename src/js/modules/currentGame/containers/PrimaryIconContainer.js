@@ -6,7 +6,7 @@ import { TrashIcon } from 'assets/images/icons';
 import { PARAMS } from 'config';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 
-import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame/PrimaryIcon.scss';
 
 class PrimaryIconContainer extends React.Component {
   constructor(props) {
@@ -17,6 +17,15 @@ class PrimaryIconContainer extends React.Component {
       image: iconData.icon,
       bigSize: false,
     };
+  }
+
+  componentDidMount() {
+    const { iconData } = this.props;
+    const image = PARAMS.widget_icons.some(e => e.url === iconData.icon);
+
+    if (image) {
+      this.setState({ image: '' });
+    }
   }
 
   handleChooseIcon = e => {

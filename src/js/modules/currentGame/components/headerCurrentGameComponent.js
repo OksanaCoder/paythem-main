@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { Button } from '@material-ui/core';
 
 import { EyeIcon2, CloseIcon2, DoneIcon, AddWidgetIcon } from 'assets/images/icons';
-import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame/DialogHeader.scss';
 
 const headerCurrentGameComponent = ({ handleClose, handleSubmit }) => {
   return (

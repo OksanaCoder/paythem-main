@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { Button } from '@material-ui/core';
 
 import { CloseIcon } from 'assets/images/icons';
-import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame/Content.scss';
 
 const TabContentComponent = ({ tabValue, handleCloseTabContent, title, description, children }) => {
   return (

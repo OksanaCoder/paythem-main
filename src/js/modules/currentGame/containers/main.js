@@ -32,7 +32,7 @@ import GeneralSettingsContainer from 'modules/currentGame/containers/GeneralSett
 
 import presentIcon from 'assets/images/icons/present-icon.svg';
 
-import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame/Content.scss';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

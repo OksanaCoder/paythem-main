@@ -26,7 +26,9 @@ const InstallationCodeDialog = ({
             &lt;/body&gt; tag
           </h5>
           <div className={css.addWebsite__form_script} ref={textCopyToClipboard}>
-            <code>{scriptToCopy}</code>
+            <pre>
+              <code>{scriptToCopy}</code>
+            </pre>
           </div>
         </div>
 

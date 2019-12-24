@@ -15,18 +15,45 @@ import TabContentComponent from 'modules/currentGame/components/TabContentCompon
 import css from 'styles/pages/CurrentGame.scss';
 
 class StartScreenContainer extends React.Component {
-  state = {
-    name: false,
-    phone: false,
-  };
+  constructor(props) {
+    super(props);
+    const { startScreenData } = props;
+
+    this.state = {
+      name: startScreenData.form[1].checked || false,
+      phone: startScreenData.form[2].checked || false,
+      formDefault: startScreenData.form,
+    };
+  }
+
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { startScreenData } = nextProps;
+    this.setState({
+      formDefault: startScreenData.form,
+    });
+  }
 
   handleChangeCheckbox = name => event => {
-    this.setState({ [name]: event.target.checked });
+    const { startScreenData } = this.props;
+    const { formDefault } = this.state;
+
+    formDefault.forEach(item => {
+      if (item.name === name) {
+        // eslint-disable-next-line no-param-reassign
+        item.checked = event.target.checked;
+      }
+    });
+
+    startScreenData.form = formDefault;
+
+    this.setState({
+      [name]: event.target.checked,
+    });
   };
 
   handleChange = e => {
     const { name, value } = e.target;
-
     this.setState({ [name]: value });
   };
 

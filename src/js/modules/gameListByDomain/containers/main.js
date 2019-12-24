@@ -107,9 +107,11 @@ class GameListByDomain extends Component {
       },
       toggleDrawer,
       rightPanel,
-      paramsData,
+      // paramsData,
+      games,
     } = this.props;
     const { gameList, loaded, loading } = this.getGameList();
+    console.log('games', games);
 
     return (
       <section>

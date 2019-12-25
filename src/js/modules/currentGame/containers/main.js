@@ -46,7 +46,7 @@ class Main extends React.Component {
       tabValue: {
         tabs1: false,
         tabs2: false,
-        tabs3: false,
+        tabs3: 'tabBehaviour2',
       },
       paramsGlobal: PARAMS_DEFAULT,
     };

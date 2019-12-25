@@ -16,21 +16,20 @@ import { TrashIcon, DoneIcon2 } from 'assets/images/icons/';
 import css from 'styles/pages/CurrentGame/Coupons.scss';
 
 const CouponPopoverComponent = ({
-  data: { name, code, chance },
+  data: { name, code, chance, chanceReal },
   open,
   handleClose,
-  // handleChangeInput,
   handleChangeSliderRange,
   handleCoupon,
   deleteCoupon,
   dataLength,
-  id,
+  idPopover,
   anchorEl,
   couponItemEdit,
 }) => {
   return (
     <Popover
-      id={id}
+      id={idPopover}
       open={open}
       anchorEl={anchorEl}
       onClose={handleClose}
@@ -85,21 +84,25 @@ const CouponPopoverComponent = ({
                 </FormHelperText>
               )}
             </FormControl>
-            <div className={css.coupon__form_twoCol}>
-              <FormControl fullWidth className={css.form_input}>
-                <h4>Gravity / Chance</h4>
-                <Slider
-                  className={css.coupon__form_slider}
-                  onChange={handleChangeSliderRange}
-                  value={chance}
-                  defaultValue={20}
-                  valueLabelDisplay="auto"
-                  step={10}
-                  min={0}
-                  max={100}
-                />
-              </FormControl>
-            </div>
+
+            <FormControl fullWidth className={css.form_input}>
+              <h4>Gravity</h4>
+              <Slider
+                className={css.coupon__form_slider}
+                onChange={handleChangeSliderRange(couponItemEdit ? couponItemEdit.id : '')}
+                value={chance}
+                defaultValue={20}
+                valueLabelDisplay="auto"
+                step={10}
+                min={0}
+                max={100}
+              />
+            </FormControl>
+            <FormControl fullWidth className={css.form_input}>
+              <h4>Chance</h4>
+              <p>{chanceReal}</p>
+            </FormControl>
+
             <Button
               onClick={handleSubmit}
               variant="contained"
@@ -114,7 +117,12 @@ const CouponPopoverComponent = ({
                 onClick={deleteCoupon(couponItemEdit.id)}
                 variant="contained"
                 color="primary"
-                className={cx(css.button__top, css.button__top_lightBlue, css.button__top_icon)}
+                className={cx(
+                  css.button__top,
+                  css.button__top_lightBlue,
+                  css.button__top_icon,
+                  css.coupon__form_btn,
+                )}
                 disabled={dataLength <= 4}
               >
                 <TrashIcon />

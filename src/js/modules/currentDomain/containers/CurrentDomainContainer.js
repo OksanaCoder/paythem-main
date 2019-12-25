@@ -23,7 +23,6 @@ class CurrentDomainContainer extends React.Component {
     const { handleOpen, gameSelectedAction } = this.props;
 
     handleOpen('openGameFullscreenDialog')();
-    console.log(data);
     gameSelectedAction(data);
     this.forceUpdate();
   };

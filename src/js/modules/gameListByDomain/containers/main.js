@@ -16,9 +16,6 @@ class GameListByDomain extends Component {
 
   // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps.games.data.data);
-    // eslint-disable-next-line react/destructuring-assignment
-    console.log('Props', this.props.games.data.data);
     const { data: nextPropsData } = nextProps.domainSelected;
     // eslint-disable-next-line react/destructuring-assignment
     const { data } = this.props.domainSelected;
@@ -129,8 +126,6 @@ class GameListByDomain extends Component {
     } = this.props;
     const { gameList, loaded, loading } = this.getGameList();
     const { impr, hits, ctr } = this.calcTotalStatistics();
-
-    console.log('gameList', gameList);
 
     return (
       <section>

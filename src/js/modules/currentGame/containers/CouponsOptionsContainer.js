@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import uuidv5 from 'uuid';
+import { sumBy } from 'lodash';
 import cx from 'classnames';
 import { Button, Popover } from '@material-ui/core';
 
@@ -13,23 +14,35 @@ import { AddIcon } from 'assets/images/icons';
 import css from 'styles/pages/CurrentGame/Coupons.scss';
 
 class CouponsOptionsContainer extends React.Component {
-  state = {
-    open: false,
-    anchorEl: null,
-    name: '',
-    code: '',
-    chance: 10,
-    couponItemEdit: false,
-    couponsData: [],
-  };
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log(prevState);
-    const { couponsData } = nextProps;
-    return {
-      couponsData: couponsData || prevState.couponsData,
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      anchorEl: null,
+      name: '',
+      code: '',
+      chance: '',
+      chanceReal: '',
+      couponItemEdit: false,
+      couponsData: props.couponsData,
     };
   }
+
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { couponsData } = nextProps;
+    this.setState({
+      couponsData,
+    });
+  }
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   // console.log(prevState);
+  //   const { couponsData } = nextProps;
+  //   return {
+  //     couponsData: couponsData || prevState.couponsData,
+  //   };
+  // }
 
   truncateString = (str, num) => {
     if (str.length <= num) {
@@ -45,6 +58,7 @@ class CouponsOptionsContainer extends React.Component {
       name: coupon.name || '',
       code: coupon.code || '',
       chance: coupon.chance || 20,
+      chanceReal: coupon.chanceReal || 20,
       couponItemEdit: coupon || undefined,
     });
   };
@@ -53,12 +67,6 @@ class CouponsOptionsContainer extends React.Component {
     this.setState({
       open: false,
       anchorEl: null,
-    });
-  };
-
-  handleChangeSliderRange = (e, value) => {
-    this.setState({
-      chance: value,
     });
   };
 
@@ -81,39 +89,82 @@ class CouponsOptionsContainer extends React.Component {
 
   addCoupon = values => {
     console.log(values);
-    const { couponsData, chance } = this.state;
+    const { couponsData, chance, chanceReal } = this.state;
     const { name, code } = values;
     const newData = {
       id: uuidv5(),
       name,
       code,
       chance,
+      chanceReal,
     };
     couponsData.push(newData);
     return { couponsData };
   };
 
   updateCoupon = values => {
-    const { couponsData, chance, couponItemEdit } = this.state;
+    const { couponsData, chance, chanceReal, couponItemEdit } = this.state;
     const { name, code } = values;
     const { id } = couponItemEdit;
-    const couponItemUpdated = { id, name, code, chance };
+    const couponItemUpdated = { id, name, code, chance, chanceReal };
     const findIndex = couponsData.findIndex(item => item.id === id);
     couponsData.splice(findIndex, 1, couponItemUpdated);
     return { couponsData };
   };
 
   deleteCoupon = id => () => {
+    const { couponsData: couponsDataProps } = this.props;
     const { couponsData } = this.state;
-    const index = couponsData.findIndex(coupon => coupon.id === id);
-    couponsData.splice(index, 1);
-    this.setState({ couponsData });
+
+    console.log('couponsDataProps', couponsDataProps);
+    console.log('couponsDataState', couponsData);
+
+    let couponsDataUpdated = [...couponsDataProps];
+    couponsDataUpdated = couponsDataUpdated.filter(item => item.id !== id);
+
+    this.setState({ couponsData: couponsDataUpdated });
+  };
+
+  handleChangeSliderRange = idCoupon => (e, value) => {
+    const { couponsData } = this.state;
+    let couponsDataUpdated = [...couponsData];
+    let gravitySum = sumBy(couponsData, o => o.chance);
+    if (idCoupon) {
+      const coupon = couponsData.find(item => item.id === idCoupon);
+      gravitySum = gravitySum - coupon.chance + value;
+    } else {
+      gravitySum += value;
+    }
+    const chanceRealNew = ((value * 100) / gravitySum).toFixed(2);
+
+    couponsDataUpdated = couponsDataUpdated.map((item, i) => {
+      // eslint-disable-next-line no-param-reassign
+      item.chanceReal = ((item.chance * 100) / gravitySum).toFixed(2);
+      console.log('----', i, item.chanceReal);
+      return item;
+    });
+    this.setState({
+      chance: value,
+      chanceReal: chanceRealNew,
+      couponsData: couponsDataUpdated,
+    });
   };
 
   render() {
-    const { couponsData, open, name, code, chance, anchorEl, couponItemEdit } = this.state;
+    const {
+      couponsData,
+      open,
+      name,
+      code,
+      chance,
+      chanceReal,
+      anchorEl,
+      couponItemEdit,
+    } = this.state;
     const { handleCloseTabContent, tabValue } = this.props;
-    const id = open ? 'simple-popover' : undefined;
+    const idPopover = open ? 'simple-popover' : undefined;
+
+    console.log('render couponsData', couponsData);
 
     return (
       <TabContentComponent
@@ -147,14 +198,14 @@ class CouponsOptionsContainer extends React.Component {
         </Button>
 
         <CouponPopoverComponent
-          data={{ name, code, chance }}
+          data={{ name, code, chance, chanceReal }}
           open={open}
           handleClose={this.handleClosePopover}
           handleChangeInput={this.handleChangeInput}
           handleChangeSliderRange={this.handleChangeSliderRange}
           handleCoupon={this.handleSubmit}
           deleteCoupon={this.deleteCoupon}
-          id={id}
+          idPopover={idPopover}
           anchorEl={anchorEl}
           dataLength={couponsData.length}
           couponItemEdit={couponItemEdit}

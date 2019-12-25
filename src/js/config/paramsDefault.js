@@ -38,7 +38,7 @@ const PARAMS_DEFAULT = {
         {
           type: 'text',
           name: 'phone',
-          checked: true,
+          checked: false,
           placeholder: 'Phone Number',
         },
       ],

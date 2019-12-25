@@ -23,7 +23,9 @@ class CurrentDomainContainer extends React.Component {
     const { handleOpen, gameSelectedAction } = this.props;
 
     handleOpen('openGameFullscreenDialog')();
+    console.log(data);
     gameSelectedAction(data);
+    this.forceUpdate();
   };
 
   render() {
@@ -56,7 +58,11 @@ class CurrentDomainContainer extends React.Component {
                 <div>
                   <h3>Site title</h3>
                   <p>
-                    <a href="google.com" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={`http://${domainItemSelected.data.domain}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {domainItemSelected.data.domain}
                     </a>
                   </p>
@@ -129,7 +135,6 @@ class CurrentDomainContainer extends React.Component {
             <Drawer anchor="right" open={rightPanel} onClose={toggleDrawer('rightPanel', false)}>
               <GamesListComponent
                 toggleDrawer={toggleDrawer}
-                // handleOpen={handleOpen('openGameFullscreenDialog')}
                 handleChooseGame={this.handleChooseGame}
               />
             </Drawer>

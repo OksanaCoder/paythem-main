@@ -9,14 +9,13 @@ import css from 'styles/pages/CurrentGame.scss';
 
 class ProgressScreenContainer extends React.Component {
   handleSubmitForm = values => {
-    console.log(values);
-
+    const { progressScreenData, handleCloseTabContent } = this.props;
     const data = {
       title: values.title,
       subTitle: values.subTitle,
     };
-    console.log('data', data);
-    const { handleCloseTabContent } = this.props;
+    Object.assign(progressScreenData, data);
+
     handleCloseTabContent();
   };
 

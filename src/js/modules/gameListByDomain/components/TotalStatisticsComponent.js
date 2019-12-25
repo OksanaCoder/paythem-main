@@ -2,20 +2,20 @@ import React from 'react';
 
 import css from 'styles/pages/Home.scss';
 
-const TotalStatisticsComponent = () => {
+const TotalStatisticsComponent = ({ impr, hits, ctr }) => {
   return (
     <div className={css.totalStatistics}>
       <div className={css.totalStatistics__block}>
-        <h3>345</h3>
+        <h3>{impr}</h3>
         <p>Total Impressions</p>
       </div>
       <div className={css.totalStatistics__block}>
-        <h3>156</h3>
+        <h3>{hits}</h3>
         <p>Total captured emails</p>
       </div>
       <div className={css.totalStatistics__block}>
-        <h3>774</h3>
-        <p>Total ctr</p>
+        <h3>{ctr}</h3>
+        <p>Total ctr %</p>
       </div>
     </div>
   );

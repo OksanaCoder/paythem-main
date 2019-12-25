@@ -111,7 +111,7 @@ export const StartScreenSchema = () =>
       .max(70, strings.formatString(strings.validation.max, { num: 70 }))
       .required(strings.validation.required),
     startBtnLabel: Yup.string()
-      .min(3, strings.formatString(strings.validation.min, { num: 3 }))
+      .min(1, strings.formatString(strings.validation.min, { num: 1 }))
       .max(10, strings.formatString(strings.validation.max, { num: 10 }))
       .required(strings.validation.required),
   });

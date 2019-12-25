@@ -56,13 +56,6 @@ class CouponsOptionsContainer extends React.Component {
     });
   };
 
-  // handleChangeInput = e => {
-  //   const { name, value } = e.target;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // };
-
   handleChangeSliderRange = (e, value) => {
     this.setState({
       chance: value,

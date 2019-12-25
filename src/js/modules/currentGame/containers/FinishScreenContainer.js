@@ -9,15 +9,15 @@ import css from 'styles/pages/CurrentGame/Content.scss';
 
 class FinishScreenContainer extends React.Component {
   handleSubmitForm = values => {
-    console.log(values);
+    const { finishScreenData, handleCloseTabContent } = this.props;
 
     const data = {
       title: values.title,
       subTitle: values.subTitle,
       disclamerText: values.disclamerText,
     };
-    console.log('data', data);
-    const { handleCloseTabContent } = this.props;
+    Object.assign(finishScreenData, data);
+
     handleCloseTabContent();
   };
 

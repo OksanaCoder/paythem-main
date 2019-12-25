@@ -15,52 +15,12 @@ import TabContentComponent from 'modules/currentGame/components/TabContentCompon
 import css from 'styles/pages/CurrentGame.scss';
 
 class StartScreenContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    const { startScreenData } = props;
-
-    this.state = {
-      name: startScreenData.form[1].checked || false,
-      phone: startScreenData.form[2].checked || false,
-      formDefault: startScreenData.form,
-    };
-  }
-
-  // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { startScreenData } = nextProps;
-    this.setState({
-      formDefault: startScreenData.form,
-    });
-  }
-
-  handleChangeCheckbox = name => event => {
-    const { startScreenData } = this.props;
-    const { formDefault } = this.state;
-
-    formDefault.forEach(item => {
-      if (item.name === name) {
-        // eslint-disable-next-line no-param-reassign
-        item.checked = event.target.checked;
-      }
-    });
-
-    startScreenData.form = formDefault;
-
-    this.setState({
-      [name]: event.target.checked,
-    });
-  };
-
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
   handleSubmitForm = values => {
     const { startScreenData, handleCloseTabContent } = this.props;
 
     console.log(values);
+    startScreenData.form[1].checked = values.name;
+    startScreenData.form[2].checked = values.phone;
 
     const data = {
       title: values.title,
@@ -70,13 +30,14 @@ class StartScreenContainer extends React.Component {
 
     Object.assign(startScreenData, data);
 
+    console.log('startScreenData', startScreenData);
+
     handleCloseTabContent();
   };
 
   render() {
     const { tabValue, startScreenData } = this.props;
-    const { name, phone } = this.state;
-    console.log('start');
+    console.log('startScreenData', startScreenData);
 
     return (
       <Formik
@@ -84,6 +45,8 @@ class StartScreenContainer extends React.Component {
           title: startScreenData.title,
           subTitle: startScreenData.subtitle,
           startBtnLabel: startScreenData.button,
+          name: startScreenData.form[1].checked,
+          phone: startScreenData.form[2].checked,
         }}
         validationSchema={StartScreenSchema}
         onSubmit={this.handleSubmitForm}
@@ -171,9 +134,13 @@ class StartScreenContainer extends React.Component {
                   classes={{ root: css.form_checkboxLabel }}
                   control={
                     <Checkbox
-                      checked={name}
-                      onChange={this.handleChangeCheckbox('name')}
-                      value="name"
+                      checked={values.name}
+                      onChange={e => {
+                        handleChange(e);
+                        startScreenData.form[1].checked = e.target.checked;
+                      }}
+                      value={values.name}
+                      name="name"
                       color="secondary"
                     />
                   }
@@ -183,9 +150,13 @@ class StartScreenContainer extends React.Component {
                   classes={{ root: css.form_checkboxLabel }}
                   control={
                     <Checkbox
-                      checked={phone}
-                      onChange={this.handleChangeCheckbox('phone')}
-                      value="phone"
+                      checked={values.phone}
+                      onChange={e => {
+                        handleChange(e);
+                        startScreenData.form[2].checked = e.target.checked;
+                      }}
+                      value={values.phone}
+                      name="phone"
                       color="secondary"
                     />
                   }

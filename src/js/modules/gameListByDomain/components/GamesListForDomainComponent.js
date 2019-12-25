@@ -78,7 +78,7 @@ const GamesListForDomainComponent = ({
                 </li>
                 <li>
                   {gameItem.statistics.ctr.toFixed(2)}
-                  <span>ctr%</span>
+                  <span>ctr %</span>
                 </li>
                 <li>
                   <span>1 days</span>
@@ -116,7 +116,7 @@ const GamesListForDomainComponent = ({
               variant="contained"
               color="primary"
               className={cx(css.button__top, css.button__top_lightBlue, css.button__top_icon)}
-              onClick={() => handleChooseGame(gameItem)}
+              onClick={handleChooseGame(gameItem)}
             >
               <EditIcon />
             </Button>

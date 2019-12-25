@@ -18,10 +18,7 @@ class ColorSchemeContainer extends React.Component {
     };
   }
 
-  handleEditColor = trigger => value => {
-    // color format rgba
-    console.log('trigger', trigger);
-    console.log('COLOR', value);
+  handleEditColor = target => value => {
     let color = '';
     if (typeof value === 'object') {
       const { r, g, b, a } = value;
@@ -30,7 +27,7 @@ class ColorSchemeContainer extends React.Component {
       color = value;
     }
     const { colorSchemeData } = this.props;
-    colorSchemeData[trigger] = color;
+    colorSchemeData[target] = color;
   };
 
   render() {

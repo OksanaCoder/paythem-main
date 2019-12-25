@@ -110,7 +110,6 @@ class HomeContainer extends React.Component {
 
   render() {
     const { domainItemSelected } = this.props;
-    console.log('home');
     const {
       openUpdateWebsiteDialog,
       openWebsiteDialog,

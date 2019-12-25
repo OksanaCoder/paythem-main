@@ -122,6 +122,15 @@ class CouponsOptionsContainer extends React.Component {
     let couponsDataUpdated = [...couponsDataProps];
     couponsDataUpdated = couponsDataUpdated.filter(item => item.id !== id);
 
+    // const gravitySum = sumBy(couponsDataUpdated, o => o.chance);
+
+    // couponsDataUpdated = couponsDataUpdated.map((item, i) => {
+    //   // eslint-disable-next-line no-param-reassign
+    //   item.chanceReal = (item.chance * 100 / gravitySum).toFixed(2);
+    //   console.log('----', i, item.chanceReal)
+    //   return item;
+    // })
+
     this.setState({ couponsData: couponsDataUpdated });
   };
 

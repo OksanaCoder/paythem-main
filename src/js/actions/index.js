@@ -23,7 +23,6 @@ import {
 import {
   addNotification,
   removeNotification,
-  gameSettings,
   screenView,
   domainSelected,
   gameSelected,
@@ -55,7 +54,6 @@ export {
   // other
   addNotification,
   removeNotification,
-  gameSettings,
   screenView,
   domainSelected,
   gameSelected,

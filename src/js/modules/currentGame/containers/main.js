@@ -1,20 +1,10 @@
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-undef */
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
-/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
-// import cx from 'classnames';
 import { Dialog, Slide } from '@material-ui/core';
 
-import {
-  createGame,
-  gameSettings,
-  screenView,
-  addNotification,
-  updateParams,
-  getGameList,
-} from 'actions';
+import { createGame, addNotification, updateParams, getGameList } from 'actions';
 
 import { PARAMS_DEFAULT } from 'config';
 
@@ -153,7 +143,7 @@ class Main extends React.Component {
   };
 
   render() {
-    const { openGameFullscreenDialog, handleClose, gameSelected, domainSelected } = this.props;
+    const { openGameFullscreenDialog, handleClose, domainSelected } = this.props;
     const { tabValue, paramsGlobal } = this.state;
 
     return (
@@ -272,17 +262,13 @@ class Main extends React.Component {
 export default connect(
   state => ({
     domainSelected: state.other.domainSelected,
-    gameSettingsValue: state.other.gameSettingsValue,
-    screenViewValue: state.other.screenViewValue,
-    paramsData: state.get.getParams,
     gameSelected: state.other.gameSelected,
+    paramsData: state.get.getParams,
   }),
   dispatch => ({
-    updateParamsAction: (params, data) => dispatch(updateParams(params, data)),
-    screenViewAction: value => dispatch(screenView(value)),
-    gameSettingsAction: value => dispatch(gameSettings(value)),
-    createGameAction: (params, data) => dispatch(createGame(params, data)),
-    addNotificationAction: data => dispatch(addNotification(data)),
     getGameListAction: params => dispatch(getGameList(params)),
+    createGameAction: (params, data) => dispatch(createGame(params, data)),
+    updateParamsAction: (params, data) => dispatch(updateParams(params, data)),
+    addNotificationAction: data => dispatch(addNotification(data)),
   }),
 )(Main);

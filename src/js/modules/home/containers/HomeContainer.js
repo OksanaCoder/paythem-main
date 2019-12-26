@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 
 import { domainSelected, getDomains, updateDomain, createDomain, deleteDomain } from 'actions';
 import Fetching from 'components/Fetching';
-
+import WelcomeComponent from 'modules/home/components/WelcomeComponent';
 import CurrentDomainContainer from 'modules/CurrentDomain';
 import GameListByDomain from 'modules/GameListByDomain';
-import WelcomeComponent from 'pages/Admin/Home/components/WelcomeComponent';
 import STORAGE from 'helpers/storage';
 
 import css from 'styles/pages/Home.scss';

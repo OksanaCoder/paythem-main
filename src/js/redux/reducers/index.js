@@ -30,7 +30,6 @@ const reducers = combineReducers({
     domain: domain('updateDomain'),
   }),
   other: combineReducers({
-    gameSettingsValue: other('gameSettings'),
     screenViewValue: other('screenView'),
     domainSelected: other('domainSelected'),
     gameSelected: other('gameSelected'),

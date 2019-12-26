@@ -10,11 +10,6 @@ export const removeNotification = data => ({
   payload: data,
 });
 
-export const gameSettings = value => ({
-  type: type.GAME_SETTINGS_ADD,
-  payload: value,
-});
-
 export const screenView = value => ({
   type: type.SCREEN_VIEW_ADD,
   payload: value,

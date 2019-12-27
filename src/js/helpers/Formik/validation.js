@@ -122,7 +122,7 @@ export const ProgressScreenSchema = () =>
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .max(50, strings.formatString(strings.validation.max, { num: 50 }))
       .required(strings.validation.required),
-    subTitle: Yup.string()
+    subtitle: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .max(50, strings.formatString(strings.validation.max, { num: 50 }))
       .required(strings.validation.required),

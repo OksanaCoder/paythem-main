@@ -1,0 +1,429 @@
+.PtwModalRoot,
+.PtwModalRoot *,
+.PtwWidgetButton,
+.PtwWidgetButton *,
+.PtwModalRootForm,
+.PtwModalRootForm *,
+.PtwWidget,
+.PtwWidget *,
+.PtwModalRootWin,
+.PtwModalRootWin *,
+.PtwModalRootWinCoupon,
+.PtwModalRootWinCoupon * {
+  box-sizing: border-box !important;
+  outline: 0 !important;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.PtwModalRootGame {
+  position: absolute;
+  bottom: -240px;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100%;
+  &__indicator {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    height: 40px;
+    left: 50%;
+    margin-left: -20px;
+    top: 15px;
+    width: 40px;
+  }
+  &__roullete {
+    border: 3px solid #ddd;
+    height: 480px;
+    width: 100%;
+    border-radius: 50%;
+  }
+  // &_hide {
+  //   @extend .slide-out-blurred-bottom;
+  // }
+}
+
+.PtwModalRootForm {
+  background-color: #FFFFFF;
+  box-shadow: 0 8px 16px 0 rgba(113,153,195,0.32);
+  bottom: 100px;
+  border-radius: 8px;
+  display: flex;
+  padding: 30px;
+  position: absolute;
+  flex-direction: column;
+  max-width: 320px;
+  left: 50%;
+  margin-left: -160px;
+  z-index: 2;
+  width: 100%;
+  @media screen and (max-width: 450px) {
+    max-width: 256px;
+    margin-left: -128px;
+    padding: 24px;
+  }
+  @media screen and (max-width: 370px) {
+    max-width: 240px;
+    margin-left: -120px;
+    padding: 20px;
+  }
+  &:after{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    margin-left: -15px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 15px 0 15px;
+    border-color: #ffffff transparent transparent transparent;
+  }
+  &__item {
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &__input {
+    background-color: rgba(206,225,246,0.1);
+    border: 1px solid #CEE1F6;
+    border-radius: 4px;
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #899BB0;
+    width: 100%;
+    @media screen and (max-width: 450px) {
+      font-size: 13px;
+      padding: 8px 13px;
+    }
+  }
+  &__error {
+    // position: absolute;
+    // bottom: 0;
+    // left: 0;
+    font-size: 11px;
+    color: red;
+  }
+
+  // &_start {
+  //   @extend .fade-in-top;
+  // }
+  // &_error {
+  //   @extend .shake-horizontal;
+  // }
+  // &_hide {
+  //   @extend .slide-out-blurred-top;
+  // }
+}
+
+
+.PtwModalRoot {
+  &__container {
+    border: 0;
+    border-radius: 12px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.6);
+    display: flex;
+    margin: auto;
+    outline: 0;
+    opacity: 1;
+    padding: 15px;
+    position: relative;
+    max-width: 720px;
+    min-height: 680px;
+    width: 100%;
+    @media screen and (max-width: 450px) {
+      border-radius: 0;
+      height: 100%;
+    }
+  }
+  &__dialog {
+    background-color: #fff;
+    border-radius: 12px;
+    position: relative;
+    // overflow: hidden;
+    margin: auto;
+    max-width: 484px;
+    width: 100%;
+    z-index: 10;
+  }
+  &__inner {
+    overflow: hidden;
+    min-height: 468px;
+    padding-top: 15px;
+    position: relative;
+    width: 100%;
+    @media screen and (max-width: 450px) {
+      min-height: 425px;
+    }
+  }
+  &__icon {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 40px 38px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: -52px;
+    margin-left: -52px;
+    height: 104px;
+    width: 104px;
+    z-index: -1;
+    @media screen and (max-width: 680px) {
+      top: -40px;
+      margin-left: -40px;
+      height: 80px;
+      width: 80px;
+    }
+  }
+  &__title {
+    padding: 0 15px;
+    margin: 20px 0;
+    font-weight: 800;
+    font-size: 24px;
+    text-align: center;
+    @media screen and (max-width: 450px) {
+      padding: 10px 0;
+      margin: 0 10px;
+      font-size: 18px;
+    }
+  }
+  &__subtitle {
+    margin: 20px 0;
+    padding: 0 15px;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-align: center;
+    line-height: 1.5em;
+    max-width: 330px;
+    opacity: .7;
+    margin: auto;
+    @media screen and (max-width: 450px) {
+      padding: 0 10px;
+      margin: 10px 0;
+    }
+  }
+  &__button {
+    align-items: baseline;
+    border-radius: 50%;
+    border: 0;
+    box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, .08) inset;
+    bottom: -60px;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    margin-left: -60px;
+    left: 50%;
+    font-size: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: all 0.18s ease-in-out 0s;
+    width: 120px;
+    height: 120px;
+    z-index: 1;
+    &:active {
+      box-shadow: 4px 4px 30px rgba(0, 0, 0, .3) inset;
+      transform: scale(.9);
+    }
+    @media screen and (max-width: 450px) {
+      bottom: -30px;
+    }
+    // &_hide {
+    //   @extend .slide-out-blurred-bottom;
+    // }
+    span{
+      position: absolute;
+      top: 22%;
+      left: 0;
+      width: 100%;
+      @media screen and (max-width: 450px) {
+        top: 35%;
+      }
+    }
+  }
+  &__close {
+    position: absolute;
+    border: 0;
+    right: 24px;
+    top: 24px;
+    font-size: 20px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 13px;
+      height: 13px;
+      margin-left: -7px;
+      margin-top: -7px;
+      opacity: 0.3;
+      &:hover{
+        opacity: 1;
+      }
+      &:before, &:after {
+        content: ' ';
+        position: absolute;
+        height: 14px;
+        width: 2px;
+        background-color: #333;
+      }
+      &:before {
+        transform: rotate(45deg);
+      }
+      &:after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+  &_default {
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.PtwWidget {
+  align-items: center;
+  display: flex;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  z-index: 16777271;
+  &__button {
+    // @extend .fade-in-right;
+    background: none;
+    border: 0;
+    padding: 0;
+    right: 60px;
+    position: relative;
+    cursor: pointer;
+    // &_hide {
+    //   @extend .fade-out-right;
+    // }
+  }
+  &__inner {
+    align-items: center;
+    display: flex;
+    box-sizing: border-box;
+    border: 1px solid #CEE1F6;
+    border-radius: 4px;
+    min-width: 50px;
+    min-height: 143px;
+    padding: 50px 0 15px;
+    color: #323232;
+    font-family: "Open Sans";
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    writing-mode: tb-rl;
+  }
+  &__icon {
+    background-size: 28px 28px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: 28px;
+    transform: rotate(180deg);
+    height: 28px;
+    position: absolute;
+    top: 4px;
+  }
+}
+
+.PtwModalRootWin {
+  position: relative;
+  max-width: 430px;
+  margin: auto;
+  padding: 20px;
+  &__logo {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    background-color: transparent;
+    margin: 16px 0;
+    height: 32px;
+    width: 100%;
+  }
+  &__wrap {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  &__button {
+    cursor: pointer;
+    border-radius: 4px;
+    border: 4px solid #FF5151;
+    background-color: #FF6262;
+    color: #FFFFFF !important;
+    display: block;
+    font-size: 14px !important;
+    text-transform: uppercase;
+    padding: 6px 15px;
+    font-weight: bold !important;
+    min-width: 150px;
+    transition: all .2s ease-in-out 0s;
+    text-align: center;
+    &:hover {
+      background-color: #e43f3f;
+      border: 4px solid #e43f3f;
+    }
+  }
+  &__info {
+    opacity: 0.7;
+    padding-top: 5px;
+    color: #303F5E;
+    font-family: "Open Sans";
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.PtwModalRootWinCoupon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='392px' height='156px' viewBox='0 0 392 156' version='1.1'%3E%3C!-- Generator: sketchtool 60.1 (101010) - https://sketch.com --%3E%3Ctitle%3E4E9FA60A-C1DC-4729-A7EE-7A7553DDC1C7%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cdefs%3E%3Cpath d='M372,164 C376.418278,164 380,167.581722 380,172 L380,206 C368.954305,206 360,214.954305 360,226 C360,237.045695 368.954305,246 380,246 L380,280 C380,284.418278 376.418278,288 372,288 L28,288 C23.581722,288 20,284.418278 20,280 L20,246 L20,246 C31.045695,246 40,237.045695 40,226 C40,214.954305 31.045695,206 20,206 L20,172 C20,167.581722 23.581722,164 28,164 L372,164 Z' id='path-1'/%3E%3Cfilter x='-7.8%25' y='-16.1%25' width='115.6%25' height='145.2%25' filterUnits='objectBoundingBox' id='filter-2'%3E%3CfeOffset dx='0' dy='8' in='SourceAlpha' result='shadowOffsetOuter1'/%3E%3CfeGaussianBlur stdDeviation='8' in='shadowOffsetOuter1' result='shadowBlurOuter1'/%3E%3CfeColorMatrix values='0 0 0 0 0.443222398 0 0 0 0 0.600724303 0 0 0 0 0.7637851 0 0 0 0.32 0' type='matrix' in='shadowBlurOuter1'/%3E%3C/filter%3E%3C/defs%3E%3Cg id='App-Mockups' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='L---Editor---12---finish-screen-hover' transform='translate(-800.000000, -521.000000)'%3E%3Cg id='POPUP' transform='translate(636.000000, 205.000000)'%3E%3Cg id='popup-cpntent' transform='translate(120.000000, 68.000000)'%3E%3Cg id='text-content' transform='translate(40.000000, 92.000000)'%3E%3Cg id='Combined-Shape'%3E%3Cuse fill='black' fill-opacity='1' filter='url(%23filter-2)' xlink:href='%23path-1'/%3E%3Cuse fill='%23FFFFFF' fill-rule='evenodd' xlink:href='%23path-1'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  position: relative;
+  padding: 24px;
+  text-align: center;
+  width: 360px;
+  height: 150px;
+  margin: 0 auto 10px auto;
+
+  &__title {
+    color: #FF5151;
+    font-size: 24px !important;
+    margin: 0 !important;
+    font-weight: 800 !important;
+    line-height: 24px;
+  }
+  &__subtitle {
+    opacity: 0.7;
+    color: #303F5E !important;
+    font-size: 12px !important;
+    line-height: 16px;
+    margin: 0 !important;
+  }
+  &__code {
+    color: #303F5E !important;
+    text-transform: uppercase;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    line-height: 24px;
+    margin: 0 !important;
+  }
+}

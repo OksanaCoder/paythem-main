@@ -37,17 +37,17 @@ const TabsArr2 = [
   {
     label: 'Start Screen',
     icon: CounterIcon1,
-    value: 'tabContent1',
+    value: 'tabContentStartView',
   },
   {
     label: 'Progress Screen',
     icon: CounterIcon2,
-    value: 'tabContent2',
+    value: 'tabContentProgressView',
   },
   {
     label: 'Finish Screen',
     icon: CounterIcon3,
-    value: 'tabContent3',
+    value: 'tabContentFinishView',
   },
 ];
 

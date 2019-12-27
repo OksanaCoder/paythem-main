@@ -8,28 +8,47 @@ import TabContentComponent from 'modules/currentGame/components/TabContentCompon
 import css from 'styles/pages/CurrentGame/Content.scss';
 
 class FinishScreenContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    const { finishScreenData } = props;
+
+    this.state = {
+      finishScreenDataDefault: finishScreenData,
+    };
+  }
+
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { finishScreenData } = nextProps;
+    this.setState({
+      finishScreenDataDefault: finishScreenData,
+    });
+  }
+
   handleSubmitForm = values => {
     const { finishScreenData, handleCloseTabContent } = this.props;
 
     const data = {
       title: values.title,
-      subTitle: values.subTitle,
-      disclamerText: values.disclamerText,
+      subtitle: values.subtitle,
+      privacy: values.privacy,
     };
+    console.log('finishScreenData1', finishScreenData);
     Object.assign(finishScreenData, data);
-
+    console.log('finishScreenData2', finishScreenData);
     handleCloseTabContent();
   };
 
   render() {
-    const { tabValue, finishScreenData } = this.props;
+    const { tabValue } = this.props;
+    const { finishScreenDataDefault } = this.state;
 
     return (
       <Formik
         initialValues={{
-          title: finishScreenData.title,
-          subTitle: finishScreenData.subtitle,
-          disclamerText: finishScreenData.privacy,
+          title: finishScreenDataDefault.title,
+          subtitle: finishScreenDataDefault.subtitle,
+          privacy: finishScreenDataDefault.privacy,
         }}
         validationSchema={ProgressScreenSchema}
         onSubmit={this.handleSubmitForm}
@@ -49,7 +68,7 @@ class FinishScreenContainer extends React.Component {
                   placeholder="Almost there! And you got…"
                   onChange={e => {
                     handleChange(e);
-                    finishScreenData.subtitle = e.target.value;
+                    finishScreenDataDefault.title = e.target.value;
                   }}
                   error={errors.title && touched.title}
                   value={values.title}
@@ -63,19 +82,19 @@ class FinishScreenContainer extends React.Component {
               <FormControl fullWidth className={css.form_input}>
                 <h4>Sub Title</h4>
                 <TextField
-                  name="subTitle"
+                  name="subtitle"
                   placeholder="Please wait few second"
                   multiline
                   variant="outlined"
                   onChange={e => {
                     handleChange(e);
-                    finishScreenData.subtitle = e.target.value;
+                    finishScreenDataDefault.subtitle = e.target.value;
                   }}
-                  error={errors.subTitle && touched.subTitle}
-                  value={values.subTitle}
+                  error={errors.subtitle && touched.subtitle}
+                  value={values.subtitle}
                 />
-                {errors.subTitle && touched.subTitle && (
-                  <FormHelperText className={css.form_inputError}>{errors.subTitle}</FormHelperText>
+                {errors.subtitle && touched.subtitle && (
+                  <FormHelperText className={css.form_inputError}>{errors.subtitle}</FormHelperText>
                 )}
               </FormControl>
 
@@ -86,15 +105,15 @@ class FinishScreenContainer extends React.Component {
               <FormControl fullWidth className={css.form_input}>
                 <h4>Disclamer Text</h4>
                 <TextField
-                  name="disclamerText"
+                  name="privacy"
                   placeholder="In order to use this discount add it to the relevant field in checkout"
                   multiline
                   variant="outlined"
                   onChange={e => {
                     handleChange(e);
-                    finishScreenData.privacy = e.target.value;
+                    finishScreenDataDefault.privacy = e.target.value;
                   }}
-                  value={values.disclamerText}
+                  value={values.privacy}
                 />
               </FormControl>
             </form>

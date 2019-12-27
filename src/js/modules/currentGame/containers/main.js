@@ -1,10 +1,5 @@
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
-// import cx from 'classnames';
 import { Dialog, Slide } from '@material-ui/core';
 
 import {
@@ -14,6 +9,7 @@ import {
   addNotification,
   updateParams,
   getGameList,
+  widgetView,
 } from 'actions';
 
 import { PARAMS_DEFAULT } from 'config';
@@ -29,8 +25,9 @@ import ProgressScreenContainer from 'modules/currentGame/containers/ProgressScre
 import FinishScreenContainer from 'modules/currentGame/containers/FinishScreenContainer';
 import PrimaryIconContainer from 'modules/currentGame/containers/PrimaryIconContainer';
 import GeneralSettingsContainer from 'modules/currentGame/containers/GeneralSettingsContainer';
-
-import presentIcon from 'assets/images/icons/present-icon.svg';
+import WidgetComponent from 'modules/currentGame/components/WidgetComponent';
+import ProgressWidgetComponent from 'modules/currentGame/components/ProgressWidgetComponent';
+import FinishWidgetComponent from 'modules/currentGame/components/FinishWidgetComponent';
 
 import css from 'styles/pages/CurrentGame/Content.scss';
 
@@ -46,12 +43,13 @@ class Main extends React.Component {
       tabValue: {
         tabs1: false,
         tabs2: false,
-        tabs3: 'tabBehaviour2',
+        tabs3: false,
       },
       paramsGlobal: PARAMS_DEFAULT,
     };
   }
 
+  // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps) {
     const {
       paramsData: { loaded, data },
@@ -134,15 +132,18 @@ class Main extends React.Component {
 
   handleChangeTabsIntegration = target => (e, value) => {
     const { tabValue } = this.state;
+    const { widgetViewAction } = this.props;
     this.setState({
       tabValue: {
         ...tabValue,
         [target]: value,
       },
     });
+    widgetViewAction(value);
   };
 
   handleCloseTabContent = () => {
+    const { widgetViewAction } = this.props;
     this.setState({
       tabValue: {
         tabs1: false,
@@ -150,12 +151,24 @@ class Main extends React.Component {
         tabs3: false,
       },
     });
+    widgetViewAction('');
+  };
+
+  renderWidgetView = () => {
+    const { widgetViewValue } = this.props;
+    if (widgetViewValue === 'tabContentProgressView') {
+      return <ProgressWidgetComponent />;
+    }
+    if (widgetViewValue === 'tabContentFinishView') {
+      return <FinishWidgetComponent />;
+    }
+    return <WidgetComponent />;
   };
 
   render() {
-    const { openGameFullscreenDialog, handleClose, gameSelected, domainSelected } = this.props;
+    const { openGameFullscreenDialog, handleClose, domainSelected, widgetViewValue } = this.props;
     const { tabValue, paramsGlobal } = this.state;
-
+    console.log('widgetViewValue', widgetViewValue);
     return (
       <Dialog
         fullScreen
@@ -200,26 +213,26 @@ class Main extends React.Component {
                 />
               )}
 
-              {tabValue.tabs2 === 'tabContent1' && (
+              {tabValue.tabs2 === 'tabContentStartView' && (
                 <StartScreenContainer
                   handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabContent1"
+                  tabValue="tabContentStartView"
                   startScreenData={paramsGlobal.content.start}
                 />
               )}
 
-              {tabValue.tabs2 === 'tabContent2' && (
+              {tabValue.tabs2 === 'tabContentProgressView' && (
                 <ProgressScreenContainer
                   handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabContent2"
+                  tabValue="tabContentProgressView"
                   progressScreenData={paramsGlobal.content.progress}
                 />
               )}
 
-              {tabValue.tabs2 === 'tabContent3' && (
+              {tabValue.tabs2 === 'tabContentFinishView' && (
                 <FinishScreenContainer
                   handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabContent3"
+                  tabValue="tabContentFinishView"
                   finishScreenData={paramsGlobal.content.finish}
                 />
               )}
@@ -250,7 +263,7 @@ class Main extends React.Component {
               )}
             </div>
             <div className={css.currentGame__content_game}>
-              <div className={css.currentGame__content_gameBlock} />
+              <div className={css.currentGame__content_gameBlock}>{this.renderWidgetView()}</div>
               <div className={css.currentGame__content_gameTrigger}>
                 <button type="button" className={css.currentGame__content_gameWidget}>
                   <h3 style={{ color: paramsGlobal.behavior.trigger_button.text_color }}>
@@ -273,9 +286,9 @@ export default connect(
   state => ({
     domainSelected: state.other.domainSelected,
     gameSettingsValue: state.other.gameSettingsValue,
-    screenViewValue: state.other.screenViewValue,
     paramsData: state.get.getParams,
     gameSelected: state.other.gameSelected,
+    widgetViewValue: state.other.widgetViewValue.data,
   }),
   dispatch => ({
     updateParamsAction: (params, data) => dispatch(updateParams(params, data)),
@@ -284,5 +297,6 @@ export default connect(
     createGameAction: (params, data) => dispatch(createGame(params, data)),
     addNotificationAction: data => dispatch(addNotification(data)),
     getGameListAction: params => dispatch(getGameList(params)),
+    widgetViewAction: params => dispatch(widgetView(params)),
   }),
 )(Main);

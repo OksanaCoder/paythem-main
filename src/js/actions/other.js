@@ -20,6 +20,11 @@ export const screenView = value => ({
   payload: value,
 });
 
+export const widgetView = value => ({
+  type: type.WIDGET_VIEW_ADD,
+  payload: value,
+});
+
 export const domainSelected = data => ({
   type: type.DOMAIN_SELECTED_ADD,
   payload: data,

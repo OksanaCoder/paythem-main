@@ -29,12 +29,12 @@ class CouponsOptionsContainer extends React.Component {
   }
 
   // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { couponsData } = nextProps;
-    this.setState({
-      couponsData,
-    });
-  }
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   const { couponsData } = nextProps;
+  //   this.setState({
+  //     couponsData,
+  //   });
+  // }
 
   // static getDerivedStateFromProps(nextProps, prevState) {
   //   // console.log(prevState);
@@ -71,7 +71,7 @@ class CouponsOptionsContainer extends React.Component {
   };
 
   handleSubmit = values => {
-    console.log(values);
+    let { couponsData: couponsDataProps } = this.props;
     const { couponItemEdit } = this.state;
     let couponsDataUpdated = [];
     if (!couponItemEdit) {
@@ -85,6 +85,8 @@ class CouponsOptionsContainer extends React.Component {
       open: false,
       couponsData: couponsDataUpdated,
     });
+    console.log('couponsDataProps', couponsDataProps);
+    couponsDataProps = couponsDataUpdated;
   };
 
   addCoupon = values => {
@@ -113,7 +115,7 @@ class CouponsOptionsContainer extends React.Component {
   };
 
   deleteCoupon = id => () => {
-    const { couponsData: couponsDataProps } = this.props;
+    let { couponsData: couponsDataProps } = this.props;
     const { couponsData } = this.state;
 
     console.log('couponsDataProps', couponsDataProps);
@@ -122,16 +124,18 @@ class CouponsOptionsContainer extends React.Component {
     let couponsDataUpdated = [...couponsDataProps];
     couponsDataUpdated = couponsDataUpdated.filter(item => item.id !== id);
 
-    // const gravitySum = sumBy(couponsDataUpdated, o => o.chance);
+    const gravitySum = sumBy(couponsDataUpdated, o => o.chance);
 
-    // couponsDataUpdated = couponsDataUpdated.map((item, i) => {
-    //   // eslint-disable-next-line no-param-reassign
-    //   item.chanceReal = (item.chance * 100 / gravitySum).toFixed(2);
-    //   console.log('----', i, item.chanceReal)
-    //   return item;
-    // })
+    couponsDataUpdated = couponsDataUpdated.map((item, i) => {
+      // eslint-disable-next-line no-param-reassign
+      item.chanceReal = ((item.chance * 100) / gravitySum).toFixed(2);
+      return item;
+    });
 
     this.setState({ couponsData: couponsDataUpdated });
+    couponsDataProps = couponsDataUpdated;
+
+    this.handleClosePopover();
   };
 
   handleChangeSliderRange = idCoupon => (e, value) => {

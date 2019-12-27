@@ -32,6 +32,7 @@ const reducers = combineReducers({
   other: combineReducers({
     gameSettingsValue: other('gameSettings'),
     screenViewValue: other('screenView'),
+    widgetViewValue: other('widgetView'),
     domainSelected: other('domainSelected'),
     gameSelected: other('gameSelected'),
   }),

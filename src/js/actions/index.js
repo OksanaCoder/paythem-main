@@ -25,6 +25,7 @@ import {
   removeNotification,
   gameSettings,
   screenView,
+  widgetView,
   domainSelected,
   gameSelected,
   // updateCoupon,
@@ -57,6 +58,7 @@ export {
   removeNotification,
   gameSettings,
   screenView,
+  widgetView,
   domainSelected,
   gameSelected,
 };

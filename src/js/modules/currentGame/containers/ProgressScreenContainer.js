@@ -12,7 +12,7 @@ class ProgressScreenContainer extends React.Component {
     const { progressScreenData, handleCloseTabContent } = this.props;
     const data = {
       title: values.title,
-      subTitle: values.subTitle,
+      subtitle: values.subtitle,
     };
     Object.assign(progressScreenData, data);
 
@@ -26,7 +26,7 @@ class ProgressScreenContainer extends React.Component {
       <Formik
         initialValues={{
           title: progressScreenData.title,
-          subTitle: progressScreenData.subtitle,
+          subtitle: progressScreenData.subtitle,
         }}
         validationSchema={ProgressScreenSchema}
         onSubmit={this.handleSubmitForm}
@@ -62,7 +62,7 @@ class ProgressScreenContainer extends React.Component {
               <FormControl fullWidth className={css.form_input}>
                 <h4>Sub Title</h4>
                 <TextField
-                  name="subTitle"
+                  name="subtitle"
                   placeholder="One of our awesome gifts already yours! One step more to receive it."
                   multiline
                   variant="outlined"
@@ -70,12 +70,12 @@ class ProgressScreenContainer extends React.Component {
                     handleChange(e);
                     progressScreenData.subtitle = e.target.value;
                   }}
-                  error={errors.subTitle && touched.subTitle}
-                  value={values.subTitle}
+                  error={errors.subtitle && touched.subtitle}
+                  value={values.subtitle}
                 />
-                {errors.subTitle && touched.subTitle && (
+                {errors.subtitle && touched.subtitle && (
                   <FormHelperText className={css.form_inputError} id="error-text">
-                    {errors.subTitle}
+                    {errors.subtitle}
                   </FormHelperText>
                 )}
               </FormControl>

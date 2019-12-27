@@ -32,13 +32,13 @@ const PARAMS_DEFAULT = {
         {
           type: 'text',
           name: 'name',
-          checked: true,
+          checked: false,
           placeholder: 'Full Name',
         },
         {
           type: 'text',
           name: 'phone',
-          checked: false,
+          checked: true,
           placeholder: 'Phone Number',
         },
       ],

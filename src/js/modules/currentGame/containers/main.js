@@ -42,21 +42,54 @@ class Main extends React.Component {
     };
   }
 
-  updateGameParamsByDomainAndGameId = () => {
-    const { updateParamsAction, gameSelected, domainSelected } = this.props;
+  updateGameParamsByGameId = () => {
+    const {
+      updateParamsAction,
+      gameSelected,
+      domainSelected,
+      getParamsDefault: { data },
+    } = this.props;
     const domainId = domainSelected.data._id;
     const gameId = gameSelected.data._id;
-    const { paramsGlobal } = this.state;
-    const params = { domainId, gameId };
-    const data = { params: paramsGlobal };
+
+    const queryParams = {
+      domainId,
+      gameId,
+    };
+    const dataParams = {
+      params: data,
+    };
     const notice = {
       success: 'Game updated',
       error: 'Game update error',
     };
-    updateParamsAction(params, data).then(res => this.results(res, notice, false));
+
+    updateParamsAction(queryParams, dataParams).then(res => this.results(res, notice, false));
   };
 
-  results = (res, notice, isCreated) => {
+  addGameByDomainId = () => {
+    const {
+      createGameAction,
+      gameSelected,
+      domainSelected,
+      getParamsDefault: { data },
+    } = this.props;
+    const queryParams = {
+      domainId: domainSelected.data._id,
+    };
+    const dataParams = {
+      game: gameSelected.data.name,
+      params: data,
+    };
+    const notice = {
+      success: 'Game created',
+      error: 'Game error',
+    };
+
+    createGameAction(queryParams, dataParams).then(res => this.results(res, notice, true));
+  };
+
+  results = (res, notice) => {
     const { addNotificationAction } = this.props;
     if (res.error) {
       addNotificationAction({
@@ -66,31 +99,11 @@ class Main extends React.Component {
       return false;
     }
 
-    if (isCreated) {
-      this.setState({ paramsGlobal: PARAMS_DEFAULT });
-    } else {
-      // this.loadParamsByDomainAndGameIds();
-    }
-
     addNotificationAction({
       type: 'success',
       text: notice.success,
     });
     return false;
-  };
-
-  addGameByDomainId = () => {
-    const { createGameAction, gameSelected, domainSelected } = this.props;
-    const { paramsGlobal } = this.state;
-
-    const params = { domainId: domainSelected.data._id };
-    const data = { game: gameSelected.data.name, params: paramsGlobal };
-
-    const notice = {
-      success: 'Game created',
-      error: 'Game error',
-    };
-    createGameAction(params, data).then(res => this.results(res, notice, true));
   };
 
   handleSubmit = () => {
@@ -99,12 +112,12 @@ class Main extends React.Component {
     const gameId = gameSelected.data._id;
 
     if (domainId && gameId) {
-      this.updateGameParamsByDomainAndGameId();
+      this.updateGameParamsByGameId();
     } else {
       this.addGameByDomainId();
-      const params = { domainId };
-      getGameListAction(params);
+      getGameListAction({ domainId });
     }
+
     // Close fullscreen dialog
     handleClose();
     this.handleCloseTabContent();
@@ -121,13 +134,17 @@ class Main extends React.Component {
   };
 
   handleCloseTabContent = e => {
-    this.setState({
-      tabValue: {
-        tabs1: false,
-        tabs2: false,
-        tabs3: false,
+    const { paramsDefaultAction } = this.props;
+    this.setState(
+      {
+        tabValue: {
+          tabs1: false,
+          tabs2: false,
+          tabs3: false,
+        },
       },
-    });
+      () => paramsDefaultAction(),
+    );
   };
 
   render() {
@@ -260,8 +277,8 @@ export default connect(
   state => ({
     domainSelected: state.other.domainSelected,
     gameSelected: state.other.gameSelected,
-    paramsData: state.get.getParams,
     getParamsDefault: state.get.getParamsDefault,
+    paramsData: state.get.getParams,
   }),
   dispatch => ({
     paramsDefaultAction: params => dispatch(paramsDefault(params)),

@@ -1,4 +1,5 @@
 import * as type from 'constants/other';
+import { PARAMS_DEFAULT } from 'config';
 
 export const addNotification = data => ({
   type: type.NOTIFICATION_ADD,
@@ -8,16 +9,6 @@ export const addNotification = data => ({
 export const removeNotification = data => ({
   type: type.NOTIFICATION_REMOVE,
   payload: data,
-});
-
-export const gameSettings = value => ({
-  type: type.GAME_SETTINGS_ADD,
-  payload: value,
-});
-
-export const screenView = value => ({
-  type: type.SCREEN_VIEW_ADD,
-  payload: value,
 });
 
 export const widgetView = value => ({
@@ -33,4 +24,10 @@ export const domainSelected = data => ({
 export const gameSelected = data => ({
   type: type.GAME_SELECTED_ADD,
   payload: data,
+});
+
+export const paramsDefault = (data = PARAMS_DEFAULT, errors = {}) => ({
+  type: type.PARAMS_DEFAULT_UPDATE,
+  payload: data,
+  errors,
 });

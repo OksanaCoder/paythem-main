@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { Button } from '@material-ui/core';
 import { TrashIcon } from 'assets/images/icons';
 
-import { PARAMS } from 'config';
+import { WIDGET_ICONS } from 'config';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 
 import css from 'styles/pages/CurrentGame/PrimaryIcon.scss';
@@ -21,7 +21,7 @@ class PrimaryIconContainer extends React.Component {
 
   componentDidMount() {
     const { iconData } = this.props;
-    const image = PARAMS.widget_icons.some(e => e.url === iconData.icon);
+    const image = WIDGET_ICONS.some(e => e.url === iconData.icon);
 
     if (image) {
       this.setState({ image: '' });
@@ -65,9 +65,9 @@ class PrimaryIconContainer extends React.Component {
     this.setState({
       image: '',
       bigSize: false,
-      activeIcon: PARAMS.widget_icons[0].url,
+      activeIcon: WIDGET_ICONS[0].url,
     });
-    iconData.icon = PARAMS.widget_icons[0].url;
+    iconData.icon = WIDGET_ICONS[0].url;
   };
 
   render() {
@@ -83,7 +83,7 @@ class PrimaryIconContainer extends React.Component {
       >
         <h4>Predefined Icons</h4>
         <ul className={css.currentGame__iconsList}>
-          {PARAMS.widget_icons.map(icon => (
+          {WIDGET_ICONS.map(icon => (
             <li
               key={icon.name}
               className={activeIcon === icon.url ? css.currentGame__activeIcon : null}

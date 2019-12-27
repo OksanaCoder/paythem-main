@@ -1,17 +1,17 @@
+/* eslint-disable camelcase */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Dialog, Slide } from '@material-ui/core';
 
 import {
   createGame,
-  gameSettings,
-  screenView,
   addNotification,
   updateParams,
   getGameList,
+  paramsDefault,
   widgetView,
 } from 'actions';
-
 import { PARAMS_DEFAULT } from 'config';
 
 import HeaderCurrentGameComponent from 'modules/currentGame/components/HeaderCurrentGameComponent';
@@ -49,34 +49,54 @@ class Main extends React.Component {
     };
   }
 
-  // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  updateGameParamsByGameId = () => {
     const {
-      paramsData: { loaded, data },
-    } = nextProps;
-    const params = loaded && data.data.data.params;
-    if (loaded) {
-      this.setState({
-        paramsGlobal: params,
-      });
-    }
-  }
-
-  updateGameParamsByDomainAndGameId = () => {
-    const { updateParamsAction, gameSelected, domainSelected } = this.props;
+      updateParamsAction,
+      gameSelected,
+      domainSelected,
+      getParamsDefault: { data },
+    } = this.props;
     const domainId = domainSelected.data._id;
     const gameId = gameSelected.data._id;
-    const { paramsGlobal } = this.state;
-    const params = { domainId, gameId };
-    const data = { params: paramsGlobal };
+
+    const queryParams = {
+      domainId,
+      gameId,
+    };
+    const dataParams = {
+      params: data,
+    };
     const notice = {
       success: 'Game updated',
       error: 'Game update error',
     };
-    updateParamsAction(params, data).then(res => this.results(res, notice, false));
+
+    updateParamsAction(queryParams, dataParams).then(res => this.results(res, notice, false));
   };
 
-  results = (res, notice, isCreated) => {
+  addGameByDomainId = () => {
+    const {
+      createGameAction,
+      gameSelected,
+      domainSelected,
+      getParamsDefault: { data },
+    } = this.props;
+    const queryParams = {
+      domainId: domainSelected.data._id,
+    };
+    const dataParams = {
+      game: gameSelected.data.name,
+      params: data,
+    };
+    const notice = {
+      success: 'Game created',
+      error: 'Game error',
+    };
+
+    createGameAction(queryParams, dataParams).then(res => this.results(res, notice, true));
+  };
+
+  results = (res, notice) => {
     const { addNotificationAction } = this.props;
     if (res.error) {
       addNotificationAction({
@@ -86,31 +106,11 @@ class Main extends React.Component {
       return false;
     }
 
-    if (isCreated) {
-      this.setState({ paramsGlobal: PARAMS_DEFAULT });
-    } else {
-      // this.loadParamsByDomainAndGameIds();
-    }
-
     addNotificationAction({
       type: 'success',
       text: notice.success,
     });
     return false;
-  };
-
-  addGameByDomainId = () => {
-    const { createGameAction, gameSelected, domainSelected } = this.props;
-    const { paramsGlobal } = this.state;
-
-    const params = { domainId: domainSelected.data._id };
-    const data = { game: gameSelected.data.name, params: paramsGlobal };
-
-    const notice = {
-      success: 'Game created',
-      error: 'Game error',
-    };
-    createGameAction(params, data).then(res => this.results(res, notice, true));
   };
 
   handleSubmit = () => {
@@ -119,12 +119,12 @@ class Main extends React.Component {
     const gameId = gameSelected.data._id;
 
     if (domainId && gameId) {
-      this.updateGameParamsByDomainAndGameId();
+      this.updateGameParamsByGameId();
     } else {
       this.addGameByDomainId();
-      const params = { domainId };
-      getGameListAction(params);
+      getGameListAction({ domainId });
     }
+
     // Close fullscreen dialog
     handleClose();
     this.handleCloseTabContent();
@@ -142,16 +142,18 @@ class Main extends React.Component {
     widgetViewAction(value);
   };
 
-  handleCloseTabContent = () => {
-    const { widgetViewAction } = this.props;
-    this.setState({
-      tabValue: {
-        tabs1: false,
-        tabs2: false,
-        tabs3: false,
+  handleCloseTabContent = e => {
+    const { paramsDefaultAction } = this.props;
+    this.setState(
+      {
+        tabValue: {
+          tabs1: false,
+          tabs2: false,
+          tabs3: false,
+        },
       },
-    });
-    widgetViewAction('');
+      () => paramsDefaultAction(),
+    );
   };
 
   renderWidgetView = () => {
@@ -166,9 +168,9 @@ class Main extends React.Component {
   };
 
   render() {
-    const { openGameFullscreenDialog, handleClose, domainSelected, widgetViewValue } = this.props;
+    const { openGameFullscreenDialog, handleClose, domainSelected } = this.props;
     const { tabValue, paramsGlobal } = this.state;
-    console.log('widgetViewValue', widgetViewValue);
+
     return (
       <Dialog
         fullScreen
@@ -266,11 +268,9 @@ class Main extends React.Component {
               <div className={css.currentGame__content_gameBlock}>{this.renderWidgetView()}</div>
               <div className={css.currentGame__content_gameTrigger}>
                 <button type="button" className={css.currentGame__content_gameWidget}>
-                  <h3 style={{ color: paramsGlobal.behavior.trigger_button.text_color }}>
-                    {paramsGlobal.behavior.trigger_button.title}
-                  </h3>
+                  <h3>{paramsGlobal.behavior.trigger_button.title}</h3>
                   <div className={css.currentGame__content_gameWidget_icon}>
-                    <img src={paramsGlobal.game_style.icon} alt="present icon" />
+                    <img src="" alt="present icon" />
                   </div>
                 </button>
               </div>
@@ -285,18 +285,17 @@ class Main extends React.Component {
 export default connect(
   state => ({
     domainSelected: state.other.domainSelected,
-    gameSettingsValue: state.other.gameSettingsValue,
-    paramsData: state.get.getParams,
     gameSelected: state.other.gameSelected,
+    getParamsDefault: state.get.getParamsDefault,
+    paramsData: state.get.getParams,
     widgetViewValue: state.other.widgetViewValue.data,
   }),
   dispatch => ({
-    updateParamsAction: (params, data) => dispatch(updateParams(params, data)),
-    screenViewAction: value => dispatch(screenView(value)),
-    gameSettingsAction: value => dispatch(gameSettings(value)),
-    createGameAction: (params, data) => dispatch(createGame(params, data)),
-    addNotificationAction: data => dispatch(addNotification(data)),
+    paramsDefaultAction: params => dispatch(paramsDefault(params)),
     getGameListAction: params => dispatch(getGameList(params)),
+    createGameAction: (params, data) => dispatch(createGame(params, data)),
+    updateParamsAction: (params, data) => dispatch(updateParams(params, data)),
+    addNotificationAction: data => dispatch(addNotification(data)),
     widgetViewAction: params => dispatch(widgetView(params)),
   }),
 )(Main);

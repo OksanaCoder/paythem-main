@@ -1,9 +1,17 @@
 import API from './api';
-import LANGUAGE from './language';
-import DATE_RANGE from './dateRange';
-import NAV_MENU from './navMenu';
 import GAMES from './games';
-import PARAMS from './params';
+// import DATE_RANGE from './dateRange';
+import NAV_MENU from './navMenu';
 import PARAMS_DEFAULT from './paramsDefault';
+import LANGUAGE from './language';
+import WIDGET_ICONS from './widgetIcons';
 
-export { API, LANGUAGE, DATE_RANGE, NAV_MENU, GAMES, PARAMS, PARAMS_DEFAULT };
+export {
+  API,
+  GAMES,
+  // DATE_RANGE,
+  NAV_MENU,
+  PARAMS_DEFAULT,
+  LANGUAGE,
+  WIDGET_ICONS,
+};

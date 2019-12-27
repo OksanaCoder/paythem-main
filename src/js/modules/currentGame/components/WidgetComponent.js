@@ -3,7 +3,10 @@ import cx from 'classnames';
 
 import css from 'styles/pages/CurrentGame/GameWidget.scss';
 
-const WidgetComponent = () => {
+const WidgetComponent = content => {
+  const { title, subtitle, button } = content.content.start;
+  console.log('content', content);
+
   return (
     <div className={css.PtwModalRoot__container}>
       <button className={css.PtwModalRoot__close} type="button">
@@ -13,12 +16,10 @@ const WidgetComponent = () => {
         <div className={css.PtwModalRoot__icon} />
         <div className={css.PtwModalRoot__inner}>
           <button className={css.PtwModalRoot__button} type="button">
-            <span>Start!</span>
+            <span>{button}</span>
           </button>
-          <h2 className={css.PtwModalRoot__title}>Get your Christmas present!</h2>
-          <h3 className={css.PtwModalRoot__subtitle}>
-            One of our awesome gifts already yours! One step more to receive it.
-          </h3>
+          <h2 className={css.PtwModalRoot__title}>{title}</h2>
+          <h3 className={css.PtwModalRoot__subtitle}>{subtitle}</h3>
           <form className={css.PtwModalRootForm}>
             <div className={css.PtwModalRootForm__item}>
               <input

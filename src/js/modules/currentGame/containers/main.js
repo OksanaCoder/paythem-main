@@ -157,14 +157,21 @@ class Main extends React.Component {
   };
 
   renderWidgetView = () => {
-    const { widgetViewValue } = this.props;
+    const {
+      widgetViewValue,
+      getParamsDefault: {
+        loaded,
+        data: { content },
+      },
+    } = this.props;
+    console.log(content);
     if (widgetViewValue === 'tabContentProgressView') {
       return <ProgressWidgetComponent />;
     }
     if (widgetViewValue === 'tabContentFinishView') {
       return <FinishWidgetComponent />;
     }
-    return <WidgetComponent />;
+    return <WidgetComponent content={content} />;
   };
 
   render() {

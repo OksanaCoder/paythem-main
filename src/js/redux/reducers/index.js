@@ -10,6 +10,7 @@ import params from './params';
 import authentication from './authentication';
 import notification from './notification';
 import other from './other';
+import paramsDefault from './paramsDefault';
 
 const reducers = combineReducers({
   get: combineReducers({
@@ -18,6 +19,7 @@ const reducers = combineReducers({
     domains: domain('getDomains'),
     notifications: notification('notification'),
     getParams: params('getParams'),
+    getParamsDefault: paramsDefault('paramsDefault'),
     gameList: games('gameList'),
   }),
   post: combineReducers({
@@ -30,7 +32,6 @@ const reducers = combineReducers({
     domain: domain('updateDomain'),
   }),
   other: combineReducers({
-    screenViewValue: other('screenView'),
     domainSelected: other('domainSelected'),
     gameSelected: other('gameSelected'),
   }),

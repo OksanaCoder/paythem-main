@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Dialog, Slide } from '@material-ui/core';
 
-import { createGame, addNotification, updateParams, getGameList } from 'actions';
+import { createGame, addNotification, updateParams, getGameList, paramsDefault } from 'actions';
 
 import { PARAMS_DEFAULT } from 'config';
 
@@ -36,22 +36,10 @@ class Main extends React.Component {
       tabValue: {
         tabs1: false,
         tabs2: false,
-        tabs3: 'tabBehaviour2',
+        tabs3: false,
       },
       paramsGlobal: PARAMS_DEFAULT,
     };
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const {
-      paramsData: { loaded, data },
-    } = nextProps;
-    const params = loaded && data.data.data.params;
-    if (loaded) {
-      this.setState({
-        paramsGlobal: params,
-      });
-    }
   }
 
   updateGameParamsByDomainAndGameId = () => {
@@ -132,7 +120,7 @@ class Main extends React.Component {
     });
   };
 
-  handleCloseTabContent = () => {
+  handleCloseTabContent = e => {
     this.setState({
       tabValue: {
         tabs1: false,
@@ -143,7 +131,14 @@ class Main extends React.Component {
   };
 
   render() {
-    const { openGameFullscreenDialog, handleClose, domainSelected } = this.props;
+    const {
+      openGameFullscreenDialog,
+      handleClose,
+      domainSelected,
+      getParamsDefault: {
+        data: { content },
+      },
+    } = this.props;
     const { tabValue, paramsGlobal } = this.state;
 
     return (
@@ -242,6 +237,8 @@ class Main extends React.Component {
             <div className={css.currentGame__content_game}>
               <div className={css.currentGame__content_gameBlock} />
               <div className={css.currentGame__content_gameTrigger}>
+                <h3>{content.start.title}</h3>
+                <h2>{content.start.subtitle}</h2>
                 <button type="button" className={css.currentGame__content_gameWidget}>
                   <h3 style={{ color: paramsGlobal.behavior.trigger_button.text_color }}>
                     {paramsGlobal.behavior.trigger_button.title}
@@ -264,8 +261,10 @@ export default connect(
     domainSelected: state.other.domainSelected,
     gameSelected: state.other.gameSelected,
     paramsData: state.get.getParams,
+    getParamsDefault: state.get.getParamsDefault,
   }),
   dispatch => ({
+    paramsDefaultAction: params => dispatch(paramsDefault(params)),
     getGameListAction: params => dispatch(getGameList(params)),
     createGameAction: (params, data) => dispatch(createGame(params, data)),
     updateParamsAction: (params, data) => dispatch(updateParams(params, data)),

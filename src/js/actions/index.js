@@ -23,10 +23,9 @@ import {
 import {
   addNotification,
   removeNotification,
-  screenView,
   domainSelected,
   gameSelected,
-  // updateCoupon,
+  paramsDefault,
 } from './other';
 
 export {
@@ -54,7 +53,7 @@ export {
   // other
   addNotification,
   removeNotification,
-  screenView,
   domainSelected,
   gameSelected,
+  paramsDefault,
 };

@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { sumBy } from 'lodash';
 import { connect } from 'react-redux';
 
-import { getParams, getGameList, removeGame, updateGameStatus, gameSelected } from 'actions';
+import {
+  paramsDefault,
+  getParams,
+  getGameList,
+  removeGame,
+  updateGameStatus,
+  gameSelected,
+} from 'actions';
 import Fetching from 'components/Fetching';
 
 import GamesListForDomainComponent from 'modules/gameListByDomain/components/GamesListForDomainComponent';
@@ -23,32 +30,6 @@ class GameListByDomain extends Component {
       this.loadGameList(nextProps);
     }
   }
-
-  // componentDidUpdate(prevProps){
-  //   console.log('prevProps', prevProps.games.data.data)
-  //   // eslint-disable-next-line react/destructuring-assignment
-  //   console.log('props', this.props.games.data.data)
-  // }
-
-  // loadParamsByDomainAndGameIds = () => {
-  //   const { getParamsAction, gameSelected, domainSelected } = this.props;
-  //   const domainId = domainSelected.data._id;
-  //   const gameId = gameSelected.data._id;
-  //   getParamsAction({ domainId, gameId }).then(res => {
-  //     if (!res.error) {
-  //       const { paramsDataByIds } = this.getParamsByDomainAndGameIds();
-  //       this.setState({ paramsGlobal: paramsDataByIds });
-  //     }
-  //   });
-  // };
-
-  // getParamsByDomainAndGameIds = () => {
-  //   const {
-  //     paramsData: { data, loaded, loading },
-  //   } = this.props;
-  //   const paramsDataByIds = loaded && data.data.data.params;
-  //   return { paramsDataByIds, loaded, loading };
-  // };
 
   loadGameList = async nextProps => {
     const { getGameListAction } = this.props;
@@ -93,16 +74,29 @@ class GameListByDomain extends Component {
     updateGameStatusAction(params, status).then(res => !res.error && this.loadGameList());
   };
 
-  handleChooseGame = data => () => {
-    const { getParamsAction, handleOpen, domainSelected, gameSelectedAction } = this.props;
+  handleChooseGame = game => () => {
+    const {
+      getParamsAction,
+      handleOpen,
+      domainSelected,
+      gameSelectedAction,
+      paramsDefaultAction,
+    } = this.props;
     const params = {
       domainId: domainSelected.data._id,
-      gameId: data._id,
+      gameId: game._id,
     };
 
     handleOpen('openGameFullscreenDialog')();
-    gameSelectedAction(data);
-    getParamsAction(params);
+    gameSelectedAction(game);
+
+    getParamsAction(params).then(res => {
+      console.log('res', res);
+      if (!res.error) {
+        const { data } = res.payload.data;
+        paramsDefaultAction(data.params);
+      }
+    });
   };
 
   calcTotalStatistics = () => {
@@ -159,6 +153,7 @@ export default connect(
   }),
   dispatch => ({
     getGameListAction: params => dispatch(getGameList(params)),
+    paramsDefaultAction: params => dispatch(paramsDefault(params)),
     getParamsAction: params => dispatch(getParams(params)),
     removeGameAction: params => dispatch(removeGame(params)),
     updateGameStatusAction: (params, data) => dispatch(updateGameStatus(params, data)),

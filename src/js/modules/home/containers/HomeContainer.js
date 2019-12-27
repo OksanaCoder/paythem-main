@@ -2,7 +2,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { domainSelected, getDomains, updateDomain, createDomain, deleteDomain } from 'actions';
+import {
+  paramsDefault,
+  domainSelected,
+  getDomains,
+  updateDomain,
+  createDomain,
+  deleteDomain,
+} from 'actions';
 import Fetching from 'components/Fetching';
 import WelcomeComponent from 'modules/home/components/WelcomeComponent';
 import CurrentDomainContainer from 'modules/CurrentDomain';
@@ -53,7 +60,12 @@ class HomeContainer extends React.Component {
   };
 
   handleClose = target => () => {
-    this.setState({ [target]: false });
+    const { paramsDefaultAction } = this.props;
+    this.setState({ [target]: false }, () => {
+      if (target === 'openGameFullscreenDialog') {
+        paramsDefaultAction();
+      }
+    });
   };
 
   handleUpdateWebsite = values => {
@@ -184,6 +196,7 @@ export default connect(
     domains: state.get.domains,
   }),
   dispatch => ({
+    paramsDefaultAction: () => dispatch(paramsDefault()),
     getDomainsAction: () => dispatch(getDomains()),
     domainSelectedAction: data => dispatch(domainSelected(data)),
     updateDomainAction: (domainId, data) => dispatch(updateDomain(domainId, data)),

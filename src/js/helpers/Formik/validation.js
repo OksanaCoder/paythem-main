@@ -106,12 +106,12 @@ export const StartScreenSchema = () =>
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .max(30, strings.formatString(strings.validation.max, { num: 30 }))
       .required(strings.validation.required),
-    subTitle: Yup.string()
+    subtitle: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .max(70, strings.formatString(strings.validation.max, { num: 70 }))
       .required(strings.validation.required),
-    startBtnLabel: Yup.string()
-      .min(1, strings.formatString(strings.validation.min, { num: 1 }))
+    button: Yup.string()
+      .min(2, strings.formatString(strings.validation.min, { num: 2 }))
       .max(10, strings.formatString(strings.validation.max, { num: 10 }))
       .required(strings.validation.required),
   });

@@ -25,7 +25,7 @@ class StartScreenContainer extends React.Component {
     handleCloseTabContent();
   };
 
-  handleChangeStart = e => {
+  handleChangeParams = e => {
     const {
       paramsDefaultAction,
       getParamsDefault: { data },
@@ -36,7 +36,7 @@ class StartScreenContainer extends React.Component {
     paramsDefaultAction(params);
   };
 
-  handleChangeStartForm = e => {
+  handleChangeParamsForm = e => {
     const {
       paramsDefaultAction,
       getParamsDefault: { data },
@@ -83,7 +83,7 @@ class StartScreenContainer extends React.Component {
                   placeholder="Get your Christmas present!"
                   onChange={e => {
                     handleChange(e);
-                    this.handleChangeStart(e);
+                    this.handleChangeParams(e);
                   }}
                   onBlur={handleBlur}
                   error={errors.title && touched.title}
@@ -106,7 +106,7 @@ class StartScreenContainer extends React.Component {
                   variant="outlined"
                   onChange={e => {
                     handleChange(e);
-                    this.handleChangeStart(e);
+                    this.handleChangeParams(e);
                   }}
                   onBlur={handleBlur}
                   error={errors.subtitle && touched.subtitle}
@@ -127,7 +127,7 @@ class StartScreenContainer extends React.Component {
                   placeholder="START"
                   onChange={e => {
                     handleChange(e);
-                    this.handleChangeStart(e);
+                    this.handleChangeParams(e);
                   }}
                   onBlur={handleBlur}
                   error={errors.button && touched.button}
@@ -155,7 +155,7 @@ class StartScreenContainer extends React.Component {
                       checked={values.name}
                       onChange={e => {
                         handleChange(e);
-                        this.handleChangeStartForm(e);
+                        this.handleChangeParamsForm(e);
                       }}
                       value={values.name}
                       name="name"
@@ -171,7 +171,7 @@ class StartScreenContainer extends React.Component {
                       checked={values.phone}
                       onChange={e => {
                         handleChange(e);
-                        this.handleChangeStartForm(e);
+                        this.handleChangeParamsForm(e);
                       }}
                       value={values.phone}
                       name="phone"

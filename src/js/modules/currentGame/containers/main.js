@@ -12,7 +12,7 @@ import {
   paramsDefault,
   widgetView,
 } from 'actions';
-import { PARAMS_DEFAULT } from 'config';
+import Loader from 'components/Loader';
 
 import HeaderCurrentGameComponent from 'modules/currentGame/components/HeaderCurrentGameComponent';
 import TabsListComponent from 'modules/currentGame/components/TabsListComponent';
@@ -25,9 +25,8 @@ import ProgressScreenContainer from 'modules/currentGame/containers/ProgressScre
 import FinishScreenContainer from 'modules/currentGame/containers/FinishScreenContainer';
 import PrimaryIconContainer from 'modules/currentGame/containers/PrimaryIconContainer';
 import GeneralSettingsContainer from 'modules/currentGame/containers/GeneralSettingsContainer';
-import WidgetComponent from 'modules/currentGame/components/WidgetComponent';
-import ProgressWidgetComponent from 'modules/currentGame/components/ProgressWidgetComponent';
-import FinishWidgetComponent from 'modules/currentGame/components/FinishWidgetComponent';
+
+import PtwModal from 'utils/PtwModal';
 
 import css from 'styles/pages/CurrentGame/Content.scss';
 
@@ -45,7 +44,7 @@ class Main extends React.Component {
         tabs2: false,
         tabs3: false,
       },
-      paramsGlobal: PARAMS_DEFAULT,
+      // paramsGlobal: PARAMS_DEFAULT,
     };
   }
 
@@ -131,19 +130,23 @@ class Main extends React.Component {
   };
 
   handleChangeTabsIntegration = target => (e, value) => {
-    const { tabValue } = this.state;
     const { widgetViewAction } = this.props;
-    this.setState({
-      tabValue: {
-        ...tabValue,
-        [target]: value,
+    this.setState(
+      state => ({
+        tabValue: {
+          ...state.tabValue,
+          [target]: value,
+        },
+      }),
+      () => {
+        const isValue = value !== 'progress' && value !== 'finish';
+        widgetViewAction(isValue ? 'start' : value);
       },
-    });
-    widgetViewAction(value);
+    );
   };
 
   handleCloseTabContent = e => {
-    const { paramsDefaultAction } = this.props;
+    const { widgetViewAction } = this.props;
     this.setState(
       {
         tabValue: {
@@ -152,139 +155,118 @@ class Main extends React.Component {
           tabs3: false,
         },
       },
-      () => paramsDefaultAction(),
+      () => widgetViewAction('start'),
     );
   };
 
-  renderWidgetView = () => {
-    const {
-      widgetViewValue,
-      getParamsDefault: {
-        loaded,
-        data: { content },
-      },
-    } = this.props;
-    console.log(content);
-    if (widgetViewValue === 'tabContentProgressView') {
-      return <ProgressWidgetComponent />;
-    }
-    if (widgetViewValue === 'tabContentFinishView') {
-      return <FinishWidgetComponent />;
-    }
-    return <WidgetComponent content={content} />;
-  };
-
   render() {
-    const { openGameFullscreenDialog, handleClose, domainSelected } = this.props;
-    const { tabValue, paramsGlobal } = this.state;
+    const {
+      openGameFullscreenDialog,
+      handleClose,
+      domainSelected,
+      widgetViewValue,
+      getParamsDefault,
+      paramsData: { loading },
+    } = this.props;
+    const { tabValue } = this.state;
+    const { data: paramsGlobal } = getParamsDefault;
 
     return (
-      <Dialog
-        fullScreen
-        open={openGameFullscreenDialog}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-      >
-        <HeaderCurrentGameComponent handleClose={handleClose} handleSubmit={this.handleSubmit} />
+      <React.Fragment>
+        <Dialog
+          fullScreen
+          open={openGameFullscreenDialog}
+          onClose={handleClose}
+          TransitionComponent={Transition}
+        >
+          <Loader isFetching={loading} />
+          <HeaderCurrentGameComponent handleClose={handleClose} handleSubmit={this.handleSubmit} />
 
-        <div className={css.currentGame__content}>
-          <div className={css.currentGame__content_inner}>
-            <div className={css.currentGame__content_leftMenu}>
-              <h3>Customizations</h3>
-              <p>Here you can customize the appereance and data of your popup on this section.</p>
+          <div className={css.currentGame__content}>
+            <div className={css.currentGame__content_inner}>
+              <div className={css.currentGame__content_leftMenu}>
+                <h3>Customizations</h3>
+                <p>Here you can customize the appereance and data of your popup on this section.</p>
 
-              <TabsListComponent
-                tabValue={tabValue}
-                handleChangeTabsIntegration={this.handleChangeTabsIntegration}
-              />
-
-              {tabValue.tabs1 === 'tabGame1' && (
-                <PopupBackgroundContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabGame1"
-                  popupData={paramsGlobal.game_style.popup_bg}
+                <TabsListComponent
+                  tabValue={tabValue}
+                  handleChangeTabsIntegration={this.handleChangeTabsIntegration}
                 />
-              )}
 
-              {tabValue.tabs1 === 'tabGame2' && (
-                <ColorSchemeContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabGame2"
-                  colorSchemeData={paramsGlobal.game_style.color_scheme}
-                />
-              )}
+                {tabValue.tabs1 === 'tabGame1' && (
+                  <PopupBackgroundContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabGame1"
+                  />
+                )}
 
-              {tabValue.tabs1 === 'tabGame3' && (
-                <PrimaryIconContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabGame3"
-                  iconData={paramsGlobal.game_style}
-                />
-              )}
+                {tabValue.tabs1 === 'tabGame2' && (
+                  <ColorSchemeContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabGame2"
+                  />
+                )}
 
-              {tabValue.tabs2 === 'tabContentStartView' && (
-                <StartScreenContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabContentStartView"
-                  startScreenData={paramsGlobal.content.start}
-                />
-              )}
+                {tabValue.tabs1 === 'tabGame3' && (
+                  <PrimaryIconContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabGame3"
+                  />
+                )}
 
-              {tabValue.tabs2 === 'tabContentProgressView' && (
-                <ProgressScreenContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabContentProgressView"
-                  progressScreenData={paramsGlobal.content.progress}
-                />
-              )}
+                {tabValue.tabs2 === 'start' && (
+                  <StartScreenContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="start"
+                  />
+                )}
 
-              {tabValue.tabs2 === 'tabContentFinishView' && (
-                <FinishScreenContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabContentFinishView"
-                  finishScreenData={paramsGlobal.content.finish}
-                />
-              )}
+                {tabValue.tabs2 === 'progress' && (
+                  <ProgressScreenContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="progress"
+                  />
+                )}
 
-              {tabValue.tabs3 === 'tabBehaviour1' && (
-                <TriggerButtonContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabBehaviour1"
-                  editWidgetData={paramsGlobal.behavior.trigger_button}
-                />
-              )}
+                {tabValue.tabs2 === 'finish' && (
+                  <FinishScreenContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="finish"
+                  />
+                )}
 
-              {tabValue.tabs3 === 'tabBehaviour2' && (
-                <CouponsOptionsContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabBehaviour2"
-                  couponsData={paramsGlobal.behavior.coupons}
-                />
-              )}
+                {tabValue.tabs3 === 'tabBehaviour1' && (
+                  <TriggerButtonContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabBehaviour1"
+                  />
+                )}
 
-              {tabValue.tabs3 === 'tabBehaviour3' && (
-                <GeneralSettingsContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabBehaviour3"
-                  generalSettingsData={paramsGlobal.behavior.general_settings}
-                  domainSelected={domainSelected}
-                />
-              )}
-            </div>
-            <div className={css.currentGame__content_game}>
-              <div className={css.currentGame__content_gameBlock}>{this.renderWidgetView()}</div>
-              <div className={css.currentGame__content_gameTrigger}>
-                <button type="button" className={css.currentGame__content_gameWidget}>
-                  <h3>{paramsGlobal.behavior.trigger_button.title}</h3>
-                  <div className={css.currentGame__content_gameWidget_icon}>
-                    <img src="" alt="present icon" />
-                  </div>
-                </button>
+                {tabValue.tabs3 === 'tabBehaviour2' && (
+                  <CouponsOptionsContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabBehaviour2"
+                  />
+                )}
+
+                {tabValue.tabs3 === 'tabBehaviour3' && (
+                  <GeneralSettingsContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabBehaviour3"
+                    domainSelected={domainSelected}
+                  />
+                )}
+              </div>
+
+              <div className={css.currentGame__content_game}>
+                <div className={css.currentGame__content_gameBlock}>
+                  <PtwModal getParamsDefault={getParamsDefault} widgetViewValue={widgetViewValue} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </Dialog>
+        </Dialog>
+      </React.Fragment>
     );
   }
 }

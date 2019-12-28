@@ -1,54 +1,46 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { FormControl, FormHelperText, OutlinedInput, TextField } from '@material-ui/core';
+
+import { paramsDefault } from 'actions';
 import Formik from 'helpers/Formik';
 import { ProgressScreenSchema } from 'helpers/Formik/validation';
-
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 
 import css from 'styles/pages/CurrentGame/Content.scss';
 
 class FinishScreenContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    const { finishScreenData } = props;
-
-    this.state = {
-      finishScreenDataDefault: finishScreenData,
-    };
-  }
-
-  // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { finishScreenData } = nextProps;
-    this.setState({
-      finishScreenDataDefault: finishScreenData,
-    });
-  }
-
-  handleSubmitForm = values => {
-    const { finishScreenData, handleCloseTabContent } = this.props;
-
-    const data = {
-      title: values.title,
-      subtitle: values.subtitle,
-      privacy: values.privacy,
-    };
-    console.log('finishScreenData1', finishScreenData);
-    Object.assign(finishScreenData, data);
-    console.log('finishScreenData2', finishScreenData);
+  handleSubmitForm = () => {
+    const { handleCloseTabContent } = this.props;
     handleCloseTabContent();
   };
 
+  handleChangeParams = e => {
+    const {
+      paramsDefaultAction,
+      getParamsDefault: { data },
+    } = this.props;
+
+    const { name, value } = e.target;
+    console.log('name', name);
+    console.log('value', value);
+    const params = { ...data };
+    params.content.finish[name] = value;
+    paramsDefaultAction(params);
+  };
+
   render() {
-    const { tabValue } = this.props;
-    const { finishScreenDataDefault } = this.state;
+    const {
+      tabValue,
+      getParamsDefault: {
+        data: { content },
+      },
+    } = this.props;
 
     return (
       <Formik
         initialValues={{
-          title: finishScreenDataDefault.title,
-          subtitle: finishScreenDataDefault.subtitle,
-          privacy: finishScreenDataDefault.privacy,
+          ...content.finish,
         }}
         validationSchema={ProgressScreenSchema}
         onSubmit={this.handleSubmitForm}
@@ -68,7 +60,7 @@ class FinishScreenContainer extends React.Component {
                   placeholder="Almost there! And you got…"
                   onChange={e => {
                     handleChange(e);
-                    finishScreenDataDefault.title = e.target.value;
+                    this.handleChangeParams(e);
                   }}
                   error={errors.title && touched.title}
                   value={values.title}
@@ -88,7 +80,7 @@ class FinishScreenContainer extends React.Component {
                   variant="outlined"
                   onChange={e => {
                     handleChange(e);
-                    finishScreenDataDefault.subtitle = e.target.value;
+                    this.handleChangeParams(e);
                   }}
                   error={errors.subtitle && touched.subtitle}
                   value={values.subtitle}
@@ -111,7 +103,7 @@ class FinishScreenContainer extends React.Component {
                   variant="outlined"
                   onChange={e => {
                     handleChange(e);
-                    finishScreenDataDefault.privacy = e.target.value;
+                    this.handleChangeParams(e);
                   }}
                   value={values.privacy}
                 />
@@ -124,4 +116,11 @@ class FinishScreenContainer extends React.Component {
   }
 }
 
-export default FinishScreenContainer;
+export default connect(
+  state => ({
+    getParamsDefault: state.get.getParamsDefault,
+  }),
+  dispatch => ({
+    paramsDefaultAction: data => dispatch(paramsDefault(data)),
+  }),
+)(FinishScreenContainer);

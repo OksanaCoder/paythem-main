@@ -74,51 +74,8 @@
     &_gameBlock{
       width: 702px;
     }
-    &_gameTrigger{
-      position: absolute;
-      right: 0;
-    }
-    &_gameWidget{
-      width: 50px;
-      padding: 0;
-      background: #fff;
-      border-radius: 5px;
-      border: none;
-      box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.4);
-      padding-bottom: 50px;
-      cursor: pointer;
-      position: relative;
-      height: auto;
-      min-height: 155px;
-      h3 {
-        font-size: 14px;
-        writing-mode: tb;
-        transform: rotate(180deg);
-        line-height: 20px;
-        margin: 5px 15px;
-        padding: 0;
-        display: block;
-        position: relative;
-        
-      }
-      &_icon{
-        @include flex(center, center);
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 50px;
-        line-height: 50px;
-        svg,
-        img{
-          height: 30px;
-          width: auto;
-          max-width: 70%;
-        }
-      }
-    }
   }
-  &__btnClose{
+  &__btnClose {
     position: absolute;
     top: 20px;
     right: 10px;

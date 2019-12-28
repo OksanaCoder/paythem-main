@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Button, Drawer } from '@material-ui/core';
 
-import { gameSelected } from 'actions';
+import { widgetView, gameSelected } from 'actions';
 
 import AddWebsiteDialog from 'components/Dialog/AddWebsiteDialog';
 import DeleteWebsiteDialog from 'components/Dialog/DeleteWebsiteDialog';
@@ -17,14 +17,11 @@ import UserIcon from 'assets/images/icons/user.svg';
 import css from 'styles/pages/Home.scss';
 
 class CurrentDomainContainer extends React.Component {
-  componentDidMount() {}
-
   handleChooseGame = data => {
-    const { handleOpen, gameSelectedAction } = this.props;
-
+    const { handleOpen, gameSelectedAction, widgetViewAction } = this.props;
     handleOpen('openGameFullscreenDialog')();
+    widgetViewAction('start');
     gameSelectedAction(data);
-    this.forceUpdate();
   };
 
   render() {
@@ -154,6 +151,7 @@ export default connect(
     domainItemSelected: state.other.domainSelected,
   }),
   dispatch => ({
+    widgetViewAction: data => dispatch(widgetView(data)),
     gameSelectedAction: data => dispatch(gameSelected(data)),
   }),
 )(CurrentDomainContainer);

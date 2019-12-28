@@ -1,32 +1,43 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { FormControl, FormHelperText, OutlinedInput, TextField } from '@material-ui/core';
+
+import { paramsDefault } from 'actions';
 import Formik from 'helpers/Formik';
 import { ProgressScreenSchema } from 'helpers/Formik/validation';
-
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 
 import css from 'styles/pages/CurrentGame.scss';
 
 class ProgressScreenContainer extends React.Component {
-  handleSubmitForm = values => {
-    const { progressScreenData, handleCloseTabContent } = this.props;
-    const data = {
-      title: values.title,
-      subtitle: values.subtitle,
-    };
-    Object.assign(progressScreenData, data);
-
+  handleSubmitForm = () => {
+    const { handleCloseTabContent } = this.props;
     handleCloseTabContent();
   };
 
+  handleChangeParams = e => {
+    const {
+      paramsDefaultAction,
+      getParamsDefault: { data },
+    } = this.props;
+    const { name, value } = e.target;
+    const params = { ...data };
+    params.content.progress[name] = value;
+    paramsDefaultAction(params);
+  };
+
   render() {
-    const { tabValue, progressScreenData } = this.props;
+    const {
+      tabValue,
+      getParamsDefault: {
+        data: { content },
+      },
+    } = this.props;
 
     return (
       <Formik
         initialValues={{
-          title: progressScreenData.title,
-          subtitle: progressScreenData.subtitle,
+          ...content.progress,
         }}
         validationSchema={ProgressScreenSchema}
         onSubmit={this.handleSubmitForm}
@@ -46,7 +57,7 @@ class ProgressScreenContainer extends React.Component {
                   placeholder="Get your Christmas present!"
                   onChange={e => {
                     handleChange(e);
-                    progressScreenData.title = e.target.value;
+                    this.handleChangeParams(e);
                   }}
                   error={errors.title && touched.title}
                   value={values.title}
@@ -68,7 +79,7 @@ class ProgressScreenContainer extends React.Component {
                   variant="outlined"
                   onChange={e => {
                     handleChange(e);
-                    progressScreenData.subtitle = e.target.value;
+                    this.handleChangeParams(e);
                   }}
                   error={errors.subtitle && touched.subtitle}
                   value={values.subtitle}
@@ -87,4 +98,11 @@ class ProgressScreenContainer extends React.Component {
   }
 }
 
-export default ProgressScreenContainer;
+export default connect(
+  state => ({
+    getParamsDefault: state.get.getParamsDefault,
+  }),
+  dispatch => ({
+    paramsDefaultAction: data => dispatch(paramsDefault(data)),
+  }),
+)(ProgressScreenContainer);

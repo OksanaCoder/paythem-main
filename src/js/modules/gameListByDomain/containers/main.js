@@ -9,6 +9,7 @@ import {
   removeGame,
   updateGameStatus,
   gameSelected,
+  widgetView,
 } from 'actions';
 import Fetching from 'components/Fetching';
 
@@ -81,6 +82,7 @@ class GameListByDomain extends Component {
       domainSelected,
       gameSelectedAction,
       paramsDefaultAction,
+      widgetViewAction,
     } = this.props;
     const params = {
       domainId: domainSelected.data._id,
@@ -88,6 +90,7 @@ class GameListByDomain extends Component {
     };
 
     handleOpen('openGameFullscreenDialog')();
+    widgetViewAction('start');
     gameSelectedAction(game);
 
     getParamsAction(params).then(res => {
@@ -152,6 +155,7 @@ export default connect(
     games: state.get.gameList,
   }),
   dispatch => ({
+    widgetViewAction: value => dispatch(widgetView(value)),
     getGameListAction: params => dispatch(getGameList(params)),
     paramsDefaultAction: params => dispatch(paramsDefault(params)),
     getParamsAction: params => dispatch(getParams(params)),

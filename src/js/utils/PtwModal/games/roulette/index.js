@@ -2,12 +2,7 @@
 import React from 'react';
 
 const RouletteGame = ({ colorScheme }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    // width="535"
-    // height="535"
-    viewBox="0 -40 535 535"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -40 535 535">
     <defs>
       <linearGradient id="a" x1="50%" x2="50%" y1=".166%" y2="100%">
         <stop offset="0%" stopColor="#FFF"></stop>

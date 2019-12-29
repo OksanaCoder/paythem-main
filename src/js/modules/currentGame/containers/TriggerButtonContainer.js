@@ -1,95 +1,46 @@
 /* eslint-disable camelcase */
 import React from 'react';
+import { connect } from 'react-redux';
 import { FormControl, FormHelperText, OutlinedInput } from '@material-ui/core';
+
+import { paramsDefault } from 'actions';
 import Formik from 'helpers/Formik';
 import { TriggerButtonTextSchema } from 'helpers/Formik/validation';
-
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
 
 import css from 'styles/pages/CurrentGame.scss';
 
 class TriggerButtonContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    const { editWidgetData } = props;
-
-    this.state = {
-      editWidgetDefault: editWidgetData,
-    };
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { editWidgetData } = nextProps;
-    this.setState({
-      editWidgetDefault: editWidgetData,
-    });
-  }
-
-  handleEditTriggerButton = e => {
-    const { editWidgetData } = this.props;
-    const { editWidgetDefault } = this.state;
-
-    const { name, value } = e.currentTarget;
-    const editWidgetDataUpdated = { ...editWidgetDefault };
-
-    editWidgetDataUpdated[name] = value;
-
-    this.setState(
-      {
-        editWidgetDefault: editWidgetDataUpdated,
-      },
-      () => {
-        Object.assign(editWidgetData, editWidgetDefault);
-      },
-    );
+  handleChangeParams = e => {
+    const { paramsDefaultAction, getParamsDefault } = this.props;
+    const { name, value } = e.target;
+    const params = { ...getParamsDefault.data };
+    params.behavior.trigger_button[name] = value;
+    paramsDefaultAction(params);
   };
 
   handleEditColor = trigger => color => {
-    console.log('COLOR', color);
-    const { editWidgetData } = this.props;
-    const { editWidgetDefault } = this.state;
-
-    const editWidgetDataUpdated = { ...editWidgetDefault };
-
-    editWidgetDataUpdated[trigger] = color;
-    this.setState(
-      {
-        editWidgetDefault: editWidgetDataUpdated,
-      },
-      () => {
-        Object.assign(editWidgetData, editWidgetDefault);
-      },
-    );
+    const { paramsDefaultAction, getParamsDefault } = this.props;
+    const params = { ...getParamsDefault.data };
+    params.behavior.trigger_button[trigger] = color;
+    paramsDefaultAction(params);
   };
 
-  handleSubmitTitle = values => {
-    const { editWidgetData, handleCloseTabContent } = this.props;
-    const { title } = values;
-    const { editWidgetDefault } = this.state;
-
-    const editWidgetDataUpdated = { ...editWidgetDefault };
-
-    editWidgetDataUpdated.title = title;
-
-    this.setState(
-      {
-        editWidgetDefault: editWidgetDataUpdated,
-      },
-      () => {
-        Object.assign(editWidgetData, editWidgetDefault);
-      },
-    );
+  handleSubmitTitle = () => {
+    const { handleCloseTabContent } = this.props;
     handleCloseTabContent();
   };
 
   render() {
-    const { editWidgetDefault } = this.state;
-    const { tabValue, editWidgetData } = this.props;
+    const { tabValue, getParamsDefault } = this.props;
+    const { trigger_button: triggerButton } = getParamsDefault.data.behavior;
 
     return (
       <Formik
-        initialValues={{ title: editWidgetDefault.title }}
+        initialValues={{
+          title: triggerButton.title,
+        }}
         validationSchema={TriggerButtonTextSchema}
         onSubmit={this.handleSubmitTitle}
       >
@@ -108,7 +59,7 @@ class TriggerButtonContainer extends React.Component {
                   placeholder="Get free gift!"
                   onChange={e => {
                     handleChange(e);
-                    editWidgetData.title = e.target.value;
+                    this.handleChangeParams(e);
                   }}
                   error={errors.title && touched.title}
                   value={values.title}
@@ -123,12 +74,12 @@ class TriggerButtonContainer extends React.Component {
 
               <ChooseColorContainer
                 title="Text Color"
-                color={editWidgetData.text_color}
+                color={triggerButton.text_color}
                 handleEditColor={this.handleEditColor('text_color')}
               />
               <ChooseColorContainer
                 title="Background Color"
-                color={editWidgetData.bg_color}
+                color={triggerButton.bg_color}
                 handleEditColor={this.handleEditColor('bg_color')}
               />
             </form>
@@ -139,4 +90,11 @@ class TriggerButtonContainer extends React.Component {
   }
 }
 
-export default TriggerButtonContainer;
+export default connect(
+  state => ({
+    getParamsDefault: state.get.getParamsDefault,
+  }),
+  dispatch => ({
+    paramsDefaultAction: data => dispatch(paramsDefault(data)),
+  }),
+)(TriggerButtonContainer);

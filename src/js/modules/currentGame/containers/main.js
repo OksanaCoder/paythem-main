@@ -246,6 +246,7 @@ class Main extends React.Component {
                   <CouponsOptionsContainer
                     handleCloseTabContent={this.handleCloseTabContent}
                     tabValue="tabBehaviour2"
+                    couponsData={paramsGlobal.behavior.coupons}
                   />
                 )}
 

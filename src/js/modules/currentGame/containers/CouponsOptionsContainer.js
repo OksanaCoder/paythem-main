@@ -3,8 +3,10 @@ import React from 'react';
 import uuidv5 from 'uuid';
 import { sumBy } from 'lodash';
 import cx from 'classnames';
+import { connect } from 'react-redux';
 import { Button, Popover } from '@material-ui/core';
 
+import { paramsDefault } from 'actions';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 import CouponItemComponent from 'modules/currentGame/components/CouponItemComponent';
 import CouponPopoverComponent from 'modules/currentGame/components/CouponPopoverComponent';
@@ -27,22 +29,6 @@ class CouponsOptionsContainer extends React.Component {
       couponsData: props.couponsData,
     };
   }
-
-  // eslint-disable-next-line camelcase
-  // UNSAFE_componentWillReceiveProps(nextProps) {
-  //   const { couponsData } = nextProps;
-  //   this.setState({
-  //     couponsData,
-  //   });
-  // }
-
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   // console.log(prevState);
-  //   const { couponsData } = nextProps;
-  //   return {
-  //     couponsData: couponsData || prevState.couponsData,
-  //   };
-  // }
 
   truncateString = (str, num) => {
     if (str.length <= num) {
@@ -71,9 +57,10 @@ class CouponsOptionsContainer extends React.Component {
   };
 
   handleSubmit = values => {
-    let { couponsData: couponsDataProps } = this.props;
+    const { paramsDefaultAction, getParamsDefault } = this.props;
     const { couponItemEdit } = this.state;
     let couponsDataUpdated = [];
+
     if (!couponItemEdit) {
       const { couponsData } = this.addCoupon(values);
       couponsDataUpdated = couponsData;
@@ -81,12 +68,15 @@ class CouponsOptionsContainer extends React.Component {
       const { couponsData } = this.updateCoupon(values);
       couponsDataUpdated = couponsData;
     }
+
+    const params = { ...getParamsDefault.data };
+    params.behavior.coupons = couponsDataUpdated;
+    paramsDefaultAction(params);
+
     this.setState({
       open: false,
       couponsData: couponsDataUpdated,
     });
-    console.log('couponsDataProps', couponsDataProps);
-    couponsDataProps = couponsDataUpdated;
   };
 
   addCoupon = values => {
@@ -115,11 +105,8 @@ class CouponsOptionsContainer extends React.Component {
   };
 
   deleteCoupon = id => () => {
-    let { couponsData: couponsDataProps } = this.props;
+    const { couponsData: couponsDataProps, paramsDefaultAction, getParamsDefault } = this.props;
     const { couponsData } = this.state;
-
-    console.log('couponsDataProps', couponsDataProps);
-    console.log('couponsDataState', couponsData);
 
     let couponsDataUpdated = [...couponsDataProps];
     couponsDataUpdated = couponsDataUpdated.filter(item => item.id !== id);
@@ -132,9 +119,13 @@ class CouponsOptionsContainer extends React.Component {
       return item;
     });
 
-    this.setState({ couponsData: couponsDataUpdated });
-    couponsDataProps = couponsDataUpdated;
+    const params = { ...getParamsDefault.data };
+    params.behavior.coupons = couponsDataUpdated;
+    paramsDefaultAction(params);
 
+    this.setState({
+      couponsData: couponsDataUpdated,
+    });
     this.handleClosePopover();
   };
 
@@ -186,23 +177,32 @@ class CouponsOptionsContainer extends React.Component {
         tabValue={tabValue}
         handleCloseTabContent={handleCloseTabContent}
       >
-        {couponsData.map(coupon => {
-          return (
-            <CouponItemComponent
-              key={coupon.id}
-              dataLength={couponsData.length}
-              data={coupon}
-              deleteCoupon={this.deleteCoupon(coupon.id)}
-              handleOpenPopover={this.handleOpenPopover(coupon)}
-              truncateString={this.truncateString}
-            />
-          );
-        })}
+        <div
+          style={{
+            overflowY: 'auto',
+            paddingRight: '17px',
+            paddingBottom: '15px',
+            maxHeight: 'calc(100vh - 234px)',
+          }}
+        >
+          {couponsData.map(coupon => {
+            return (
+              <CouponItemComponent
+                key={coupon.id}
+                dataLength={couponsData.length}
+                data={coupon}
+                deleteCoupon={this.deleteCoupon(coupon.id)}
+                handleOpenPopover={this.handleOpenPopover(coupon)}
+                truncateString={this.truncateString}
+              />
+            );
+          })}
+        </div>
 
         <Button
           variant="contained"
           color="primary"
-          disabled={couponsData !== undefined && couponsData.length >= 12}
+          disabled={couponsData.length >= 12}
           className={cx(css.button__top, css.coupons__addBtn)}
           onClick={this.handleOpenPopover('')}
         >
@@ -228,4 +228,11 @@ class CouponsOptionsContainer extends React.Component {
   }
 }
 
-export default CouponsOptionsContainer;
+export default connect(
+  state => ({
+    getParamsDefault: state.get.getParamsDefault,
+  }),
+  dispatch => ({
+    paramsDefaultAction: data => dispatch(paramsDefault(data)),
+  }),
+)(CouponsOptionsContainer);

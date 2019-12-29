@@ -6,7 +6,7 @@ const RouletteGame = ({ colorScheme }) => (
     xmlns="http://www.w3.org/2000/svg"
     // width="535"
     // height="535"
-    viewBox="0 0 535 535"
+    viewBox="0 -40 535 535"
   >
     <defs>
       <linearGradient id="a" x1="50%" x2="50%" y1=".166%" y2="100%">
@@ -143,18 +143,8 @@ const RouletteGame = ({ colorScheme }) => (
             Discount
           </tspan>
         </text>
-        <circle
-          cx="305.429"
-          cy="305.429"
-          r="119.776"
-          fill={`${colorScheme.text_wheel}`}
-          opacity="0.4"
-        ></circle>
+        <circle cx="305.429" cy="305.429" r="119.776" fill="#fff" opacity="0.4"></circle>
         <circle cx="305.429" cy="305.429" r="79.851" fill="#FFF"></circle>
-      </g>
-      <g transform="translate(207.612 207.612)">
-        <circle cx="59.888" cy="59.888" r="59.888" fill="#FF5151"></circle>
-        <circle cx="59.888" cy="59.888" r="53.899" fill="#FFF" opacity="0.102"></circle>
       </g>
     </g>
   </svg>

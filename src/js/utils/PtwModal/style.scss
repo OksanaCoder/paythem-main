@@ -41,7 +41,7 @@
   & svg {
     position: relative;
     margin-left: -26px;
-    bottom: -42px;
+    bottom: 0;
     width: 535px;
   }
 }
@@ -115,6 +115,8 @@
 .PtwModalRoot {
   &__container {
     border: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
     border-radius: 12px;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.6);
     display: flex;
@@ -259,6 +261,7 @@
       margin-left: -7px;
       margin-top: -7px;
       opacity: 0.3;
+      transition: opacity .02s ease-in-out 0s;
       &:hover{
         opacity: 1;
       }

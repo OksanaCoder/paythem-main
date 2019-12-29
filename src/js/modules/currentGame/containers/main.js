@@ -44,7 +44,6 @@ class Main extends React.Component {
         tabs2: false,
         tabs3: false,
       },
-      // paramsGlobal: PARAMS_DEFAULT,
     };
   }
 
@@ -211,6 +210,7 @@ class Main extends React.Component {
                   <PrimaryIconContainer
                     handleCloseTabContent={this.handleCloseTabContent}
                     tabValue="tabGame3"
+                    iconData={paramsGlobal.game_style}
                   />
                 )}
 

@@ -1,10 +1,8 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import cx from 'classnames';
-import RouletteGame from './games/roulette';
 
-// import StartWidgetComponent from './steps/StartWidgetComponent';
-// import ProgressWidgetComponent from './steps/ProgressWidgetComponent';
+import RouletteGame from './games/roulette';
 import FinishWidgetComponent from './steps/FinishWidgetComponent';
 
 import css from './style.scss';
@@ -12,8 +10,6 @@ import css from './style.scss';
 // eslint-disable-next-line no-unused-vars
 const PtwModal = ({ getParamsDefault: { data }, widgetViewValue, game = 'roulette' }) => {
   const { game_style: gameStyle, content, behavior } = data;
-  console.log('1data', data);
-  console.log('widgetViewValue', widgetViewValue);
 
   const styleContainer = {
     backgroundImage: `url("${gameStyle.popup_bg.bg_image}")`,
@@ -68,7 +64,7 @@ const PtwModal = ({ getParamsDefault: { data }, widgetViewValue, game = 'roulett
                       <input
                         className={cx(
                           css.PtwModalRootForm__input,
-                          `css.PtwModalRootForm__input_${item.name}`,
+                          css[`PtwModalRootForm__input_${item.name}`],
                         )}
                         type={item.type}
                         name={item.name}
@@ -86,7 +82,7 @@ const PtwModal = ({ getParamsDefault: { data }, widgetViewValue, game = 'roulett
                 </button>
                 <div className={css.PtwModalRootGame}>
                   {/* <div className={css.PtwModalRootGame__indicator} /> */}
-                  <div className={`css.PtwModalRootGame__${game}`}>
+                  <div className={css[`PtwModalRootGame__${game}`]}>
                     {game === 'roulette' && <RouletteGame colorScheme={gameStyle.color_scheme} />}
                   </div>
                 </div>

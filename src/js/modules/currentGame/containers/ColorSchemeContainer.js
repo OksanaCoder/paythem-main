@@ -1,24 +1,18 @@
 /* eslint-disable camelcase */
 import React from 'react';
+import { connect } from 'react-redux';
 
+import { paramsDefault } from 'actions';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
 
 class ColorSchemeContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    const { colorSchemeData } = props;
-    this.state = {
-      bg_window: colorSchemeData.bg_window,
-      bg_wheel: colorSchemeData.bg_indicator_button,
-      bg_indicator_button: colorSchemeData.bg_indicator_button,
-      text_content: colorSchemeData.text_content,
-      text_wheel: colorSchemeData.text_wheel,
-      text_button: colorSchemeData.text_button,
-    };
-  }
-
   handleEditColor = target => value => {
+    const {
+      paramsDefaultAction,
+      getParamsDefault: { data },
+    } = this.props;
+
     let color = '';
     if (typeof value === 'object') {
       const { r, g, b, a } = value;
@@ -26,12 +20,14 @@ class ColorSchemeContainer extends React.Component {
     } else {
       color = value;
     }
-    const { colorSchemeData } = this.props;
-    colorSchemeData[target] = color;
+
+    const params = { ...data };
+    params.game_style.color_scheme[target] = color;
+    paramsDefaultAction(params);
   };
 
   render() {
-    const { handleCloseTabContent, tabValue } = this.props;
+    const { handleCloseTabContent, tabValue, getParamsDefault } = this.props;
     const {
       bg_window,
       bg_wheel,
@@ -39,7 +35,7 @@ class ColorSchemeContainer extends React.Component {
       text_content,
       text_wheel,
       text_button,
-    } = this.state;
+    } = getParamsDefault.data.game_style.color_scheme;
 
     return (
       <TabContentComponent
@@ -83,4 +79,11 @@ class ColorSchemeContainer extends React.Component {
   }
 }
 
-export default ColorSchemeContainer;
+export default connect(
+  state => ({
+    getParamsDefault: state.get.getParamsDefault,
+  }),
+  dispatch => ({
+    paramsDefaultAction: data => dispatch(paramsDefault(data)),
+  }),
+)(ColorSchemeContainer);

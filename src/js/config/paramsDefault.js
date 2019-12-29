@@ -32,7 +32,7 @@ const PARAMS_DEFAULT = {
         {
           type: 'text',
           name: 'name',
-          checked: false,
+          checked: true,
           placeholder: 'Full Name',
         },
         {

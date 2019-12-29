@@ -6,11 +6,11 @@ import { CouponIcon, EditIcon } from 'assets/images/icons/';
 
 import css from 'styles/pages/CurrentGame/Coupons.scss';
 
-const CouponItemComponent = ({ data: { name }, handleOpenPopover, truncateString }) => (
+const CouponItemComponent = ({ data: { value }, handleOpenPopover, truncateString }) => (
   <div className={css.coupon}>
     <div className={css.coupon__title}>
       <CouponIcon />
-      {truncateString(name, 20)}
+      {truncateString(value, 20)}
     </div>
 
     <Button

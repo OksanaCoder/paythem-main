@@ -90,11 +90,11 @@ export const TriggerButtonTextSchema = () =>
 
 export const CouponsSchema = () =>
   Yup.object().shape({
-    name: Yup.string()
+    value: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .max(20, strings.formatString(strings.validation.max, { num: 20 }))
       .required(strings.validation.required),
-    code: Yup.string()
+    resultText: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .max(20, strings.formatString(strings.validation.max, { num: 20 }))
       .required(strings.validation.required),

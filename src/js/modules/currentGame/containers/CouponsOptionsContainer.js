@@ -21,9 +21,9 @@ class CouponsOptionsContainer extends React.Component {
     this.state = {
       open: false,
       anchorEl: null,
-      name: '',
-      code: '',
-      chance: '',
+      value: '',
+      resultText: '',
+      probability: '',
       chanceReal: '',
       couponItemEdit: false,
       couponsData: props.couponsData,
@@ -41,9 +41,9 @@ class CouponsOptionsContainer extends React.Component {
     this.setState({
       open: true,
       anchorEl: e.currentTarget,
-      name: coupon.name || '',
-      code: coupon.code || '',
-      chance: coupon.chance || 20,
+      value: coupon.value || '',
+      resultText: coupon.resultText || '',
+      probability: coupon.probability || 20,
       chanceReal: coupon.chanceReal || 20,
       couponItemEdit: coupon || undefined,
     });
@@ -81,24 +81,28 @@ class CouponsOptionsContainer extends React.Component {
 
   addCoupon = values => {
     console.log(values);
-    const { couponsData, chance, chanceReal } = this.state;
-    const { name, code } = values;
+    const { couponsData, probability, chanceReal } = this.state;
+    const { value, resultText } = values;
     const newData = {
       id: uuidv5(),
-      name,
-      code,
-      chance,
+      value,
+      resultText,
+      probability,
       chanceReal,
+      win: true,
+      userData: {
+        score: 0,
+      },
     };
     couponsData.push(newData);
     return { couponsData };
   };
 
   updateCoupon = values => {
-    const { couponsData, chance, chanceReal, couponItemEdit } = this.state;
-    const { name, code } = values;
+    const { couponsData, probability, chanceReal, couponItemEdit } = this.state;
+    const { value, resultText } = values;
     const { id } = couponItemEdit;
-    const couponItemUpdated = { id, name, code, chance, chanceReal };
+    const couponItemUpdated = { id, value, resultText, probability, chanceReal };
     const findIndex = couponsData.findIndex(item => item.id === id);
     couponsData.splice(findIndex, 1, couponItemUpdated);
     return { couponsData };
@@ -106,16 +110,15 @@ class CouponsOptionsContainer extends React.Component {
 
   deleteCoupon = id => () => {
     const { couponsData: couponsDataProps, paramsDefaultAction, getParamsDefault } = this.props;
-    const { couponsData } = this.state;
 
     let couponsDataUpdated = [...couponsDataProps];
     couponsDataUpdated = couponsDataUpdated.filter(item => item.id !== id);
 
-    const gravitySum = sumBy(couponsDataUpdated, o => o.chance);
+    const gravitySum = sumBy(couponsDataUpdated, o => o.probability);
 
     couponsDataUpdated = couponsDataUpdated.map((item, i) => {
       // eslint-disable-next-line no-param-reassign
-      item.chanceReal = ((item.chance * 100) / gravitySum).toFixed(2);
+      item.chanceReal = ((item.probability * 100) / gravitySum).toFixed(2);
       return item;
     });
 
@@ -132,10 +135,10 @@ class CouponsOptionsContainer extends React.Component {
   handleChangeSliderRange = idCoupon => (e, value) => {
     const { couponsData } = this.state;
     let couponsDataUpdated = [...couponsData];
-    let gravitySum = sumBy(couponsData, o => o.chance);
+    let gravitySum = sumBy(couponsData, o => o.probability);
     if (idCoupon) {
       const coupon = couponsData.find(item => item.id === idCoupon);
-      gravitySum = gravitySum - coupon.chance + value;
+      gravitySum = gravitySum - coupon.probability + value;
     } else {
       gravitySum += value;
     }
@@ -143,12 +146,12 @@ class CouponsOptionsContainer extends React.Component {
 
     couponsDataUpdated = couponsDataUpdated.map((item, i) => {
       // eslint-disable-next-line no-param-reassign
-      item.chanceReal = ((item.chance * 100) / gravitySum).toFixed(2);
+      item.chanceReal = ((item.probability * 100) / gravitySum).toFixed(2);
       console.log('----', i, item.chanceReal);
       return item;
     });
     this.setState({
-      chance: value,
+      probability: value,
       chanceReal: chanceRealNew,
       couponsData: couponsDataUpdated,
     });
@@ -158,9 +161,9 @@ class CouponsOptionsContainer extends React.Component {
     const {
       couponsData,
       open,
-      name,
-      code,
-      chance,
+      value,
+      resultText,
+      probability,
       chanceReal,
       anchorEl,
       couponItemEdit,
@@ -211,7 +214,7 @@ class CouponsOptionsContainer extends React.Component {
         </Button>
 
         <CouponPopoverComponent
-          data={{ name, code, chance, chanceReal }}
+          data={{ value, resultText, probability, chanceReal }}
           open={open}
           handleClose={this.handleClosePopover}
           handleChangeInput={this.handleChangeInput}

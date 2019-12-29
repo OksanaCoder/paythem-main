@@ -16,7 +16,7 @@ import { TrashIcon, DoneIcon2 } from 'assets/images/icons/';
 import css from 'styles/pages/CurrentGame/Coupons.scss';
 
 const CouponPopoverComponent = ({
-  data: { name, code, chance, chanceReal },
+  data: { value, resultText, probability, chanceReal },
   open,
   handleClose,
   handleChangeSliderRange,
@@ -44,8 +44,8 @@ const CouponPopoverComponent = ({
     >
       <Formik
         initialValues={{
-          name,
-          code,
+          value,
+          resultText,
         }}
         validationSchema={CouponsSchema}
         onSubmit={handleCoupon}
@@ -56,15 +56,15 @@ const CouponPopoverComponent = ({
               <h4>Title</h4>
               <OutlinedInput
                 className={css.coupon__form_input}
-                name="name"
+                name="value"
                 placeholder="Name"
                 onChange={handleChange}
-                value={values.name}
-                error={errors.name && touched.name}
+                value={values.value}
+                error={errors.value && touched.value}
               />
-              {errors.name && touched.name && (
+              {errors.value && touched.value && (
                 <FormHelperText className={css.form_inputError} id="error-text">
-                  {errors.name}
+                  {errors.value}
                 </FormHelperText>
               )}
             </FormControl>
@@ -72,15 +72,15 @@ const CouponPopoverComponent = ({
               <h4>Coupon Code</h4>
               <OutlinedInput
                 className={css.coupon__form_input}
-                name="code"
+                name="resultText"
                 placeholder="FC11DC"
                 onChange={handleChange}
-                value={values.code}
-                error={errors.code && touched.code}
+                value={values.resultText}
+                error={errors.resultText && touched.resultText}
               />
-              {errors.code && touched.code && (
+              {errors.resultText && touched.resultText && (
                 <FormHelperText className={css.form_inputError} id="error-text">
-                  {errors.code}
+                  {errors.resultText}
                 </FormHelperText>
               )}
             </FormControl>
@@ -90,7 +90,7 @@ const CouponPopoverComponent = ({
               <Slider
                 className={css.coupon__form_slider}
                 onChange={handleChangeSliderRange(couponItemEdit ? couponItemEdit.id : '')}
-                value={chance}
+                value={probability}
                 defaultValue={20}
                 valueLabelDisplay="auto"
                 step={10}

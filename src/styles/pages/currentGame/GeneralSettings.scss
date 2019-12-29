@@ -1,6 +1,7 @@
 @import '../../core/base';
 @import '../../modules/buttons';
 @import '../../mixins/flex';
+
 .currentGame{
   &__settings{
     padding: 0 20px 20px 13px;
@@ -21,6 +22,12 @@
       div{
         width: 100%;
       }
+    }
+    &_inputAdornment {
+      background-color: rgba(206, 225, 246, 0.2) !important;
+      height: 40px;
+      max-height: 100%;
+      padding-left: 5px;
     }
     &_input50{
       width: 50%;

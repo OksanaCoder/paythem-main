@@ -255,6 +255,7 @@ class Main extends React.Component {
                     handleCloseTabContent={this.handleCloseTabContent}
                     tabValue="tabBehaviour3"
                     domainSelected={domainSelected}
+                    generalSettingsData={paramsGlobal.behavior.general_settings}
                   />
                 )}
               </div>

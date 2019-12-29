@@ -2,89 +2,65 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import cx from 'classnames';
+import { connect } from 'react-redux';
+import Scrollbars from 'react-custom-scrollbars';
 import {
   FormControl,
   FormHelperText,
-  TextField,
   RadioGroup,
   FormControlLabel,
   Radio,
   InputAdornment,
   Input,
   Button,
-  OutlinedInput,
   List,
   ListItem,
   ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
 } from '@material-ui/core';
 
+import { paramsDefault } from 'actions';
+import { AddIcon, TrashIcon, DoneIcon2 } from 'assets/images/icons';
 import Formik from 'helpers/Formik';
 import { GeneralSettingsSchema, AddSiteUrlSchema } from 'helpers/Formik/validation';
-import { Scrollbars } from 'react-custom-scrollbars';
-
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 import OtherRadio from 'modules/currentGame/components/OtherRadioComponent';
-
-import { AddIcon, TrashIcon, DoneIcon2 } from 'assets/images/icons';
 
 import css from 'styles/pages/CurrentGame/GeneralSettings.scss';
 
 class GeneralSettingsContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    const { generalSettingsData } = props;
-    this.state = {
-      displayGameDefault: generalSettingsData,
-      selectedItem: null,
-      specificPages: 'no',
-    };
-  }
-
   handleOthers = event => {
+    const { paramsDefaultAction, getParamsDefault } = this.props;
     const { name, value } = event.target;
-    console.log(name, value);
-    const { displayGameDefault } = this.state;
-    const displayGameUpdated = { ...displayGameDefault };
+    const params = { ...getParamsDefault.data };
 
-    const obj = displayGameUpdated.display_game.find(o => o.name === name);
-    obj.value = value;
-
-    this.setState({
-      displayGameDefault: displayGameUpdated,
-    });
+    params.behavior.general_settings.display_game.find(o => o.name === name).value = value;
+    paramsDefaultAction(params);
   };
 
   selectItem = (item, e) => {
-    console.log('item', item);
-    console.log('e', e.currentTarget.value);
-    const { displayGameDefault } = this.state;
-    const obj = displayGameDefault.display_game.find(o => o.checked === true);
-    obj.checked = false;
+    const { paramsDefaultAction, getParamsDefault } = this.props;
+    const params = { ...getParamsDefault.data };
+
+    params.behavior.general_settings.display_game.find(o => o.checked === true).checked = false;
+    paramsDefaultAction(params);
 
     const objItem = item;
     if (objItem.checked === false) {
       objItem.checked = true;
     }
-    this.setState({ selectedItem: objItem });
   };
 
   handleRadioChange = e => {
+    const { paramsDefaultAction, getParamsDefault } = this.props;
     const { name, value } = e.target;
-    const { displayGameDefault } = this.state;
-    const displayGameUpdated = { ...displayGameDefault };
+    const params = { ...getParamsDefault.data };
 
-    displayGameUpdated[name] = value === 'yes';
-
-    this.setState({
-      displayGameDefault: displayGameUpdated,
-    });
+    params.behavior.general_settings[name] = value === 'yes';
+    paramsDefaultAction(params);
   };
 
   handleChange = e => {
     const { name, value } = e.target;
-    console.log('name', name, value);
 
     this.setState({
       [name]: value,
@@ -92,25 +68,19 @@ class GeneralSettingsContainer extends React.Component {
   };
 
   handleAddSiteUrl = values => {
-    const { displayGameDefault } = this.state;
-    const displayGameUpdated = { ...displayGameDefault };
-    displayGameUpdated.where_game_show.push(values.siteUrl);
+    const { paramsDefaultAction, getParamsDefault } = this.props;
+    const params = { ...getParamsDefault.data };
 
-    this.setState({
-      displayGameDefault: displayGameUpdated,
-    });
+    params.behavior.general_settings.where_game_show.push(values.siteUrl);
+    paramsDefaultAction(params);
   };
 
   handleDeleteSiteUrl = value => () => {
-    const { displayGameDefault } = this.state;
-    const displayGameUpdated = { ...displayGameDefault };
-    displayGameUpdated.where_game_show = displayGameUpdated.where_game_show.filter(
-      item => item !== value,
-    );
-
-    this.setState({
-      displayGameDefault: displayGameUpdated,
-    });
+    const { paramsDefaultAction, getParamsDefault } = this.props;
+    const params = { ...getParamsDefault.data };
+    const gameShow = params.behavior.general_settings.where_game_show;
+    params.behavior.general_settings.where_game_show = gameShow.filter(item => item !== value);
+    paramsDefaultAction(params);
   };
 
   truncateString = (str, num) => {
@@ -120,41 +90,33 @@ class GeneralSettingsContainer extends React.Component {
     return `${str.slice(0, num)}...`;
   };
 
-  handleSubmitForm = values => {
-    console.log(values);
-    const { show_count, exp_copied } = values;
-    const { displayGameDefault } = this.state;
-    const displayGameUpdated = { ...displayGameDefault };
-    displayGameUpdated.show_count = show_count;
-    displayGameUpdated.exp_copied = exp_copied;
-
-    this.setState({
-      displayGameDefault: displayGameUpdated,
-    });
-
+  handleSubmitForm = () => {
     const { handleCloseTabContent } = this.props;
     handleCloseTabContent();
   };
 
-  render() {
-    const { tabValue, handleCloseTabContent, domainSelected } = this.props;
-    const {
-      displayGameDefault,
-      displayGameDefault: {
-        display_game,
-        show_on_leaving,
-        trigger_button,
-        email_repeat,
-        send_on_email,
-        where_game_show,
-        show_count,
-        exp_copied,
-      },
-      selectedItem,
-      specificPages,
-    } = this.state;
+  handleChangeParams = e => {
+    const { name, value } = e.target;
+    const { paramsDefaultAction, getParamsDefault } = this.props;
+    const params = { ...getParamsDefault.data };
 
-    console.log('displayGameDefault', displayGameDefault);
+    params.behavior.general_settings[name] = value;
+    paramsDefaultAction(params);
+  };
+
+  render() {
+    const { tabValue, domainSelected, getParamsDefault } = this.props;
+    console.log('getParamsDefault', getParamsDefault);
+    const {
+      display_game,
+      show_on_leaving,
+      trigger_button,
+      email_repeat,
+      send_on_email,
+      where_game_show,
+      show_count,
+      exp_copied,
+    } = getParamsDefault.data.behavior.general_settings;
 
     return (
       <Formik
@@ -247,11 +209,16 @@ class GeneralSettingsContainer extends React.Component {
                       <Input
                         className={css.currentGame__settings_input}
                         name="siteUrl"
+                        variant="filled"
                         value={subformik.values.siteUrl}
                         onChange={subformik.handleChange}
                         error={subformik.errors.siteUrl && subformik.touched.siteUrl}
+                        placeholder="my-blog-page"
                         startAdornment={
-                          <InputAdornment position="start">
+                          <InputAdornment
+                            className={css.currentGame__settings_inputAdornment}
+                            position="start"
+                          >
                             {domainSelected.data.domain}
                             <>/</>
                           </InputAdornment>
@@ -309,7 +276,10 @@ class GeneralSettingsContainer extends React.Component {
                   <h4>How many times a day to show the game for user? </h4>
                   <Input
                     className={css.currentGame__settings_input50}
-                    onChange={handleChange}
+                    onChange={e => {
+                      handleChange(e);
+                      this.handleChangeParams(e);
+                    }}
                     value={values.show_count}
                     error={errors.show_count && touched.show_count}
                     name="show_count"
@@ -327,12 +297,12 @@ class GeneralSettingsContainer extends React.Component {
                   )}
                 </FormControl>
 
-                <FormControl fullWidth className={css.form_input}>
-                  <h4>!!! ----------Show the game after the user performs the action </h4>
+                {/* <FormControl fullWidth className={css.form_input}>
+                  <h4>Show the game after the user performs the action </h4>
                   <RadioGroup name="trigger_btn">
                     <FormControlLabel control={<Radio />} label="No" />
                   </RadioGroup>
-                </FormControl>
+                </FormControl> */}
 
                 <FormControl fullWidth className={css.form_input}>
                   <h4>Send coupon to the user email</h4>
@@ -351,7 +321,10 @@ class GeneralSettingsContainer extends React.Component {
                   <h4>Show the user coundown time when coupon expires</h4>
                   <Input
                     className={css.currentGame__settings_input50}
-                    onChange={handleChange}
+                    onChange={e => {
+                      handleChange(e);
+                      this.handleChangeParams(e);
+                    }}
                     value={values.exp_copied}
                     error={errors.exp_copied && touched.exp_copied}
                     name="exp_copied"
@@ -377,4 +350,11 @@ class GeneralSettingsContainer extends React.Component {
   }
 }
 
-export default GeneralSettingsContainer;
+export default connect(
+  state => ({
+    getParamsDefault: state.get.getParamsDefault,
+  }),
+  dispatch => ({
+    paramsDefaultAction: data => dispatch(paramsDefault(data)),
+  }),
+)(GeneralSettingsContainer);

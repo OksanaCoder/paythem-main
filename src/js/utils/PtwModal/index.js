@@ -38,6 +38,13 @@ const PtwModal = ({ getParamsDefault: { data }, widgetViewValue, game = 'roulett
     backgroundImage: `url("${gameStyle.icon}")`,
   };
 
+  const truncateString = (str, num) => {
+    if (str.length <= num) {
+      return str;
+    }
+    return `${str.slice(0, num)}...`;
+  };
+
   return (
     <React.Fragment>
       <div className={css.PtwModalRoot__container} style={styleContainer}>
@@ -48,11 +55,11 @@ const PtwModal = ({ getParamsDefault: { data }, widgetViewValue, game = 'roulett
           <div className={css.PtwModalRoot__icon} style={styleIcon} />
           <div className={css.PtwModalRoot__inner}>
             <h2 className={css.PtwModalRoot__title} style={styleContent}>
-              {content[widgetViewValue].title}
+              {truncateString(content[widgetViewValue].title, 30)}
             </h2>
 
             <h3 className={css.PtwModalRoot__subtitle} style={styleContent}>
-              {content[widgetViewValue].subtitle}
+              {truncateString(content[widgetViewValue].subtitle, 70)}
             </h3>
 
             {widgetViewValue === 'start' && (
@@ -78,7 +85,7 @@ const PtwModal = ({ getParamsDefault: { data }, widgetViewValue, game = 'roulett
             {(widgetViewValue === 'start' || widgetViewValue === 'progress') && (
               <React.Fragment>
                 <button className={css.PtwModalRoot__button} type="button" style={styleButton}>
-                  <span>{content.start.button}</span>
+                  <span>{truncateString(content.start.button, 6)}</span>
                 </button>
                 <div className={css.PtwModalRootGame}>
                   {/* <div className={css.PtwModalRootGame__indicator} /> */}

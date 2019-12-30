@@ -97,7 +97,7 @@ class ChooseColorContainer extends React.Component {
   };
 
   handleChangeComplete = color => {
-    console.log('color', color.rgb);
+    // console.log('color', color.rgb);
     if (color) {
       const { handleEditColor } = this.props;
       this.setState({ customColor: color.rgb, color: false });

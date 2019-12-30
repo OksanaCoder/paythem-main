@@ -23,6 +23,7 @@
   overflow: hidden;
   display: flex;
   width: 100%;
+  border-radius: 0 0 12px 12px;
   &__indicator {
     background-position: center center;
     background-repeat: no-repeat;
@@ -34,7 +35,7 @@
     top: 15px;
     width: 40px;
   }
-  &__roullete {
+  &__roulette {
     overflow: hidden;
     border-radius: 0 0 12px 12px;
   }

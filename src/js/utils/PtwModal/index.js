@@ -8,7 +8,12 @@ import FinishWidgetComponent from './steps/FinishWidgetComponent';
 import css from './style.scss';
 
 // eslint-disable-next-line no-unused-vars
-const PtwModal = ({ getParamsDefault: { data }, widgetViewValue, game = 'roulette' }) => {
+const PtwModal = ({
+  getParamsDefault: { data },
+  widgetViewValue,
+  game = 'roulette',
+  handlePreviewWidget,
+}) => {
   const { game_style: gameStyle, content, behavior } = data;
 
   const styleContainer = {
@@ -104,7 +109,7 @@ const PtwModal = ({ getParamsDefault: { data }, widgetViewValue, game = 'roulett
       </div>
 
       <div className={css.PtwWidget}>
-        <button className={css.PtwWidget__button}>
+        <button className={css.PtwWidget__button} onClick={handlePreviewWidget}>
           <div className={css.PtwWidget__inner} style={styleWidgetButton}>
             {behavior.trigger_button.title}
             <span className={css.PtwWidget__icon} style={styleWidgetIcon} />

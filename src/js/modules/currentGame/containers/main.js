@@ -158,6 +158,10 @@ class Main extends React.Component {
     );
   };
 
+  handlePreviewWidget = () => {
+    console.log('ee');
+  };
+
   render() {
     const {
       openGameFullscreenDialog,
@@ -262,7 +266,11 @@ class Main extends React.Component {
 
               <div className={css.currentGame__content_game}>
                 <div className={css.currentGame__content_gameBlock}>
-                  <PtwModal getParamsDefault={getParamsDefault} widgetViewValue={widgetViewValue} />
+                  <PtwModal
+                    getParamsDefault={getParamsDefault}
+                    widgetViewValue={widgetViewValue}
+                    handlePreviewWidget={this.handlePreviewWidget}
+                  />
                 </div>
               </div>
             </div>

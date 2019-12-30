@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import { EyeIcon2, CloseIcon2, DoneIcon, AddWidgetIcon } from 'assets/images/icons';
 import css from 'styles/pages/CurrentGame/DialogHeader.scss';
 
-const headerCurrentGameComponent = ({ handleClose, handleSubmit }) => {
+const headerCurrentGameComponent = ({ handleClose, handleSubmit, handlePreviewWidget }) => {
   return (
     <div className={css.currentGame__header}>
       <div className={css.currentGame__header_inner}>
@@ -17,6 +17,7 @@ const headerCurrentGameComponent = ({ handleClose, handleSubmit }) => {
           <Button
             variant="contained"
             color="primary"
+            onClick={handlePreviewWidget}
             className={cx(
               css.button__top,
               css.button__top_white,

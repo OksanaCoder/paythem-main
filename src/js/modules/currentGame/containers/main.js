@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -35,17 +36,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      tabValue: {
-        tabs1: false,
-        tabs2: false,
-        tabs3: false,
-      },
-    };
-  }
+  state = {
+    tabValue: {
+      tabs1: false,
+      tabs2: false,
+      tabs3: false,
+    },
+  };
 
   updateGameParamsByGameId = () => {
     const {
@@ -158,8 +155,34 @@ class Main extends React.Component {
     );
   };
 
+  loadPtw = () => {
+    const { getParamsDefault } = this.props;
+    const script = document.createElement('script');
+    script.src = 'http://157.230.112.210:5000/uploads/playthem-widget.min.js';
+    script.id = 'ptw';
+    script.onload = () => {
+      // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-new
+      new PTW({
+        accessKey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZGRkMGEwNzk2N2NlZTBlOWQ2ZGExNTMiLCJkb21haW4iOiJ0b2RvLWxpc3QuaG8udWEiLCJ0eXBlIjoiYWNjZXNzS2V5IiwiaWF0IjoxNTc2ODU0OTU1fQ.Plyla2N0bG6-UmyhkhpDVxiceUcgd6f2mls29Y5VNCw',
+        isDefault: true,
+        game: 'roullete',
+        paramsData: getParamsDefault.data,
+      });
+    };
+
+    document.body.appendChild(script);
+  };
+
   handlePreviewWidget = () => {
-    console.log('ee');
+    const scriptSpin2Wheel = document.querySelector(
+      '[src="http://todo-list.ho.ua/wheel/js/Spin2WinWheel.js"]',
+    );
+    if (scriptSpin2Wheel) scriptSpin2Wheel.remove();
+    const ptw = document.querySelector('#ptw');
+    if (ptw) ptw.remove();
+    this.loadPtw();
   };
 
   render() {
@@ -183,7 +206,11 @@ class Main extends React.Component {
           TransitionComponent={Transition}
         >
           <Loader isFetching={loading} />
-          <HeaderCurrentGameComponent handleClose={handleClose} handleSubmit={this.handleSubmit} />
+          <HeaderCurrentGameComponent
+            handleClose={handleClose}
+            handleSubmit={this.handleSubmit}
+            handlePreviewWidget={this.handlePreviewWidget}
+          />
 
           <div className={css.currentGame__content}>
             <div className={css.currentGame__content_inner}>

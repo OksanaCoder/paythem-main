@@ -1,15 +1,21 @@
 import React from 'react';
+import cx from 'classnames';
 import { connect } from 'react-redux';
-import { FormControl, FormHelperText, OutlinedInput, TextField } from '@material-ui/core';
+import { FormControl, FormHelperText, OutlinedInput, TextField, Button } from '@material-ui/core';
 
 import { paramsDefault } from 'actions';
 import Formik from 'helpers/Formik';
 import { ProgressScreenSchema } from 'helpers/Formik/validation';
+import { TrashIcon } from 'assets/images/icons';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 
 import css from 'styles/pages/CurrentGame/Content.scss';
 
 class FinishScreenContainer extends React.Component {
+  state = {
+    bigSize: false,
+  };
+
   handleSubmitForm = () => {
     const { handleCloseTabContent } = this.props;
     handleCloseTabContent();
@@ -29,6 +35,45 @@ class FinishScreenContainer extends React.Component {
     paramsDefaultAction(params);
   };
 
+  handleChangeImage = e => {
+    const {
+      paramsDefaultAction,
+      getParamsDefault: { data },
+    } = this.props;
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    if (file.size < 900000) {
+      // eslint-disable-next-line no-unused-vars
+      reader.onload = upload => {
+        const params = { ...data };
+        params.content.finish.company_logo = upload.target.result;
+        paramsDefaultAction(params);
+        this.setState({
+          bigSize: false,
+        });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.setState({
+        bigSize: true,
+      });
+    }
+  };
+
+  handleDeleteImage = () => {
+    const {
+      paramsDefaultAction,
+      getParamsDefault: { data },
+    } = this.props;
+    const params = { ...data };
+    params.content.finish.company_logo = '';
+    paramsDefaultAction(params);
+    this.setState({
+      bigSize: false,
+    });
+  };
+
   render() {
     const {
       tabValue,
@@ -36,6 +81,7 @@ class FinishScreenContainer extends React.Component {
         data: { content },
       },
     } = this.props;
+    const { bigSize } = this.state;
 
     return (
       <Formik
@@ -92,6 +138,32 @@ class FinishScreenContainer extends React.Component {
 
               <FormControl fullWidth className={css.form_input}>
                 <h4>Company Logo</h4>
+                <div className={css.currentGame__imageBlock}>
+                  {content.finish.company_logo ? (
+                    <>
+                      <img src={content.finish.company_logo} alt="Background" />
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={cx(css.button__top)}
+                        onClick={this.handleDeleteImage}
+                      >
+                        <TrashIcon />
+                        Delete
+                      </Button>
+                    </>
+                  ) : (
+                    <input
+                      type="file"
+                      name="file"
+                      className="upload-file"
+                      id="file"
+                      onChange={this.handleChangeImage}
+                      encType="multipart/form-data"
+                    />
+                  )}
+                </div>
+                {bigSize && <p className={css.form_inputError}>Image size has to be max 9Mb</p>}
               </FormControl>
 
               <FormControl fullWidth className={css.form_input}>

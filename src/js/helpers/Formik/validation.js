@@ -112,7 +112,7 @@ export const StartScreenSchema = () =>
       .required(strings.validation.required),
     button: Yup.string()
       .min(2, strings.formatString(strings.validation.min, { num: 2 }))
-      .max(10, strings.formatString(strings.validation.max, { num: 10 }))
+      .max(6, strings.formatString(strings.validation.max, { num: 6 }))
       .required(strings.validation.required),
   });
 
@@ -120,11 +120,11 @@ export const ProgressScreenSchema = () =>
   Yup.object().shape({
     title: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 50 }))
+      .max(30, strings.formatString(strings.validation.max, { num: 30 }))
       .required(strings.validation.required),
     subtitle: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 50 }))
+      .max(70, strings.formatString(strings.validation.max, { num: 70 }))
       .required(strings.validation.required),
   });
 

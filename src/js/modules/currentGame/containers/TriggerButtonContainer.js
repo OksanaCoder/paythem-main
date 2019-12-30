@@ -20,7 +20,14 @@ class TriggerButtonContainer extends React.Component {
     paramsDefaultAction(params);
   };
 
-  handleEditColor = trigger => color => {
+  handleEditColor = trigger => value => {
+    let color = '';
+    if (typeof value === 'object') {
+      const { r, g, b, a } = value;
+      color = `rgba(${r},${g},${b},${a})`;
+    } else {
+      color = value;
+    }
     const { paramsDefaultAction, getParamsDefault } = this.props;
     const params = { ...getParamsDefault.data };
     params.behavior.trigger_button[trigger] = color;

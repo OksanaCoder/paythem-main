@@ -1,23 +1,65 @@
-/* eslint-disable camelcase */
 import React from 'react';
 import { connect } from 'react-redux';
 import { FormControl, FormHelperText, OutlinedInput } from '@material-ui/core';
 
 import { paramsDefault } from 'actions';
-import Formik from 'helpers/Formik';
-import { TriggerButtonTextSchema } from 'helpers/Formik/validation';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
 
 import css from 'styles/pages/CurrentGame.scss';
 
+const validation = errors => {
+  let valid = true;
+  Object.values(errors).forEach(
+    // eslint-disable-next-line no-return-assign
+    // eslint-disable-next-line arrow-parens
+    // eslint-disable-next-line no-return-assign
+    val => val.length > 0 && (valid = false),
+  );
+  return valid;
+};
+
 class TriggerButtonContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    const {
+      getParamsDefault: {
+        data: { behavior },
+      },
+    } = props;
+    this.state = {
+      title: behavior.trigger_button.title,
+      errors: {
+        title: '',
+      },
+    };
+  }
+
   handleChangeParams = e => {
-    const { paramsDefaultAction, getParamsDefault } = this.props;
     const { name, value } = e.target;
-    const params = { ...getParamsDefault.data };
-    params.behavior.trigger_button[name] = value;
-    paramsDefaultAction(params);
+    const { errors } = this.state;
+    switch (name) {
+      case 'title':
+        errors.title =
+          value.length < 3 || value.length > 20 ? 'Title must be 3 or less than 20 characters' : '';
+        break;
+      default:
+        break;
+    }
+    this.setState({ errors, [name]: value }, () => this.validateForm());
+  };
+
+  validateForm = () => {
+    const { errors, title } = this.state;
+    if (validation(errors)) {
+      const { paramsDefaultAction, getParamsDefault } = this.props;
+      const newData = {
+        title,
+      };
+      const params = { ...getParamsDefault.data };
+      Object.assign(params.behavior.trigger_button, newData);
+      paramsDefaultAction(params);
+    }
   };
 
   handleEditColor = trigger => value => {
@@ -35,64 +77,54 @@ class TriggerButtonContainer extends React.Component {
   };
 
   handleSubmitTitle = () => {
-    const { handleCloseTabContent } = this.props;
-    handleCloseTabContent();
+    const { errors } = this.state;
+    if (validation(errors)) {
+      const { handleCloseTabContent } = this.props;
+      handleCloseTabContent();
+    }
   };
 
   render() {
+    const { title, errors } = this.state;
     const { tabValue, getParamsDefault } = this.props;
     const { trigger_button: triggerButton } = getParamsDefault.data.behavior;
 
     return (
-      <Formik
-        initialValues={{
-          title: triggerButton.title,
-        }}
-        validationSchema={TriggerButtonTextSchema}
-        onSubmit={this.handleSubmitTitle}
+      <TabContentComponent
+        title="Trigger Button"
+        description="Here you can customize the button which should open the popup window."
+        tabValue={tabValue}
+        handleCloseTabContent={this.handleSubmitTitle}
       >
-        {({ values, errors, touched, handleChange, handleSubmit }) => (
-          <TabContentComponent
-            title="Trigger Button"
-            description="Here you can customize the button which should open the popup window."
-            tabValue={tabValue}
-            handleCloseTabContent={handleSubmit}
-          >
-            <form>
-              <FormControl fullWidth className={css.form_input}>
-                <h4>Title</h4>
-                <OutlinedInput
-                  name="title"
-                  placeholder="Get free gift!"
-                  onChange={e => {
-                    handleChange(e);
-                    this.handleChangeParams(e);
-                  }}
-                  error={errors.title && touched.title}
-                  value={values.title}
-                  aria-describedby="error-text"
-                />
-                {errors.title && touched.title && (
-                  <FormHelperText className={css.form_inputError} id="error-text">
-                    {errors.title}
-                  </FormHelperText>
-                )}
-              </FormControl>
+        <form>
+          <FormControl fullWidth className={css.form_input}>
+            <h4>Title</h4>
+            <OutlinedInput
+              name="title"
+              placeholder="Get free gift!"
+              onChange={this.handleChangeParams}
+              value={title}
+              aria-describedby="error-text"
+            />
+            {errors.title.length > 0 && (
+              <FormHelperText className={css.form_inputError} id="error-text">
+                {errors.title}
+              </FormHelperText>
+            )}
+          </FormControl>
 
-              <ChooseColorContainer
-                title="Text Color"
-                color={triggerButton.text_color}
-                handleEditColor={this.handleEditColor('text_color')}
-              />
-              <ChooseColorContainer
-                title="Background Color"
-                color={triggerButton.bg_color}
-                handleEditColor={this.handleEditColor('bg_color')}
-              />
-            </form>
-          </TabContentComponent>
-        )}
-      </Formik>
+          <ChooseColorContainer
+            title="Text Color"
+            color={triggerButton.text_color}
+            handleEditColor={this.handleEditColor('text_color')}
+          />
+          <ChooseColorContainer
+            title="Background Color"
+            color={triggerButton.bg_color}
+            handleEditColor={this.handleEditColor('bg_color')}
+          />
+        </form>
+      </TabContentComponent>
     );
   }
 }

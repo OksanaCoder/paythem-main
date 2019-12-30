@@ -3,13 +3,13 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Button, Drawer } from '@material-ui/core';
 
-import { gameSelected } from 'actions';
-
+import { paramsDefault, widgetView, gameSelected } from 'actions';
 import AddWebsiteDialog from 'components/Dialog/AddWebsiteDialog';
 import DeleteWebsiteDialog from 'components/Dialog/DeleteWebsiteDialog';
 import InstallationCodeDialog from 'components/Dialog/InstallationCodeDialog';
 import GamesListComponent from 'modules/currentDomain/components/GamesListComponent';
 import CurrentGame from 'modules/CurrentGame';
+import { PARAMS_DEFAULT } from 'config';
 
 import { ConfigurationIcon, EditIcon, TrashIcon, AddWidgetIcon } from 'assets/images/icons';
 import UserIcon from 'assets/images/icons/user.svg';
@@ -17,12 +17,12 @@ import UserIcon from 'assets/images/icons/user.svg';
 import css from 'styles/pages/Home.scss';
 
 class CurrentDomainContainer extends React.Component {
-  componentDidMount() {}
-
   handleChooseGame = data => {
-    const { handleOpen, gameSelectedAction } = this.props;
-
+    console.log('eee');
+    const { handleOpen, gameSelectedAction, widgetViewAction, paramsDefaultAction } = this.props;
     handleOpen('openGameFullscreenDialog')();
+    widgetViewAction('start');
+    paramsDefaultAction(PARAMS_DEFAULT);
     gameSelectedAction(data);
   };
 
@@ -56,7 +56,11 @@ class CurrentDomainContainer extends React.Component {
                 <div>
                   <h3>Site title</h3>
                   <p>
-                    <a href="google.com" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={`http://${domainItemSelected.data.domain}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {domainItemSelected.data.domain}
                     </a>
                   </p>
@@ -129,7 +133,6 @@ class CurrentDomainContainer extends React.Component {
             <Drawer anchor="right" open={rightPanel} onClose={toggleDrawer('rightPanel', false)}>
               <GamesListComponent
                 toggleDrawer={toggleDrawer}
-                // handleOpen={handleOpen('openGameFullscreenDialog')}
                 handleChooseGame={this.handleChooseGame}
               />
             </Drawer>
@@ -150,6 +153,8 @@ export default connect(
     domainItemSelected: state.other.domainSelected,
   }),
   dispatch => ({
+    widgetViewAction: data => dispatch(widgetView(data)),
+    paramsDefaultAction: data => dispatch(paramsDefault(data)),
     gameSelectedAction: data => dispatch(gameSelected(data)),
   }),
 )(CurrentDomainContainer);

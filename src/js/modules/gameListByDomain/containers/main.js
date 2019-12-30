@@ -1,9 +1,16 @@
-/* eslint-disable no-unneeded-ternary */
-/* eslint-disable */
 import React, { Component } from 'react';
+import { sumBy } from 'lodash';
 import { connect } from 'react-redux';
 
-import { getParams, getGameList, removeGame, updateGameStatus, gameSelected } from 'actions';
+import {
+  paramsDefault,
+  getParams,
+  getGameList,
+  removeGame,
+  updateGameStatus,
+  gameSelected,
+  widgetView,
+} from 'actions';
 import Fetching from 'components/Fetching';
 
 import GamesListForDomainComponent from 'modules/gameListByDomain/components/GamesListForDomainComponent';
@@ -24,26 +31,6 @@ class GameListByDomain extends Component {
       this.loadGameList(nextProps);
     }
   }
-
-  // loadParamsByDomainAndGameIds = () => {
-  //   const { getParamsAction, gameSelected, domainSelected } = this.props;
-  //   const domainId = domainSelected.data._id;
-  //   const gameId = gameSelected.data._id;
-  //   getParamsAction({ domainId, gameId }).then(res => {
-  //     if (!res.error) {
-  //       const { paramsDataByIds } = this.getParamsByDomainAndGameIds();
-  //       this.setState({ paramsGlobal: paramsDataByIds });
-  //     }
-  //   });
-  // };
-
-  // getParamsByDomainAndGameIds = () => {
-  //   const {
-  //     paramsData: { data, loaded, loading },
-  //   } = this.props;
-  //   const paramsDataByIds = loaded && data.data.data.params;
-  //   return { paramsDataByIds, loaded, loading };
-  // };
 
   loadGameList = async nextProps => {
     const { getGameListAction } = this.props;
@@ -88,16 +75,40 @@ class GameListByDomain extends Component {
     updateGameStatusAction(params, status).then(res => !res.error && this.loadGameList());
   };
 
-  handleChooseGame = data => {
-    const { getParamsAction, handleOpen, domainSelected, gameSelectedAction } = this.props;
+  handleChooseGame = game => () => {
+    const {
+      getParamsAction,
+      handleOpen,
+      domainSelected,
+      gameSelectedAction,
+      paramsDefaultAction,
+      widgetViewAction,
+    } = this.props;
     const params = {
       domainId: domainSelected.data._id,
-      gameId: data._id,
+      gameId: game._id,
     };
 
     handleOpen('openGameFullscreenDialog')();
-    gameSelectedAction(data);
-    getParamsAction(params);
+    widgetViewAction('start');
+    gameSelectedAction(game);
+
+    getParamsAction(params).then(res => {
+      console.log('res', res);
+      if (!res.error) {
+        const { data } = res.payload.data;
+        paramsDefaultAction(data.params);
+      }
+    });
+  };
+
+  calcTotalStatistics = () => {
+    const { gameList } = this.getGameList();
+    const impr = sumBy(gameList, o => o.statistics.impr);
+    const hits = sumBy(gameList, o => o.statistics.hits);
+    const ctr = impr !== 0 ? ((hits / impr) * 100).toFixed(2) : 0;
+
+    return { impr, hits, ctr };
   };
 
   render() {
@@ -108,17 +119,17 @@ class GameListByDomain extends Component {
       toggleDrawer,
       rightPanel,
       // paramsData,
-      games,
+      // games,
     } = this.props;
     const { gameList, loaded, loading } = this.getGameList();
-    console.log('games', games);
+    const { impr, hits, ctr } = this.calcTotalStatistics();
 
     return (
       <section>
         <Fetching isFetching={loading}>
           {loaded && gameList.length > 0 && (
             <React.Fragment>
-              <TotalStatisticsComponent />
+              <TotalStatisticsComponent impr={impr} hits={hits} ctr={ctr} />
               <GamesListForDomainComponent
                 gameList={gameList}
                 id={_id}
@@ -144,7 +155,9 @@ export default connect(
     games: state.get.gameList,
   }),
   dispatch => ({
+    widgetViewAction: value => dispatch(widgetView(value)),
     getGameListAction: params => dispatch(getGameList(params)),
+    paramsDefaultAction: params => dispatch(paramsDefault(params)),
     getParamsAction: params => dispatch(getParams(params)),
     removeGameAction: params => dispatch(removeGame(params)),
     updateGameStatusAction: (params, data) => dispatch(updateGameStatus(params, data)),

@@ -1,9 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import uuidv5 from 'uuid';
+import { sumBy } from 'lodash';
 import cx from 'classnames';
+import { connect } from 'react-redux';
 import { Button, Popover } from '@material-ui/core';
 
+import { paramsDefault } from 'actions';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 import CouponItemComponent from 'modules/currentGame/components/CouponItemComponent';
 import CouponPopoverComponent from 'modules/currentGame/components/CouponPopoverComponent';
@@ -13,21 +16,17 @@ import { AddIcon } from 'assets/images/icons';
 import css from 'styles/pages/CurrentGame/Coupons.scss';
 
 class CouponsOptionsContainer extends React.Component {
-  state = {
-    open: false,
-    anchorEl: null,
-    name: '',
-    code: '',
-    chance: 10,
-    couponItemEdit: false,
-    couponsData: [],
-  };
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log(prevState);
-    const { couponsData } = nextProps;
-    return {
-      couponsData: couponsData || prevState.couponsData,
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      anchorEl: null,
+      value: '',
+      resultText: '',
+      probability: '',
+      chanceReal: '',
+      couponItemEdit: false,
+      couponsData: props.couponsData,
     };
   }
 
@@ -42,9 +41,10 @@ class CouponsOptionsContainer extends React.Component {
     this.setState({
       open: true,
       anchorEl: e.currentTarget,
-      name: coupon.name || '',
-      code: coupon.code || '',
-      chance: coupon.chance || 20,
+      value: coupon.value || '',
+      resultText: coupon.resultText || '',
+      probability: coupon.probability || 20,
+      chanceReal: coupon.chanceReal || 20,
       couponItemEdit: coupon || undefined,
     });
   };
@@ -56,23 +56,11 @@ class CouponsOptionsContainer extends React.Component {
     });
   };
 
-  // handleChangeInput = e => {
-  //   const { name, value } = e.target;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // };
-
-  handleChangeSliderRange = (e, value) => {
-    this.setState({
-      chance: value,
-    });
-  };
-
   handleSubmit = values => {
-    console.log(values);
+    const { paramsDefaultAction, getParamsDefault } = this.props;
     const { couponItemEdit } = this.state;
     let couponsDataUpdated = [];
+
     if (!couponItemEdit) {
       const { couponsData } = this.addCoupon(values);
       couponsDataUpdated = couponsData;
@@ -80,6 +68,11 @@ class CouponsOptionsContainer extends React.Component {
       const { couponsData } = this.updateCoupon(values);
       couponsDataUpdated = couponsData;
     }
+
+    const params = { ...getParamsDefault.data };
+    params.behavior.coupons = couponsDataUpdated;
+    paramsDefaultAction(params);
+
     this.setState({
       open: false,
       couponsData: couponsDataUpdated,
@@ -88,39 +81,105 @@ class CouponsOptionsContainer extends React.Component {
 
   addCoupon = values => {
     console.log(values);
-    const { couponsData, chance } = this.state;
-    const { name, code } = values;
+    const { couponsData, probability, chanceReal } = this.state;
+    const { value, resultText } = values;
     const newData = {
       id: uuidv5(),
-      name,
-      code,
-      chance,
+      value,
+      resultText,
+      probability,
+      chanceReal,
+      type: 'string',
+      userData: {
+        value,
+      },
     };
     couponsData.push(newData);
     return { couponsData };
   };
 
   updateCoupon = values => {
-    const { couponsData, chance, couponItemEdit } = this.state;
-    const { name, code } = values;
+    const { couponsData, probability, chanceReal, couponItemEdit } = this.state;
+    const { value, resultText } = values;
     const { id } = couponItemEdit;
-    const couponItemUpdated = { id, name, code, chance };
+    const couponItemUpdated = {
+      id,
+      value,
+      resultText,
+      probability,
+      chanceReal,
+      type: 'string',
+      userData: { value },
+    };
     const findIndex = couponsData.findIndex(item => item.id === id);
     couponsData.splice(findIndex, 1, couponItemUpdated);
     return { couponsData };
   };
 
   deleteCoupon = id => () => {
+    const { couponsData: couponsDataProps, paramsDefaultAction, getParamsDefault } = this.props;
+
+    let couponsDataUpdated = [...couponsDataProps];
+    couponsDataUpdated = couponsDataUpdated.filter(item => item.id !== id);
+
+    const gravitySum = sumBy(couponsDataUpdated, o => o.probability);
+
+    couponsDataUpdated = couponsDataUpdated.map((item, i) => {
+      // eslint-disable-next-line no-param-reassign
+      item.chanceReal = ((item.probability * 100) / gravitySum).toFixed(2);
+      return item;
+    });
+
+    const params = { ...getParamsDefault.data };
+    params.behavior.coupons = couponsDataUpdated;
+    paramsDefaultAction(params);
+
+    this.setState({
+      couponsData: couponsDataUpdated,
+    });
+    this.handleClosePopover();
+  };
+
+  handleChangeSliderRange = idCoupon => (e, value) => {
     const { couponsData } = this.state;
-    const index = couponsData.findIndex(coupon => coupon.id === id);
-    couponsData.splice(index, 1);
-    this.setState({ couponsData });
+    let couponsDataUpdated = [...couponsData];
+    let gravitySum = sumBy(couponsData, o => o.probability);
+    if (idCoupon) {
+      const coupon = couponsData.find(item => item.id === idCoupon);
+      gravitySum = gravitySum - coupon.probability + value;
+    } else {
+      gravitySum += value;
+    }
+    const chanceRealNew = ((value * 100) / gravitySum).toFixed(2);
+
+    couponsDataUpdated = couponsDataUpdated.map((item, i) => {
+      // eslint-disable-next-line no-param-reassign
+      item.chanceReal = ((item.probability * 100) / gravitySum).toFixed(2);
+      console.log('----', i, item.chanceReal);
+      return item;
+    });
+    this.setState({
+      probability: value,
+      chanceReal: chanceRealNew,
+      couponsData: couponsDataUpdated,
+    });
   };
 
   render() {
-    const { couponsData, open, name, code, chance, anchorEl, couponItemEdit } = this.state;
+    const {
+      couponsData,
+      open,
+      value,
+      resultText,
+      probability,
+      chanceReal,
+      anchorEl,
+      couponItemEdit,
+    } = this.state;
     const { handleCloseTabContent, tabValue } = this.props;
-    const id = open ? 'simple-popover' : undefined;
+    const idPopover = open ? 'simple-popover' : undefined;
+
+    console.log('render couponsData', couponsData);
 
     return (
       <TabContentComponent
@@ -129,23 +188,32 @@ class CouponsOptionsContainer extends React.Component {
         tabValue={tabValue}
         handleCloseTabContent={handleCloseTabContent}
       >
-        {couponsData.map(coupon => {
-          return (
-            <CouponItemComponent
-              key={coupon.id}
-              dataLength={couponsData.length}
-              data={coupon}
-              deleteCoupon={this.deleteCoupon(coupon.id)}
-              handleOpenPopover={this.handleOpenPopover(coupon)}
-              truncateString={this.truncateString}
-            />
-          );
-        })}
+        <div
+          style={{
+            overflowY: 'auto',
+            paddingRight: '17px',
+            paddingBottom: '15px',
+            maxHeight: 'calc(100vh - 234px)',
+          }}
+        >
+          {couponsData.map(coupon => {
+            return (
+              <CouponItemComponent
+                key={coupon.id}
+                dataLength={couponsData.length}
+                data={coupon}
+                deleteCoupon={this.deleteCoupon(coupon.id)}
+                handleOpenPopover={this.handleOpenPopover(coupon)}
+                truncateString={this.truncateString}
+              />
+            );
+          })}
+        </div>
 
         <Button
           variant="contained"
           color="primary"
-          disabled={couponsData !== undefined && couponsData.length >= 12}
+          disabled={couponsData.length >= 12}
           className={cx(css.button__top, css.coupons__addBtn)}
           onClick={this.handleOpenPopover('')}
         >
@@ -154,14 +222,14 @@ class CouponsOptionsContainer extends React.Component {
         </Button>
 
         <CouponPopoverComponent
-          data={{ name, code, chance }}
+          data={{ value, resultText, probability, chanceReal }}
           open={open}
           handleClose={this.handleClosePopover}
           handleChangeInput={this.handleChangeInput}
           handleChangeSliderRange={this.handleChangeSliderRange}
           handleCoupon={this.handleSubmit}
           deleteCoupon={this.deleteCoupon}
-          id={id}
+          idPopover={idPopover}
           anchorEl={anchorEl}
           dataLength={couponsData.length}
           couponItemEdit={couponItemEdit}
@@ -171,4 +239,11 @@ class CouponsOptionsContainer extends React.Component {
   }
 }
 
-export default CouponsOptionsContainer;
+export default connect(
+  state => ({
+    getParamsDefault: state.get.getParamsDefault,
+  }),
+  dispatch => ({
+    paramsDefaultAction: data => dispatch(paramsDefault(data)),
+  }),
+)(CouponsOptionsContainer);

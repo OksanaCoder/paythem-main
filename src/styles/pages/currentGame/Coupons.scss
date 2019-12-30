@@ -45,5 +45,16 @@
     &_slider{
      color: $color-bg-headerDialog;
     }
+    &_btn{
+      &:disabled{
+        background-color: #f3f3f3  !important;
+        svg{
+          path{
+            fill: #ccc;
+            stroke: #ccc;
+          }
+        }
+      }
+    }
   }
 }

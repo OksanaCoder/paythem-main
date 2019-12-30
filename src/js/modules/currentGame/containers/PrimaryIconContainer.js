@@ -1,12 +1,14 @@
 import React from 'react';
 import cx from 'classnames';
+import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
-import { TrashIcon } from 'assets/images/icons';
 
-import { PARAMS } from 'config';
+import { paramsDefault } from 'actions';
+import { TrashIcon } from 'assets/images/icons';
+import { WIDGET_ICONS } from 'config';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 
-import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame/PrimaryIcon.scss';
 
 class PrimaryIconContainer extends React.Component {
   constructor(props) {
@@ -19,18 +21,29 @@ class PrimaryIconContainer extends React.Component {
     };
   }
 
-  handleChooseIcon = e => {
+  componentDidMount() {
     const { iconData } = this.props;
+    const image = WIDGET_ICONS.some(e => e.url === iconData.icon);
+
+    if (image) {
+      this.setState({ image: '' });
+    }
+  }
+
+  handleChooseIcon = e => {
+    const { paramsDefaultAction, getParamsDefault } = this.props;
     const { value } = e.currentTarget;
+    const params = { ...getParamsDefault.data };
+    params.game_style.icon = value;
+    paramsDefaultAction(params);
     this.setState({
       activeIcon: value,
       image: '',
     });
-    iconData.icon = value;
   };
 
   handleChangeImage = e => {
-    const { iconData } = this.props;
+    const { paramsDefaultAction, getParamsDefault } = this.props;
     const reader = new FileReader();
     const file = e.target.files[0];
 
@@ -41,7 +54,9 @@ class PrimaryIconContainer extends React.Component {
           bigSize: false,
           activeIcon: upload.target.result,
         });
-        iconData.icon = upload.target.result;
+        const params = { ...getParamsDefault.data };
+        params.game_style.icon = upload.target.result;
+        paramsDefaultAction(params);
       };
       reader.readAsDataURL(file);
     } else {
@@ -56,15 +71,15 @@ class PrimaryIconContainer extends React.Component {
     this.setState({
       image: '',
       bigSize: false,
-      activeIcon: PARAMS.widget_icons[0].url,
+      activeIcon: WIDGET_ICONS[0].url,
     });
-    iconData.icon = PARAMS.widget_icons[0].url;
+    iconData.icon = WIDGET_ICONS[0].url;
   };
 
   render() {
     const { activeIcon, image, bigSize } = this.state;
     const { handleCloseTabContent, tabValue } = this.props;
-    // console.log(activeIcon);
+
     return (
       <TabContentComponent
         title="Primary Icon"
@@ -74,9 +89,9 @@ class PrimaryIconContainer extends React.Component {
       >
         <h4>Predefined Icons</h4>
         <ul className={css.currentGame__iconsList}>
-          {PARAMS.widget_icons.map(icon => (
+          {WIDGET_ICONS.map(icon => (
             <li
-              key={icon.name}
+              key={icon.id}
               className={activeIcon === icon.url ? css.currentGame__activeIcon : null}
             >
               <button
@@ -123,4 +138,11 @@ class PrimaryIconContainer extends React.Component {
   }
 }
 
-export default PrimaryIconContainer;
+export default connect(
+  state => ({
+    getParamsDefault: state.get.getParamsDefault,
+  }),
+  dispatch => ({
+    paramsDefaultAction: data => dispatch(paramsDefault(data)),
+  }),
+)(PrimaryIconContainer);

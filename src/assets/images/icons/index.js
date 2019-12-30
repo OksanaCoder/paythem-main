@@ -36,6 +36,7 @@ import {
   TriggerButtonIcon,
   AddIcon,
   DoneIcon2,
+  ColorIcon,
 } from 'assets/images/icons/constructorIcons';
 
 export {
@@ -74,4 +75,5 @@ export {
   TriggerButtonIcon,
   AddIcon,
   DoneIcon2,
+  ColorIcon,
 };

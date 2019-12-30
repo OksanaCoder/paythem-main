@@ -1,22 +1,19 @@
-/* eslint-disable react/no-unused-state */
 /* eslint-disable no-undef */
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
-/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
-// import cx from 'classnames';
 import { Dialog, Slide } from '@material-ui/core';
 
 import {
   createGame,
-  gameSettings,
-  screenView,
   addNotification,
   updateParams,
   getGameList,
+  paramsDefault,
+  widgetView,
 } from 'actions';
-
-import { PARAMS_DEFAULT } from 'config';
+import Loader from 'components/Loader';
 
 import HeaderCurrentGameComponent from 'modules/currentGame/components/HeaderCurrentGameComponent';
 import TabsListComponent from 'modules/currentGame/components/TabsListComponent';
@@ -30,55 +27,71 @@ import FinishScreenContainer from 'modules/currentGame/containers/FinishScreenCo
 import PrimaryIconContainer from 'modules/currentGame/containers/PrimaryIconContainer';
 import GeneralSettingsContainer from 'modules/currentGame/containers/GeneralSettingsContainer';
 
-import presentIcon from 'assets/images/icons/present-icon.svg';
+import PtwModal from 'utils/PtwModal';
 
-import css from 'styles/pages/CurrentGame.scss';
+import css from 'styles/pages/CurrentGame/Content.scss';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    tabValue: {
+      tabs1: false,
+      tabs2: false,
+      tabs3: false,
+    },
+  };
 
-    this.state = {
-      tabValue: {
-        tabs1: false,
-        tabs2: false,
-        tabs3: false,
-      },
-      paramsGlobal: PARAMS_DEFAULT,
-    };
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  updateGameParamsByGameId = () => {
     const {
-      paramsData: { loaded, data },
-    } = nextProps;
-    const params = loaded && data.data.data.params;
-    if (loaded) {
-      this.setState({
-        paramsGlobal: params,
-      });
-    }
-  }
-
-  updateGameParamsByDomainAndGameId = () => {
-    const { updateParamsAction, gameSelected, domainSelected } = this.props;
+      updateParamsAction,
+      gameSelected,
+      domainSelected,
+      getParamsDefault: { data },
+    } = this.props;
     const domainId = domainSelected.data._id;
     const gameId = gameSelected.data._id;
-    const { paramsGlobal } = this.state;
-    const params = { domainId, gameId };
-    const data = { params: paramsGlobal };
+
+    const queryParams = {
+      domainId,
+      gameId,
+    };
+    const dataParams = {
+      params: data,
+    };
     const notice = {
       success: 'Game updated',
       error: 'Game update error',
     };
-    updateParamsAction(params, data).then(res => this.results(res, notice, false));
+
+    updateParamsAction(queryParams, dataParams).then(res => this.results(res, notice, false));
   };
 
-  results = (res, notice, isCreated) => {
+  addGameByDomainId = () => {
+    const {
+      createGameAction,
+      gameSelected,
+      domainSelected,
+      getParamsDefault: { data },
+    } = this.props;
+    const queryParams = {
+      domainId: domainSelected.data._id,
+    };
+    const dataParams = {
+      game: gameSelected.data.name,
+      params: data,
+    };
+    const notice = {
+      success: 'Game created',
+      error: 'Game error',
+    };
+
+    createGameAction(queryParams, dataParams).then(res => this.results(res, notice, true));
+  };
+
+  results = (res, notice) => {
     const { addNotificationAction } = this.props;
     if (res.error) {
       addNotificationAction({
@@ -88,31 +101,11 @@ class Main extends React.Component {
       return false;
     }
 
-    if (isCreated) {
-      this.setState({ paramsGlobal: PARAMS_DEFAULT });
-    } else {
-      // this.loadParamsByDomainAndGameIds();
-    }
-
     addNotificationAction({
       type: 'success',
       text: notice.success,
     });
     return false;
-  };
-
-  addGameByDomainId = () => {
-    const { createGameAction, gameSelected, domainSelected } = this.props;
-    const { paramsGlobal } = this.state;
-
-    const params = { domainId: domainSelected.data._id };
-    const data = { game: gameSelected.data.name, params: paramsGlobal };
-
-    const notice = {
-      success: 'Game created',
-      error: 'Game error',
-    };
-    createGameAction(params, data).then(res => this.results(res, notice, true));
   };
 
   handleSubmit = () => {
@@ -121,150 +114,196 @@ class Main extends React.Component {
     const gameId = gameSelected.data._id;
 
     if (domainId && gameId) {
-      this.updateGameParamsByDomainAndGameId();
+      this.updateGameParamsByGameId();
     } else {
       this.addGameByDomainId();
-      const params = { domainId };
-      getGameListAction(params);
+      getGameListAction({ domainId });
     }
+
     // Close fullscreen dialog
     handleClose();
     this.handleCloseTabContent();
   };
 
   handleChangeTabsIntegration = target => (e, value) => {
-    const { tabValue } = this.state;
-    this.setState({
-      tabValue: {
-        ...tabValue,
-        [target]: value,
+    const { widgetViewAction } = this.props;
+    this.setState(
+      state => ({
+        tabValue: {
+          ...state.tabValue,
+          [target]: value,
+        },
+      }),
+      () => {
+        const isValue = value !== 'progress' && value !== 'finish';
+        widgetViewAction(isValue ? 'start' : value);
       },
-    });
+    );
   };
 
-  handleCloseTabContent = () => {
-    this.setState({
-      tabValue: {
-        tabs1: false,
-        tabs2: false,
-        tabs3: false,
+  handleCloseTabContent = e => {
+    const { widgetViewAction } = this.props;
+    this.setState(
+      {
+        tabValue: {
+          tabs1: false,
+          tabs2: false,
+          tabs3: false,
+        },
       },
-    });
+      () => widgetViewAction('start'),
+    );
+  };
+
+  loadPtw = () => {
+    const { getParamsDefault } = this.props;
+    const script = document.createElement('script');
+    script.src = 'http://157.230.112.210:5000/uploads/playthem-widget.min.js';
+    script.id = 'ptw';
+    script.onload = () => {
+      // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-new
+      new PTW({
+        accessKey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZGRkMGEwNzk2N2NlZTBlOWQ2ZGExNTMiLCJkb21haW4iOiJ0b2RvLWxpc3QuaG8udWEiLCJ0eXBlIjoiYWNjZXNzS2V5IiwiaWF0IjoxNTc2ODU0OTU1fQ.Plyla2N0bG6-UmyhkhpDVxiceUcgd6f2mls29Y5VNCw',
+        isDefault: true,
+        game: 'roullete',
+        paramsData: getParamsDefault.data,
+      });
+    };
+
+    document.body.appendChild(script);
+  };
+
+  handlePreviewWidget = () => {
+    const scriptSpin2Wheel = document.querySelector(
+      '[src="http://todo-list.ho.ua/wheel/js/Spin2WinWheel.js"]',
+    );
+    if (scriptSpin2Wheel) scriptSpin2Wheel.remove();
+    const ptw = document.querySelector('#ptw');
+    if (ptw) ptw.remove();
+    this.loadPtw();
   };
 
   render() {
-    const { openGameFullscreenDialog, handleClose, gameSelected, domainSelected } = this.props;
-    const { tabValue, paramsGlobal } = this.state;
+    const {
+      openGameFullscreenDialog,
+      handleClose,
+      domainSelected,
+      widgetViewValue,
+      getParamsDefault,
+      paramsData: { loading },
+    } = this.props;
+    const { tabValue } = this.state;
+    const { data: paramsGlobal } = getParamsDefault;
 
     return (
-      <Dialog
-        fullScreen
-        open={openGameFullscreenDialog}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-      >
-        <HeaderCurrentGameComponent handleClose={handleClose} handleSubmit={this.handleSubmit} />
+      <React.Fragment>
+        <Dialog
+          fullScreen
+          open={openGameFullscreenDialog}
+          onClose={handleClose}
+          TransitionComponent={Transition}
+        >
+          <Loader isFetching={loading} />
+          <HeaderCurrentGameComponent
+            handleClose={handleClose}
+            handleSubmit={this.handleSubmit}
+            handlePreviewWidget={this.handlePreviewWidget}
+          />
 
-        <div className={css.currentGame__content}>
-          <div className={css.currentGame__content_inner}>
-            <div className={css.currentGame__content_leftMenu}>
-              <h3>Customizations</h3>
-              <p>Here you can customize the appereance and data of your popup on this section.</p>
+          <div className={css.currentGame__content}>
+            <div className={css.currentGame__content_inner}>
+              <div className={css.currentGame__content_leftMenu}>
+                <h3>Customizations</h3>
+                <p>Here you can customize the appereance and data of your popup on this section.</p>
 
-              <TabsListComponent
-                tabValue={tabValue}
-                handleChangeTabsIntegration={this.handleChangeTabsIntegration}
-              />
-
-              {tabValue.tabs1 === 'tabGame1' && (
-                <PopupBackgroundContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabGame1"
-                  popupData={paramsGlobal.game_style.popup_bg}
+                <TabsListComponent
+                  tabValue={tabValue}
+                  handleChangeTabsIntegration={this.handleChangeTabsIntegration}
                 />
-              )}
 
-              {tabValue.tabs1 === 'tabGame2' && (
-                <ColorSchemeContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabGame2"
-                  colorSchemeData={paramsGlobal.game_style.color_scheme}
-                />
-              )}
+                {tabValue.tabs1 === 'tabGame1' && (
+                  <PopupBackgroundContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabGame1"
+                  />
+                )}
 
-              {tabValue.tabs1 === 'tabGame3' && (
-                <PrimaryIconContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabGame3"
-                  iconData={paramsGlobal.game_style}
-                />
-              )}
+                {tabValue.tabs1 === 'tabGame2' && (
+                  <ColorSchemeContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabGame2"
+                  />
+                )}
 
-              {tabValue.tabs2 === 'tabContent1' && (
-                <StartScreenContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabContent1"
-                  startScreenData={paramsGlobal.content.start}
-                />
-              )}
+                {tabValue.tabs1 === 'tabGame3' && (
+                  <PrimaryIconContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabGame3"
+                    iconData={paramsGlobal.game_style}
+                  />
+                )}
 
-              {tabValue.tabs2 === 'tabContent2' && (
-                <ProgressScreenContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabContent2"
-                  progressScreenData={paramsGlobal.content.progress}
-                />
-              )}
+                {tabValue.tabs2 === 'start' && (
+                  <StartScreenContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="start"
+                  />
+                )}
 
-              {tabValue.tabs2 === 'tabContent3' && (
-                <FinishScreenContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabContent3"
-                  finishScreenData={paramsGlobal.content.finish}
-                />
-              )}
+                {tabValue.tabs2 === 'progress' && (
+                  <ProgressScreenContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="progress"
+                  />
+                )}
 
-              {tabValue.tabs3 === 'tabBehaviour1' && (
-                <TriggerButtonContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabBehaviour1"
-                  editWidgetData={paramsGlobal.behavior.trigger_button}
-                />
-              )}
+                {tabValue.tabs2 === 'finish' && (
+                  <FinishScreenContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="finish"
+                  />
+                )}
 
-              {tabValue.tabs3 === 'tabBehaviour2' && (
-                <CouponsOptionsContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabBehaviour2"
-                  couponsData={paramsGlobal.behavior.coupons}
-                />
-              )}
+                {tabValue.tabs3 === 'tabBehaviour1' && (
+                  <TriggerButtonContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabBehaviour1"
+                  />
+                )}
 
-              {tabValue.tabs3 === 'tabBehaviour3' && (
-                <GeneralSettingsContainer
-                  handleCloseTabContent={this.handleCloseTabContent}
-                  tabValue="tabBehaviour3"
-                  generalSettingsData={paramsGlobal.behavior.general_settings}
-                  domainSelected={domainSelected}
-                />
-              )}
-            </div>
-            <div className={css.currentGame__content_game}>
-              <div className={css.currentGame__content_gameBlock} />
-              <div className={css.currentGame__content_gameTrigger}>
-                <button type="button" className={css.currentGame__content_gameWidget}>
-                  <h3 style={{ color: paramsGlobal.behavior.trigger_button.text_color }}>
-                    {paramsGlobal.behavior.trigger_button.title}
-                  </h3>
-                  <div className={css.currentGame__content_gameWidget_icon}>
-                    <img src={paramsGlobal.game_style.icon} alt="present icon" />
-                  </div>
-                </button>
+                {tabValue.tabs3 === 'tabBehaviour2' && (
+                  <CouponsOptionsContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabBehaviour2"
+                    couponsData={paramsGlobal.behavior.coupons}
+                  />
+                )}
+
+                {tabValue.tabs3 === 'tabBehaviour3' && (
+                  <GeneralSettingsContainer
+                    handleCloseTabContent={this.handleCloseTabContent}
+                    tabValue="tabBehaviour3"
+                    domainSelected={domainSelected}
+                    generalSettingsData={paramsGlobal.behavior.general_settings}
+                  />
+                )}
+              </div>
+
+              <div className={css.currentGame__content_game}>
+                <div className={css.currentGame__content_gameBlock}>
+                  <PtwModal
+                    getParamsDefault={getParamsDefault}
+                    widgetViewValue={widgetViewValue}
+                    handlePreviewWidget={this.handlePreviewWidget}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </Dialog>
+        </Dialog>
+      </React.Fragment>
     );
   }
 }
@@ -272,17 +311,17 @@ class Main extends React.Component {
 export default connect(
   state => ({
     domainSelected: state.other.domainSelected,
-    gameSettingsValue: state.other.gameSettingsValue,
-    screenViewValue: state.other.screenViewValue,
-    paramsData: state.get.getParams,
     gameSelected: state.other.gameSelected,
+    getParamsDefault: state.get.getParamsDefault,
+    paramsData: state.get.getParams,
+    widgetViewValue: state.other.widgetViewValue.data,
   }),
   dispatch => ({
-    updateParamsAction: (params, data) => dispatch(updateParams(params, data)),
-    screenViewAction: value => dispatch(screenView(value)),
-    gameSettingsAction: value => dispatch(gameSettings(value)),
-    createGameAction: (params, data) => dispatch(createGame(params, data)),
-    addNotificationAction: data => dispatch(addNotification(data)),
+    paramsDefaultAction: params => dispatch(paramsDefault(params)),
     getGameListAction: params => dispatch(getGameList(params)),
+    createGameAction: (params, data) => dispatch(createGame(params, data)),
+    updateParamsAction: (params, data) => dispatch(updateParams(params, data)),
+    addNotificationAction: data => dispatch(addNotification(data)),
+    widgetViewAction: params => dispatch(widgetView(params)),
   }),
 )(Main);

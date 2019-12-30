@@ -90,11 +90,11 @@ export const TriggerButtonTextSchema = () =>
 
 export const CouponsSchema = () =>
   Yup.object().shape({
-    name: Yup.string()
+    value: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .max(20, strings.formatString(strings.validation.max, { num: 20 }))
       .required(strings.validation.required),
-    code: Yup.string()
+    resultText: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .max(20, strings.formatString(strings.validation.max, { num: 20 }))
       .required(strings.validation.required),
@@ -106,13 +106,13 @@ export const StartScreenSchema = () =>
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .max(30, strings.formatString(strings.validation.max, { num: 30 }))
       .required(strings.validation.required),
-    subTitle: Yup.string()
+    subtitle: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
       .max(70, strings.formatString(strings.validation.max, { num: 70 }))
       .required(strings.validation.required),
-    startBtnLabel: Yup.string()
-      .min(3, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(10, strings.formatString(strings.validation.max, { num: 10 }))
+    button: Yup.string()
+      .min(2, strings.formatString(strings.validation.min, { num: 2 }))
+      .max(6, strings.formatString(strings.validation.max, { num: 6 }))
       .required(strings.validation.required),
   });
 
@@ -120,11 +120,11 @@ export const ProgressScreenSchema = () =>
   Yup.object().shape({
     title: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 50 }))
+      .max(30, strings.formatString(strings.validation.max, { num: 30 }))
       .required(strings.validation.required),
-    subTitle: Yup.string()
+    subtitle: Yup.string()
       .min(3, strings.formatString(strings.validation.min, { num: 3 }))
-      .max(50, strings.formatString(strings.validation.max, { num: 50 }))
+      .max(70, strings.formatString(strings.validation.max, { num: 70 }))
       .required(strings.validation.required),
   });
 

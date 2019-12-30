@@ -27,11 +27,6 @@ const ForgotPassword = lazy(() => import('pages/ForgotPassword'));
 const ResetPassword = lazy(() => import('pages/ResetPassword'));
 
 const Home = lazy(() => import('pages/Admin/Home'));
-const Domains = lazy(() => import('pages/Admin/Domains'));
-const ChooseGame = lazy(() => import('pages/Admin/ChooseGame'));
-const GameList = lazy(() => import('pages/Admin/GameList'));
-const GameConstructor = lazy(() => import('pages/Admin/GameConstructor'));
-const CurrentUserProfile = lazy(() => import('pages/Admin/CurrentUserProfile'));
 
 class Routes extends Component {
   componentDidMount() {
@@ -193,37 +188,7 @@ class Routes extends Component {
 
                   {/* @PrivateRoutes */}
                   <PrivateRoute exect path="/home" isAuth={isAuthenticated} component={Home} />
-                  <PrivateRoute
-                    exect
-                    path="/profile"
-                    isAuth={isAuthenticated}
-                    component={CurrentUserProfile}
-                  />
-                  <PrivateRoute
-                    exect
-                    path="/domains"
-                    isAuth={isAuthenticated}
-                    component={Domains}
-                  />
-                  <PrivateRoute
-                    exect
-                    path="/game/add"
-                    isAuth={isAuthenticated}
-                    component={ChooseGame}
-                  />
-                  <PrivateRoute exect path="/games" isAuth={isAuthenticated} component={GameList} />
-                  <PrivateRoute
-                    exect
-                    path="/game/:name"
-                    isAuth={isAuthenticated}
-                    component={GameConstructor}
-                  />
-                  <PrivateRoute
-                    exect
-                    path="/domain/:domainId/game/:gameId"
-                    isAuth={isAuthenticated}
-                    component={GameConstructor}
-                  />
+
                   <Redirect exect to="/login" />
                 </Switch>
               </ErrorBoundary>

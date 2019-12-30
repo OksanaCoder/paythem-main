@@ -187,3 +187,31 @@ export const DoneIcon2 = () => (
     ></path>
   </svg>
 );
+
+export const ColorIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <g
+      fill="none"
+      fillRule="evenodd"
+      stroke="none"
+      strokeWidth="1"
+      transform="translate(-328 -420) translate(64 396) translate(0 24) translate(264)"
+    >
+      <rect
+        width="32"
+        height="32"
+        x="0"
+        y="0"
+        fill="#FFF"
+        fillOpacity="0.2"
+        opacity="0.01"
+        rx="4"
+      ></rect>
+      <rect width="16" height="16" x="8" y="8" fill="#FFF" stroke="#A6C8EC" rx="4"></rect>
+      <path fill="#4E91D9" d="M12 8h4v8H8v-4a4 4 0 014-4z"></path>
+      <path fill="#4ED98C" d="M16 8h4a4 4 0 014 4v4h-8V8z"></path>
+      <path fill="#FFD948" d="M16 16h8v4a4 4 0 01-4 4h-4v-8z"></path>
+      <path fill="#D94E4E" d="M8 16h8v8h-4a4 4 0 01-4-4v-4z"></path>
+    </g>
+  </svg>
+);

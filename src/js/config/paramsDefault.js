@@ -63,10 +63,9 @@ const PARAMS_DEFAULT = {
         chanceReal: 20,
         type: 'string',
         value: '15% Discount',
-        win: true,
         resultText: '15OFF',
         userData: {
-          score: 0,
+          value: '15% Discount',
         },
       },
       {
@@ -75,10 +74,9 @@ const PARAMS_DEFAULT = {
         chanceReal: 20,
         type: 'string',
         value: 'Free Shipping',
-        win: true,
-        resultText: '20OFF',
+        resultText: 'FREE',
         userData: {
-          score: 0,
+          value: 'Free Shipping',
         },
       },
       {
@@ -87,10 +85,9 @@ const PARAMS_DEFAULT = {
         chanceReal: 20,
         type: 'string',
         value: '25% Discount Today',
-        win: true,
-        resultText: '15OFF',
+        resultText: '25OFF',
         userData: {
-          score: 0,
+          value: '25% Discount Today',
         },
       },
       {
@@ -99,62 +96,23 @@ const PARAMS_DEFAULT = {
         chanceReal: 20,
         type: 'string',
         value: 'No Luck :(',
-        win: true,
-        resultText: '',
+        resultText: 'NoLuck:(',
         userData: {
-          score: 0,
+          value: 'No Luck :(',
         },
       },
       {
         id: uuidv5(),
-        probability: 20,
-        chanceReal: 20,
+        probability: 0,
+        chanceReal: 0,
         type: 'string',
-        value: '15% Discount',
-        win: true,
-        resultText: '10CASH',
+        value: '50% Discount',
+        resultText: '50OFF',
         userData: {
-          score: 0,
+          value: '50% Discount',
         },
       },
     ],
-    // coupons: [
-    //   {
-    //     id: uuidv5(),
-    //     name: '15% Discount',
-    //     code: '15OFF',
-    //     chance: 20,
-    //     chanceReal: 20,
-    //   },
-    //   {
-    //     id: uuidv5(),
-    //     name: 'Free Shipping',
-    //     code: 'Free787',
-    //     chance: 20,
-    //     chanceReal: 20,
-    //   },
-    //   {
-    //     id: uuidv5(),
-    //     name: '25% Discount Today',
-    //     code: '25OFF',
-    //     chance: 20,
-    //     chanceReal: 20,
-    //   },
-    //   {
-    //     id: uuidv5(),
-    //     name: 'No Luck :(',
-    //     code: '',
-    //     chance: 20,
-    //     chanceReal: 20,
-    //   },
-    //   {
-    //     id: uuidv5(),
-    //     name: '10$ Cash',
-    //     code: '10CASH',
-    //     chance: 20,
-    //     chanceReal: 20,
-    //   },
-    // ],
     general_settings: {
       display_game: [
         {

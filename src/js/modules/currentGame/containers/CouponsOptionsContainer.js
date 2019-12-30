@@ -89,9 +89,9 @@ class CouponsOptionsContainer extends React.Component {
       resultText,
       probability,
       chanceReal,
-      win: true,
+      type: 'string',
       userData: {
-        score: 0,
+        value,
       },
     };
     couponsData.push(newData);
@@ -102,7 +102,15 @@ class CouponsOptionsContainer extends React.Component {
     const { couponsData, probability, chanceReal, couponItemEdit } = this.state;
     const { value, resultText } = values;
     const { id } = couponItemEdit;
-    const couponItemUpdated = { id, value, resultText, probability, chanceReal };
+    const couponItemUpdated = {
+      id,
+      value,
+      resultText,
+      probability,
+      chanceReal,
+      type: 'string',
+      userData: { value },
+    };
     const findIndex = couponsData.findIndex(item => item.id === id);
     couponsData.splice(findIndex, 1, couponItemUpdated);
     return { couponsData };

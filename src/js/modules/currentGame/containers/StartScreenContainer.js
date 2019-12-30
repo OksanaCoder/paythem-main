@@ -18,22 +18,86 @@ import TabContentComponent from 'modules/currentGame/components/TabContentCompon
 
 import css from 'styles/pages/CurrentGame.scss';
 
+const validation = errors => {
+  let valid = true;
+  Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+  return valid;
+};
+
 class StartScreenContainer extends React.Component {
-  handleSubmitForm = values => {
-    console.log('values', values);
-    const { handleCloseTabContent } = this.props;
-    handleCloseTabContent();
+  constructor(props) {
+    super(props);
+    const {
+      getParamsDefault: {
+        data: { content },
+      },
+    } = props;
+
+    this.state = {
+      title: content.start.title,
+      subtitle: content.start.subtitle,
+      button: content.start.button,
+      name: content.start.form[1].checked,
+      phone: content.start.form[2].checked,
+      errors: {
+        title: '',
+        subtitle: '',
+        button: '',
+      },
+    };
+  }
+
+  handleSubmitForm = () => {
+    const { errors } = this.state;
+    if (validation(errors)) {
+      const { handleCloseTabContent } = this.props;
+      handleCloseTabContent();
+    }
   };
 
   handleChangeParams = e => {
-    const {
-      paramsDefaultAction,
-      getParamsDefault: { data },
-    } = this.props;
     const { name, value } = e.target;
-    const params = { ...data };
-    params.content.start[name] = value;
-    paramsDefaultAction(params);
+    const { errors } = this.state;
+
+    switch (name) {
+      case 'title':
+        errors.title =
+          value.length < 3 || value.length > 50 ? 'Title must be 3 or less than 50 characters' : '';
+        break;
+      case 'subtitle':
+        errors.subtitle =
+          value.length < 3 || value.length > 70
+            ? 'Subtitle must be 3 or less than 70 characters'
+            : '';
+        break;
+      case 'button':
+        errors.button =
+          value.length < 2 || value.length > 6 ? 'Button must be 2 or less than 6 characters' : '';
+        break;
+      default:
+        break;
+    }
+    this.setState({ errors, [name]: value }, () => this.validateForm());
+    console.log(errors);
+  };
+
+  validateForm = () => {
+    const { errors, title, subtitle, button } = this.state;
+    if (validation(errors)) {
+      const {
+        paramsDefaultAction,
+        getParamsDefault: { data },
+      } = this.props;
+      const newData = {
+        title,
+        subtitle,
+        button,
+      };
+      const params = { ...data };
+      Object.assign(params.content.start, newData);
+      console.log('params', params);
+      paramsDefaultAction(params);
+    }
   };
 
   handleChangeParamsForm = e => {
@@ -42,6 +106,8 @@ class StartScreenContainer extends React.Component {
       getParamsDefault: { data },
     } = this.props;
     const { name, checked } = e.target;
+    this.setState({ [name]: checked });
+
     const params = { ...data };
     const index = params.content.start.form.findIndex(item => item.name === name);
     params.content.start.form[index].checked = checked;
@@ -49,142 +115,103 @@ class StartScreenContainer extends React.Component {
   };
 
   render() {
-    const {
-      tabValue,
-      getParamsDefault: {
-        data: { content },
-      },
-    } = this.props;
+    const { tabValue } = this.props;
+    const { title, subtitle, button, name, phone, errors } = this.state;
 
     return (
-      <Formik
-        initialValues={{
-          title: content.start.title,
-          subtitle: content.start.subtitle,
-          button: content.start.button,
-          name: content.start.form[1].checked,
-          phone: content.start.form[2].checked,
-        }}
-        validationSchema={StartScreenSchema}
-        onSubmit={values => this.handleSubmitForm(values)}
+      <TabContentComponent
+        title="Start Screen"
+        description="Here you can edit the content which shoudl be shown on this section"
+        tabValue={tabValue}
+        handleCloseTabContent={this.handleSubmitForm}
       >
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-          <TabContentComponent
-            title="Start Screen"
-            description="Here you can edit the content which shoudl be shown on this section"
-            tabValue={tabValue}
-            handleCloseTabContent={() => this.handleSubmitForm()}
-          >
-            <form>
-              <FormControl fullWidth className={css.form_input}>
-                <h4>Title</h4>
-                <OutlinedInput
-                  name="title"
-                  placeholder="Get your Christmas present!"
-                  onChange={e => {
-                    handleChange(e);
-                    this.handleChangeParams(e);
-                  }}
-                  onBlur={handleBlur}
-                  error={errors.title && touched.title}
-                  value={values.title}
-                  aria-describedby="error-title"
-                />
-                {errors.title && touched.title && (
-                  <FormHelperText className={css.form_inputError} id="error-title">
-                    {errors.title}
-                  </FormHelperText>
-                )}
-              </FormControl>
+        <form>
+          <FormControl fullWidth className={css.form_input}>
+            <h4>Title</h4>
+            <OutlinedInput
+              name="title"
+              placeholder="Get your Christmas present!"
+              onChange={this.handleChangeParams}
+              value={title}
+              aria-describedby="error-title"
+            />
+            {errors.title.length > 0 && (
+              <FormHelperText className={css.form_inputError} id="error-title">
+                {errors.title}
+              </FormHelperText>
+            )}
+          </FormControl>
 
-              <FormControl fullWidth className={css.form_input}>
-                <h4>Sub Title</h4>
-                <TextField
-                  name="subtitle"
-                  placeholder="One of our awesome gifts already yours! One step more to receive it."
-                  multiline
-                  variant="outlined"
-                  onChange={e => {
-                    handleChange(e);
-                    this.handleChangeParams(e);
-                  }}
-                  onBlur={handleBlur}
-                  error={errors.subtitle && touched.subtitle}
-                  value={values.subtitle}
-                  aria-describedby="error-subtitle"
-                />
-                {errors.subtitle && touched.subtitle && (
-                  <FormHelperText className={css.form_inputError} id="error-subtitle">
-                    {errors.subtitle}
-                  </FormHelperText>
-                )}
-              </FormControl>
+          <FormControl fullWidth className={css.form_input}>
+            <h4>Sub Title</h4>
+            <TextField
+              name="subtitle"
+              placeholder="One of our awesome gifts already yours! One step more to receive it."
+              multiline
+              variant="outlined"
+              onChange={this.handleChangeParams}
+              value={subtitle}
+              aria-describedby="error-subtitle"
+            />
+            {errors.subtitle.length > 0 && (
+              <FormHelperText className={css.form_inputError} id="error-subtitle">
+                {errors.subtitle}
+              </FormHelperText>
+            )}
+          </FormControl>
 
-              <FormControl fullWidth className={css.form_input}>
-                <h4>Start Button Label</h4>
-                <OutlinedInput
-                  name="button"
-                  placeholder="START"
-                  onChange={e => {
-                    handleChange(e);
-                    this.handleChangeParams(e);
-                  }}
-                  onBlur={handleBlur}
-                  error={errors.button && touched.button}
-                  value={values.button}
-                  aria-describedby="error-button"
-                />
-                {errors.button && touched.button && (
-                  <FormHelperText className={css.form_inputError} id="error-button">
-                    {errors.button}
-                  </FormHelperText>
-                )}
-              </FormControl>
+          <FormControl fullWidth className={css.form_input}>
+            <h4>Start Button Label</h4>
+            <OutlinedInput
+              name="button"
+              placeholder="START"
+              onChange={this.handleChangeParams}
+              value={button}
+              aria-describedby="error-button"
+            />
+            {errors.button.length > 0 && (
+              <FormHelperText className={css.form_inputError} id="error-button">
+                {errors.button}
+              </FormHelperText>
+            )}
+          </FormControl>
 
-              <FormControl fullWidth className={css.form_input}>
-                <h4>Enable Form Inputs</h4>
-                <FormControlLabel
-                  classes={{ root: css.form_checkboxLabel }}
-                  control={<Checkbox disabled checked color="secondary" name="email" />}
-                  label="Email Address"
+          <FormControl fullWidth className={css.form_input}>
+            <h4>Enable Form Inputs</h4>
+            <FormControlLabel
+              classes={{ root: css.form_checkboxLabel }}
+              control={<Checkbox disabled checked color="secondary" name="email" />}
+              label="Email Address"
+            />
+            <FormControlLabel
+              classes={{ root: css.form_checkboxLabel }}
+              control={
+                <Checkbox
+                  checked={name}
+                  onChange={this.handleChangeParamsForm}
+                  value="name"
+                  name="name"
+                  color="secondary"
                 />
-                <FormControlLabel
-                  classes={{ root: css.form_checkboxLabel }}
-                  control={
-                    <Checkbox
-                      checked={values.name}
-                      onChange={e => {
-                        handleChange(e);
-                        this.handleChangeParamsForm(e);
-                      }}
-                      value={values.name}
-                      name="name"
-                      color="secondary"
-                    />
-                  }
-                  label="Full Name"
+              }
+              label="Full Name"
+            />
+            <FormControlLabel
+              classes={{ root: css.form_checkboxLabel }}
+              control={
+                <Checkbox
+                  checked={phone}
+                  onChange={this.handleChangeParamsForm}
+                  value="phone"
+                  name="phone"
+                  color="secondary"
                 />
-                <FormControlLabel
-                  classes={{ root: css.form_checkboxLabel }}
-                  control={
-                    <Checkbox
-                      checked={values.phone}
-                      onChange={e => {
-                        handleChange(e);
-                        this.handleChangeParamsForm(e);
-                      }}
-                      value={values.phone}
-                      name="phone"
-                      color="secondary"
-                    />
-                  }
-                  label="Phone Number"
-                />
-              </FormControl>
-            </form>
-          </TabContentComponent>
-        )}
-      </Formik>
+              }
+              label="Phone Number"
+            />
+          </FormControl>
+        </form>
+      </TabContentComponent>
     );
   }
 }

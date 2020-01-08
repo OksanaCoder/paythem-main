@@ -68,20 +68,21 @@ class ProgressScreenContainer extends React.Component {
 
   validateForm = () => {
     const { errors, title, subtitle } = this.state;
-    if (validation(errors)) {
-      const {
-        paramsDefaultAction,
-        getParamsDefault: { data },
-      } = this.props;
-      const newData = {
-        title,
-        subtitle,
-      };
-      const params = { ...data };
-      Object.assign(params.content.progress, newData);
-      console.log('params', params);
-      paramsDefaultAction(params);
+    const {
+      paramsDefaultAction,
+      getParamsDefault: { data },
+    } = this.props;
+    const newData = [];
+    if (errors.title.length === 0) {
+      newData.title = title;
     }
+    if (errors.subtitle.length === 0) {
+      newData.subtitle = subtitle;
+    }
+    const params = { ...data };
+
+    Object.assign(params.content.progress, newData);
+    paramsDefaultAction(params);
   };
 
   render() {

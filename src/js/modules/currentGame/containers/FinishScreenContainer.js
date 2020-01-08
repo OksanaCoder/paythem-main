@@ -77,21 +77,25 @@ class FinishScreenContainer extends React.Component {
 
   validateForm = () => {
     const { errors, title, subtitle, privacy } = this.state;
-    if (validation(errors)) {
-      const {
-        paramsDefaultAction,
-        getParamsDefault: { data },
-      } = this.props;
-      const newData = {
-        title,
-        subtitle,
-        privacy,
-      };
-      const params = { ...data };
-      Object.assign(params.content.finish, newData);
-      console.log('params', params);
-      paramsDefaultAction(params);
+    const {
+      paramsDefaultAction,
+      getParamsDefault: { data },
+    } = this.props;
+
+    const newData = [];
+    if (errors.title.length === 0) {
+      newData.title = title;
     }
+    if (errors.subtitle.length === 0) {
+      newData.subtitle = subtitle;
+    }
+    if (errors.privacy.length === 0) {
+      newData.privacy = privacy;
+    }
+    const params = { ...data };
+
+    Object.assign(params.content.finish, newData);
+    paramsDefaultAction(params);
   };
 
   handleChangeImage = e => {

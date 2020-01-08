@@ -18,6 +18,8 @@ const PtwModal = ({
 
   const styleContainer = {
     backgroundImage: `url("${gameStyle.popup_bg.bg_image}")`,
+  };
+  const styleContainerColorOverlay = {
     backgroundColor: gameStyle.popup_bg.bg_overlay,
   };
   const styleDialog = {
@@ -53,6 +55,10 @@ const PtwModal = ({
   return (
     <React.Fragment>
       <div className={css.PtwModalRoot__container} style={styleContainer}>
+        <div
+          className={css.PtwModalRoot__container_colorOverlay}
+          style={styleContainerColorOverlay}
+        />
         <button className={css.PtwModalRoot__close} type="button">
           <span />
         </button>
@@ -60,7 +66,7 @@ const PtwModal = ({
           <div className={css.PtwModalRoot__icon} style={styleIcon} />
           <div className={css.PtwModalRoot__inner}>
             <h2 className={css.PtwModalRoot__title} style={styleContent}>
-              {truncateString(content[widgetViewValue].title, 30)}
+              {truncateString(content[widgetViewValue].title, 50)}
             </h2>
 
             <h3 className={css.PtwModalRoot__subtitle} style={styleContent}>

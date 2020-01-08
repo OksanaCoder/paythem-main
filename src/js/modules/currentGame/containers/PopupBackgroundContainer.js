@@ -47,9 +47,6 @@ class PopupBackgroundContainer extends React.Component {
         .substring(5, rgba.length - 1)
         .replace(/ /g, '')
         .split(',');
-
-      console.log('rgba', rgba);
-      console.log('opacity', opacity);
       this.setState({ color: value });
       color = `rgba(${rgba[0]},${rgba[1]},${rgba[2]},${opacity / 100})`;
     }

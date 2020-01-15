@@ -133,7 +133,7 @@ class HomeContainer extends React.Component {
     const { domainsLoaded, domainsLoading, domains } = this.getDomains();
 
     const scriptToCopy = `<!-- Playthem Widget -->
-<script src="http://157.230.112.210:5000/uploads/playthem-widget.min.js"></script>
+<script src="http://157.230.112.210:5000/uploads/games/playthem-widget.min.js"></script>
 <script>
   new PTW({
     accessKey: '${domainItemSelected.data.access_key}',

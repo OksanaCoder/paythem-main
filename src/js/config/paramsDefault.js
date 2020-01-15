@@ -134,7 +134,7 @@ const PARAMS_DEFAULT = {
           startText: 'After',
           endText: 'sec',
           checked: false,
-          value: 3000,
+          value: 3,
         },
       ],
       show_on_leaving: true,

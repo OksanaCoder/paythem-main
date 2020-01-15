@@ -159,7 +159,7 @@ class Main extends React.Component {
   loadPtw = () => {
     const { getParamsDefault } = this.props;
     const script = document.createElement('script');
-    script.src = 'http://todo-list.ho.ua/lib/playthem-widget.min.js';
+    script.src = 'http://157.230.112.210:5000/uploads/games/playthem-widget.min.js';
     script.id = 'ptw';
     script.onload = () => {
       // eslint-disable-next-line no-undef
@@ -180,7 +180,7 @@ class Main extends React.Component {
 
   handlePreviewWidget = () => {
     const scriptSpin2Wheel = document.querySelector(
-      '[src="http://todo-list.ho.ua/wheel/js/Spin2WinWheel.js"]',
+      '[src="http://157.230.112.210:5000/uploads/games/roulette/Spin2WinWheel.js"]',
     );
     if (scriptSpin2Wheel) scriptSpin2Wheel.remove();
     const ptw = document.querySelector('#ptw');

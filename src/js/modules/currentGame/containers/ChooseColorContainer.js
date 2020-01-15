@@ -23,22 +23,22 @@ function StyledRadio(props) {
 
 const defaultColors = [
   {
-    color: '#4E91D9',
+    color: 'rgba(78, 145, 217, 1)',
   },
   {
-    color: '#4ED98C',
+    color: 'rgba(78, 217, 140, 1)',
   },
   {
-    color: '#D94E4E',
+    color: 'rgba(217, 78, 78, 1)',
   },
   {
-    color: '#D9844E',
+    color: 'rgba(217, 132, 78, 1)',
   },
   {
-    color: '#FFD948',
+    color: 'rgba(255, 217, 72, 1)',
   },
   {
-    color: '#ffffff',
+    color: 'rgba(255, 255, 255, 1)',
   },
 ];
 
@@ -97,7 +97,6 @@ class ChooseColorContainer extends React.Component {
   };
 
   handleChangeComplete = color => {
-    // console.log('color', color.rgb);
     if (color) {
       const { handleEditColor } = this.props;
       this.setState({ customColor: color.rgb, color: false });

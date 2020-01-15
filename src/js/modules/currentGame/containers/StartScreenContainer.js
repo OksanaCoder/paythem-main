@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React from 'react';
 import {
   FormControl,
@@ -12,14 +10,13 @@ import {
 import { connect } from 'react-redux';
 
 import { paramsDefault } from 'actions';
-import Formik from 'helpers/Formik';
-import { StartScreenSchema } from 'helpers/Formik/validation';
 import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
 
 import css from 'styles/pages/CurrentGame.scss';
 
 const validation = errors => {
   let valid = true;
+  // eslint-disable-next-line no-return-assign
   Object.values(errors).forEach(val => val.length > 0 && (valid = false));
   return valid;
 };
@@ -83,21 +80,24 @@ class StartScreenContainer extends React.Component {
 
   validateForm = () => {
     const { errors, title, subtitle, button } = this.state;
-    if (validation(errors)) {
-      const {
-        paramsDefaultAction,
-        getParamsDefault: { data },
-      } = this.props;
-      const newData = {
-        title,
-        subtitle,
-        button,
-      };
-      const params = { ...data };
-      Object.assign(params.content.start, newData);
-      console.log('params', params);
-      paramsDefaultAction(params);
+    const {
+      paramsDefaultAction,
+      getParamsDefault: { data },
+    } = this.props;
+    const newData = [];
+    if (errors.title.length === 0) {
+      newData.title = title;
     }
+    if (errors.subtitle.length === 0) {
+      newData.subtitle = subtitle;
+    }
+    if (errors.button.length === 0) {
+      newData.button = button;
+    }
+    const params = { ...data };
+
+    Object.assign(params.content.start, newData);
+    paramsDefaultAction(params);
   };
 
   handleChangeParamsForm = e => {

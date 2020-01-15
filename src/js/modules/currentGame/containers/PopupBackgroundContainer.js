@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
+import { Button, Slider } from '@material-ui/core';
 import { TrashIcon } from 'assets/images/icons';
 
 import { paramsDefault } from 'actions';
@@ -11,11 +11,28 @@ import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorCont
 import css from 'styles/pages/CurrentGame/Content.scss';
 
 class PopupBackgroundContainer extends React.Component {
-  state = {
-    bigSize: false,
+  constructor(props) {
+    super(props);
+    const {
+      getParamsDefault: { data },
+    } = props;
+    console.log('1', data.game_style.popup_bg);
+    this.state = {
+      bigSize: false,
+      opacity: data.game_style.popup_bg.opacity ? data.game_style.popup_bg.opacity : 30,
+      color: data.game_style.popup_bg.bg_overlay,
+    };
+  }
+
+  handleChangeSliderRange = (e, value) => {
+    const { color } = this.state;
+    this.setState({ opacity: value }, () => {
+      this.handleEditColor()(color);
+    });
   };
 
   handleEditColor = () => value => {
+    const { opacity } = this.state;
     const {
       paramsDefaultAction,
       getParamsDefault: { data },
@@ -25,10 +42,17 @@ class PopupBackgroundContainer extends React.Component {
       const { r, g, b, a } = value;
       color = `rgba(${r},${g},${b},${a})`;
     } else {
-      color = value;
+      let rgba = value;
+      rgba = rgba
+        .substring(5, rgba.length - 1)
+        .replace(/ /g, '')
+        .split(',');
+      this.setState({ color: value });
+      color = `rgba(${rgba[0]},${rgba[1]},${rgba[2]},${opacity / 100})`;
     }
     const params = { ...data };
     params.game_style.popup_bg.bg_overlay = color;
+    params.game_style.popup_bg.opacity = opacity;
     paramsDefaultAction(params);
   };
 
@@ -73,9 +97,8 @@ class PopupBackgroundContainer extends React.Component {
 
   render() {
     const { handleCloseTabContent, tabValue, getParamsDefault } = this.props;
-    const { bigSize } = this.state;
+    const { bigSize, opacity } = this.state;
     const { popup_bg: popupBg } = getParamsDefault.data.game_style;
-    console.log('popup_bg', popupBg);
 
     return (
       <TabContentComponent
@@ -115,7 +138,19 @@ class PopupBackgroundContainer extends React.Component {
         <ChooseColorContainer
           title="Overlay color"
           color={popupBg.bgOverlay}
-          handleEditColor={this.handleEditColor('bg_overlay')}
+          handleEditColor={this.handleEditColor()}
+        />
+
+        <h4>Overlay Opacity</h4>
+        <Slider
+          className={css.form_slider}
+          onChange={this.handleChangeSliderRange}
+          value={opacity}
+          defaultValue={20}
+          valueLabelDisplay="auto"
+          step={10}
+          min={0}
+          max={100}
         />
       </TabContentComponent>
     );

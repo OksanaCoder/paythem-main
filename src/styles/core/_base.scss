@@ -17,6 +17,10 @@
       border: 1px solid $color-blue-light !important;	
     }
   }
+  &_slider{
+    color: $color-bg-headerDialog;
+  }
+
   &_inputError{
     color: #d25555  !important;
   }

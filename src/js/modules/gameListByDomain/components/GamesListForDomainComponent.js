@@ -48,6 +48,7 @@ const GamesListForDomainComponent = ({
   handleChooseGame,
   id,
   handleCheckedStatus,
+  handlePreviewWidget,
 }) => {
   return (
     <div>
@@ -101,6 +102,7 @@ const GamesListForDomainComponent = ({
               variant="contained"
               color="primary"
               className={cx(css.button__top, css.button__top_lightBlue)}
+              onClick={handlePreviewWidget}
             >
               <EyeIcon />
               Preview

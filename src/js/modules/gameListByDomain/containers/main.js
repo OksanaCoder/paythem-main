@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-new */
 import React, { Component } from 'react';
 import { sumBy } from 'lodash';
 import { connect } from 'react-redux';
@@ -111,6 +113,36 @@ class GameListByDomain extends Component {
     return { impr, hits, ctr };
   };
 
+  loadPtw = () => {
+    const { getParamsDefault } = this.props;
+    const script = document.createElement('script');
+    script.src = 'http://todo-list.ho.ua/lib/playthem-widget.min.js';
+    script.id = 'ptw';
+    script.onload = () => {
+      new PTW({
+        accessKey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZGRkMGEwNzk2N2NlZTBlOWQ2ZGExNTMiLCJkb21haW4iOiJ0b2RvLWxpc3QuaG8udWEiLCJ0eXBlIjoiYWNjZXNzS2V5IiwiaWF0IjoxNTc2ODU0OTU1fQ.Plyla2N0bG6-UmyhkhpDVxiceUcgd6f2mls29Y5VNCw',
+        data: {
+          game: 'roulette',
+          params: getParamsDefault.data,
+        },
+        isPreview: true,
+      });
+    };
+
+    document.body.appendChild(script);
+  };
+
+  handlePreviewWidget = () => {
+    const scriptSpin2Wheel = document.querySelector(
+      '[src="http://todo-list.ho.ua/wheel/js/Spin2WinWheel.js"]',
+    );
+    if (scriptSpin2Wheel) scriptSpin2Wheel.remove();
+    const ptw = document.querySelector('#ptw');
+    if (ptw) ptw.remove();
+    this.loadPtw();
+  };
+
   render() {
     const {
       domainSelected: {
@@ -133,6 +165,7 @@ class GameListByDomain extends Component {
               <GamesListForDomainComponent
                 gameList={gameList}
                 id={_id}
+                handlePreviewWidget={this.handlePreviewWidget}
                 handleRemoveGame={this.handleRemoveGame}
                 handleCheckedStatus={this.handleCheckedStatus}
                 handleChooseGame={this.handleChooseGame}
@@ -153,6 +186,7 @@ export default connect(
     domainSelected: state.other.domainSelected,
     paramsData: state.get.getParams,
     games: state.get.gameList,
+    getParamsDefault: state.get.getParamsDefault,
   }),
   dispatch => ({
     widgetViewAction: value => dispatch(widgetView(value)),

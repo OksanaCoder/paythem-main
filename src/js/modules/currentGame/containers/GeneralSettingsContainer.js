@@ -272,7 +272,7 @@ class GeneralSettingsContainer extends React.Component {
                   </RadioGroup>
                 </FormControl>
 
-                <FormControl fullWidth className={css.form_input}>
+                {/* <FormControl fullWidth className={css.form_input}>
                   <h4>How many times a day to show the game for user? </h4>
                   <Input
                     className={css.currentGame__settings_input50}
@@ -295,7 +295,7 @@ class GeneralSettingsContainer extends React.Component {
                       {errors.show_count}
                     </FormHelperText>
                   )}
-                </FormControl>
+                </FormControl> */}
 
                 {/* <FormControl fullWidth className={css.form_input}>
                   <h4>Show the game after the user performs the action </h4>

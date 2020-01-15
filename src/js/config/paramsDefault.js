@@ -138,7 +138,7 @@ const PARAMS_DEFAULT = {
         },
       ],
       show_on_leaving: true,
-      where_game_show: ['about'],
+      where_game_show: [''],
       trigger_button: true,
       email_repeat: true,
       show_count: 10,

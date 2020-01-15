@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
+/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Dialog, Slide } from '@material-ui/core';
@@ -158,7 +159,7 @@ class Main extends React.Component {
   loadPtw = () => {
     const { getParamsDefault } = this.props;
     const script = document.createElement('script');
-    script.src = 'http://157.230.112.210:5000/uploads/playthem-widget.min.js';
+    script.src = 'http://todo-list.ho.ua/lib/playthem-widget.min.js';
     script.id = 'ptw';
     script.onload = () => {
       // eslint-disable-next-line no-undef
@@ -166,9 +167,11 @@ class Main extends React.Component {
       new PTW({
         accessKey:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZGRkMGEwNzk2N2NlZTBlOWQ2ZGExNTMiLCJkb21haW4iOiJ0b2RvLWxpc3QuaG8udWEiLCJ0eXBlIjoiYWNjZXNzS2V5IiwiaWF0IjoxNTc2ODU0OTU1fQ.Plyla2N0bG6-UmyhkhpDVxiceUcgd6f2mls29Y5VNCw',
-        isDefault: true,
-        game: 'roullete',
-        paramsData: getParamsDefault.data,
+        data: {
+          game: 'roulette',
+          params: getParamsDefault.data,
+        },
+        isPreview: true,
       });
     };
 

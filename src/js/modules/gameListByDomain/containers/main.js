@@ -12,6 +12,7 @@ import {
   updateGameStatus,
   gameSelected,
   widgetView,
+  getStatisticsByGameId,
 } from 'actions';
 import Fetching from 'components/Fetching';
 
@@ -20,6 +21,12 @@ import NoGamesComponent from 'modules/gameListByDomain/components/NoGamesCompone
 import TotalStatisticsComponent from 'modules/gameListByDomain/components/TotalStatisticsComponent';
 
 class GameListByDomain extends Component {
+  constructor(props) {
+    super(props);
+
+    this.csvLinkref = React.createRef();
+  }
+
   componentDidMount() {
     this.loadGameList();
   }
@@ -143,18 +150,37 @@ class GameListByDomain extends Component {
     this.loadPtw();
   };
 
+  /* eslint-disable */
+
+  handleGetStatisticsByGameId = gameId => () => {
+    // const { domainSelected } = this.props;
+    const { getStatisticsByGameIdAction, domainSelected } = this.props;
+    const params = {
+      domainId: domainSelected.data._id,
+      gameId,
+    };
+    const data = {
+      from: Date.now(), // test
+      to: Date.now(), // test
+    };
+
+    getStatisticsByGameIdAction(params, data).then(res => {
+      if (res.payload) {
+        this.csvLinkref.current.link.click();
+      }
+    });
+  };
+
   render() {
     const {
-      domainSelected: {
-        data: { _id },
-      },
+      domainSelected,
       toggleDrawer,
       rightPanel,
-      // paramsData,
-      // games,
+      gameStatistics, // paramsData, games,
     } = this.props;
     const { gameList, loaded, loading } = this.getGameList();
     const { impr, hits, ctr } = this.calcTotalStatistics();
+    console.log(gameStatistics);
 
     return (
       <section>
@@ -164,11 +190,14 @@ class GameListByDomain extends Component {
               <TotalStatisticsComponent impr={impr} hits={hits} ctr={ctr} />
               <GamesListForDomainComponent
                 gameList={gameList}
-                id={_id}
+                id={domainSelected.data._id}
+                gameStatistics={gameStatistics}
                 handlePreviewWidget={this.handlePreviewWidget}
                 handleRemoveGame={this.handleRemoveGame}
                 handleCheckedStatus={this.handleCheckedStatus}
                 handleChooseGame={this.handleChooseGame}
+                handleGetStatisticsByGameId={this.handleGetStatisticsByGameId}
+                csvLinkref={this.csvLinkref}
               />
             </React.Fragment>
           )}
@@ -186,6 +215,7 @@ export default connect(
     domainSelected: state.other.domainSelected,
     paramsData: state.get.getParams,
     games: state.get.gameList,
+    gameStatistics: state.get.getStatsByGameId,
     getParamsDefault: state.get.getParamsDefault,
   }),
   dispatch => ({
@@ -196,5 +226,6 @@ export default connect(
     removeGameAction: params => dispatch(removeGame(params)),
     updateGameStatusAction: (params, data) => dispatch(updateGameStatus(params, data)),
     gameSelectedAction: data => dispatch(gameSelected(data)),
+    getStatisticsByGameIdAction: (params, data) => dispatch(getStatisticsByGameId(params, data)),
   }),
 )(GameListByDomain);

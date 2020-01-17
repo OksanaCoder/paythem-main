@@ -21,3 +21,7 @@ export const GET_PARAMS_FAILURE = 'params/getParams/FAILURE';
 export const UPDATE_PARAMS_REQUEST = 'params/updateParams/REQUEST';
 export const UPDATE_PARAMS_SUCCESS = 'params/updateParams/SUCCESS';
 export const UPDATE_PARAMS_FAILURE = 'params/updateParams/FAILURE';
+
+export const GET_STATS_BY_GAMEID_REQUEST = 'game/getStatsByGameId/REQUEST';
+export const GET_STATS_BY_GAMEID_SUCCESS = 'game/getStatsByGameId/SUCCESS';
+export const GET_STATS_BY_GAMEID_FAILURE = 'game/getStatsByGameId/FAILURE';

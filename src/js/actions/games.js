@@ -62,3 +62,18 @@ export const updateParams = (params, data) => ({
     },
   },
 });
+
+export const getStatisticsByGameId = (params, data) => ({
+  types: [
+    type.GET_STATS_BY_GAMEID_REQUEST,
+    type.GET_STATS_BY_GAMEID_SUCCESS,
+    type.GET_STATS_BY_GAMEID_FAILURE,
+  ],
+  payload: {
+    request: {
+      url: `/constructor/domain/${params.domainId}/game/${params.gameId}/stats`,
+      method: 'POST',
+      data,
+    },
+  },
+});

@@ -21,6 +21,7 @@ const reducers = combineReducers({
     getParams: params('getParams'),
     getParamsDefault: paramsDefault('paramsDefault'),
     gameList: games('gameList'),
+    getStatsByGameId: games('getStatsByGameId'),
   }),
   post: combineReducers({
     sendRegister: user('register'),

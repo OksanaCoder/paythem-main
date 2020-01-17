@@ -18,6 +18,7 @@ import {
   removeGame,
   getParams,
   updateParams,
+  getStatisticsByGameId,
 } from './games';
 
 import {
@@ -51,6 +52,7 @@ export {
   getParams,
   updateParams,
   removeGame,
+  getStatisticsByGameId,
   // other
   addNotification,
   removeNotification,

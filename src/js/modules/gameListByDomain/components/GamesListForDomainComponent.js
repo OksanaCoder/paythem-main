@@ -48,34 +48,7 @@ const csvHeaders = [
   { label: 'Email', key: 'email' },
   { label: 'Phone', key: 'phone' },
   { label: 'Full Name', key: 'name' },
-];
-
-const csvData = [
-  {
-    email: 'andrew.velkov@gmail.com',
-    phone: '0682800932',
-    name: 'Andrew Velkov',
-  },
-  {
-    email: 'andrew.velk2ov@gmail.com',
-    phone: '06282800932',
-    name: 'Andrew 2Velkov',
-  },
-  {
-    email: 'andrew.velkov222@gmail.com',
-    phone: '06828222200932',
-    name: 'And22rew Velkov',
-  },
-  {
-    email: 'andrew.velkov@gmail.com',
-    phone: '0682800932',
-    name: 'Andrew Velkov',
-  },
-  {
-    email: 'andrew.velkov@222gmail.com',
-    phone: '062282800932',
-    name: 'And22rew Velkov',
-  },
+  { label: 'Date', key: 'date' },
 ];
 
 const GamesListForDomainComponent = ({
@@ -90,7 +63,6 @@ const GamesListForDomainComponent = ({
   csvLinkref,
 }) => {
   const { data, loaded, loading } = gameStatistics;
-
   const datas = loaded && data.data.data;
   const ddd = [];
   const o = {
@@ -98,6 +70,8 @@ const GamesListForDomainComponent = ({
     name: 'andrw',
     phone: '233232',
   };
+
+  console.log(csvLinkref);
 
   return (
     <div>
@@ -144,22 +118,21 @@ const GamesListForDomainComponent = ({
                   variant="contained"
                   color="primary"
                   className={css.button__top}
-                  onClick={handleGetStatisticsByGameId(gameItem._id)}
+                  onClick={handleGetStatisticsByGameId(gameItem._id, gameItem.game)}
                 >
                   <DownloadIcon />
                   Download Stats
                 </Button>
-
-                <CSVLink
-                  data={(loaded && data.data.data) || []}
-                  headers={csvHeaders}
-                  ref={csvLinkref}
-                  // asyncOnClick
-                  // onClick={handleGetStatisticsByGameId(gameItem._id)}
-                  filename={`Playthem_stats_${gameItem.game}_${gameItem._id}.xlsx`}
-                ></CSVLink>
-
-                {/* <CSVDownload filename={`Playthem_stats_${gameItem.game}_${gameItem._id}.xlsx`} data={ddd} target="_blank" /> */}
+                {loaded && data.data.data.length >= 1 && (
+                  <CSVLink
+                    data={data.data.data || []}
+                    headers={csvHeaders}
+                    filename="Playthem_stats.xlsx"
+                    ref={csvLinkref}
+                    // asyncOnClick
+                    // onClick={handleGetStatisticsByGameId(gameItem._id)}
+                  />
+                )}
               </div>
             </div>
           </div>

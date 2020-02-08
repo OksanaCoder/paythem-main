@@ -26,4 +26,5 @@ Production Build:
 
 <!--
   // baseUrl: 'https://front-end-api-widget.herokuapp.com/api',
+  git reset --hard HEAD
 -->

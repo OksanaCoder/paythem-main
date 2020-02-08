@@ -152,7 +152,7 @@ class GameListByDomain extends Component {
 
   /* eslint-disable */
 
-  handleGetStatisticsByGameId = gameId => () => {
+  handleGetStatisticsByGameId = (gameId, gameName) => () => {
     // const { domainSelected } = this.props;
     const { getStatisticsByGameIdAction, domainSelected } = this.props;
     const params = {
@@ -166,7 +166,12 @@ class GameListByDomain extends Component {
 
     getStatisticsByGameIdAction(params, data).then(res => {
       if (res.payload) {
-        this.csvLinkref.current.link.click();
+        console.log('thisss', this.csvLinkref);
+
+        setTimeout(() => {
+          this.csvLinkref.current.link.click();
+          // this.csvLinkref.current.filename = `Playthem_stats_${gameName}_${gameId}.xlsx`;
+        }, 100);
       }
     });
   };

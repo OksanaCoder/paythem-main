@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "playthem",
   "main": "index.js",
-  "homepage": "http://oksanacoder.github.io/frontend-constructor-nexo/#/login",
+  "homepage": "https://oksanacoder.github.io/frontend-constructor-nexo/#/login",
   "license": "",
   "author": "",
   "repository": {
@@ -12,13 +12,13 @@
   },
   "private": true,
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "lint:write": "eslint --debug src/ --fix",
     "prettier": "prettier --write src/**/*.js",
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
-    "build:dev": "webpack --mode development",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "build:dev": "webpack --mode development"
   },
   "husky": {
     "hooks": {

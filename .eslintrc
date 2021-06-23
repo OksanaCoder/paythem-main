@@ -19,7 +19,7 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "prettier"
   ],
   "rules": {
     "no-multi-spaces": "error",
@@ -48,15 +48,18 @@
     "react/jsx-fragments": 0,
     "react/jsx-props-no-spreading": 0,
     "react/jsx-curly-newline": 0,
-    "react/jsx-wrap-multilines": ["error", {
-      "declaration": "parens-new-line",
-      "assignment": "parens-new-line",
-      "return": "parens-new-line",
-      "arrow": "parens-new-line",
-      "condition": "parens-new-line",
-      "logical": "ignore",
-      "prop": "ignore"
-    }],
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "declaration": "parens-new-line",
+        "assignment": "parens-new-line",
+        "return": "parens-new-line",
+        "arrow": "parens-new-line",
+        "condition": "parens-new-line",
+        "logical": "ignore",
+        "prop": "ignore"
+      }
+    ],
     "import/no-unresolved": 0,
     "new-cap": 0,
     "semi": 0,
@@ -68,13 +71,35 @@
     "jsx-a11y/href-no-hash": 0,
     "import/prefer-default-export": 0,
     "react/prop-types": 0,
-    "comma-dangle": [2, "always-multiline"],
-    "arrow-parens": ["warn", "as-needed", { "requireForBlockBody": false }],
-    "jsx-a11y/anchor-is-valid": [ "error", {
-        "components": [ "Link" ],
-        "specialLink": [ "to", "hrefLeft", "hrefRight" ],
-        "aspects": [ "noHref", "invalidHref", "preferButton" ]
-      }]
+    "comma-dangle": [
+      2,
+      "always-multiline"
+    ],
+    "arrow-parens": [
+      "warn",
+      "as-needed",
+      {
+        "requireForBlockBody": false
+      }
+    ],
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "to",
+          "hrefLeft",
+          "hrefRight"
+        ],
+        "aspects": [
+          "noHref",
+          "invalidHref",
+          "preferButton"
+        ]
+      }
+    ]
   },
   "settings": {
     "import/resolver": {

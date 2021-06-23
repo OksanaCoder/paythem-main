@@ -6,14 +6,14 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Button, Popover } from '@material-ui/core';
 
-import { paramsDefault } from 'actions';
-import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
-import CouponItemComponent from 'modules/currentGame/components/CouponItemComponent';
-import CouponPopoverComponent from 'modules/currentGame/components/CouponPopoverComponent';
+import { paramsDefault } from '../../../actions';
+import TabContentComponent from '../components/TabContentComponent';
+import CouponItemComponent from '../components/CouponItemComponent';
+import CouponPopoverComponent from '../components/CouponPopoverComponent';
 
-import { AddIcon } from 'assets/images/icons';
+import { AddIcon } from '../../../../assets/images/icons';
 
-import css from 'styles/pages/CurrentGame/Coupons.scss';
+import css from '../../../../styles/pages/currentGame/Coupons.scss';
 
 class CouponsOptionsContainer extends React.Component {
   constructor(props) {

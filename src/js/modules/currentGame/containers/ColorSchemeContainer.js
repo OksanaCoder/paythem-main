@@ -2,9 +2,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { paramsDefault } from 'actions';
-import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
-import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
+import { paramsDefault } from '../../../actions';
+import TabContentComponent from '../components/TabContentComponent';
+import ChooseColorContainer from './ChooseColorContainer';
 
 class ColorSchemeContainer extends React.Component {
   handleEditColor = target => value => {

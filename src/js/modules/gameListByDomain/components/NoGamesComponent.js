@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 
-import { WidgetIcon, AddWidgetIcon } from 'assets/images/icons';
+import { WidgetIcon, AddWidgetIcon } from '../../../../assets/images/icons';
 
-import css from 'styles/pages/Home.scss';
+import css from '../../../../styles/pages/Home.scss';
 
 const NoGamesComponent = ({ toggleDrawer }) => {
   return (

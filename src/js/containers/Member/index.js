@@ -1,10 +1,10 @@
 import React from 'react';
 
 // import Navigation from 'containers/Navigation';
-import Header from 'containers/Header';
-import Footer from 'containers/Footer';
+import Header from '../Header';
+import Footer from '../Footer';
 
-import css from 'styles/containers/Member.scss';
+import css from '../../../styles/containers/Member.scss';
 
 const Member = ({ children, ...props }) => (
   <section className={css.member}>

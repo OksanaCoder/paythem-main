@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { LinearProgress, withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
-
-import css from 'styles/containers/Auth.scss';
+import css from '../../../styles/containers/Auth.scss';
 
 const styles = {
   linearColorPrimary: {

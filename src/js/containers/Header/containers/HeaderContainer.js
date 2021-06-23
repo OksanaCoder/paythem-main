@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
 import { Popover, MenuItem, Button, Drawer } from '@material-ui/core';
 
-import { loadProfile, createDomain, getDomains, domainSelected } from 'actions';
+import { loadProfile, createDomain, getDomains, domainSelected } from '../../../actions';
 
 import {
   WebsitesIcon,
@@ -15,14 +15,14 @@ import {
   // AddUserIcon,
   LogOutIcon,
   UpgradeIcon,
-} from 'assets/images/icons';
+} from '../../../../assets/images/icons';
 
-import STORAGE from 'helpers/storage';
-import DomainsListComponent from 'containers/Header/components/DomainsListComponent';
-import EditProfileDialog from 'containers/Header/components/EditProfileDialog';
-import AddWebsiteDialog from 'components/Dialog/AddWebsiteDialog';
+import STORAGE from '../../../helpers/storage';
+import DomainsListComponent from '../components/DomainsListComponent';
+import EditProfileDialog from '../components/EditProfileDialog';
+import AddWebsiteDialog from '../../../components/Dialog/AddWebsiteDialog';
 
-import css from 'styles/containers/Header.scss';
+import css from '../../../../styles/containers/Header.scss';
 
 class HeaderContainer extends Component {
   constructor(props) {

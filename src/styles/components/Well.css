@@ -1,0 +1,22 @@
+.well {
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-flow: none;
+  display: flex;
+  color: #888;
+  position: relative;
+  font-size: 13px;
+  height: auto;
+  min-height: 40px;
+  padding: 15px;
+  margin-top: 25px; }
+  .well_medium {
+    min-height: 80px; }
+  .well_large {
+    min-height: 220px; }
+  .well_reset {
+    margin: 0;
+    padding: 0;
+    min-height: auto;
+    height: 100%; }

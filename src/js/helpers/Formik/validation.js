@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import strings from 'translations';
+import strings from '../../translations';
 
 const SignupSchema = () =>
   Yup.object().shape({

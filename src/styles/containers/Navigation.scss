@@ -38,11 +38,11 @@
   &__logo {
     @include flex(center, center);
   }
-  &__logoIcon {
-    @extend .logo__mobile;
-      height: 5rem;
-      width: 11rem;
-  }
+  // &__logoIcon {
+  //   @extend .logo__mobile;
+  //     height: 5rem;
+  //     width: 11rem;
+  // }
   &__logoText {
     padding-left: 1rem;
     font-size: 1.6rem;
@@ -82,7 +82,7 @@
       transition: opacity .05s cubic-bezier(0, 0, 0.2, 1) .2s;
       @include mobile-lg {
         visibility: visible;
-        opacity: 1; 
+        opacity: 1;
         z-index: 1;
       }
     }
@@ -135,7 +135,7 @@
     margin: 40px 0 10px 0;
     text-align: center;
     font-size: 18px;
-    
+
     & .domains_select{
       width: 90%;
       margin-bottom: 20px;

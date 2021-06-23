@@ -9,12 +9,11 @@ import {
   FormHelperText,
 } from '@material-ui/core';
 
-import Formik from 'helpers/Formik';
-import { CreateDomainSchema } from 'helpers/Formik/validation';
+import Formik from '../../helpers/Formik';
+import { CreateDomainSchema } from '../../helpers/Formik/validation';
 
-import { AddWebsiteIcon, CloseIcon } from 'assets/images/icons';
-
-import css from 'styles/components/Dialog.scss';
+import { AddWebsiteIcon, CloseIcon } from '../../../assets/images/icons';
+import css from '../../../styles/components/Dialog.scss'
 
 const addWebsiteDialogComponent = ({
   openWebsiteDialog,

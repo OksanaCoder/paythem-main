@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HomeContainer from 'modules/home';
+import HomeContainer from '../../../modules/home';
 
 const Home = ({ ...props }) => <HomeContainer {...props} />;
 

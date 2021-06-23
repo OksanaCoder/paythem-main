@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { CSVLink, CSVDownload } from 'react-csv';
 import { withStyles, Switch, Button } from '@material-ui/core';
 
-import UserIcon from 'assets/images/icons/user.svg';
-import { DownloadIcon, ResetIcon, EditIcon, TrashIcon, EyeIcon } from 'assets/images/icons';
-import css from 'styles/pages/Home.scss';
+import UserIcon from '../../../../assets/images/icons/user.svg';
+import { DownloadIcon, ResetIcon, EditIcon, TrashIcon, EyeIcon } from '../../../../assets/images/icons';
+import css from '../../../../styles/pages/Home.scss';
 
 const CustomSwitch = withStyles({
   root: {

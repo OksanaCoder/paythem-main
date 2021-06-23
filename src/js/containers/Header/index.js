@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderContainer from 'containers/Header/containers/HeaderContainer';
+import HeaderContainer from './containers/HeaderContainer';
 
 const Header = ({ ...props }) => <HeaderContainer {...props} />;
 

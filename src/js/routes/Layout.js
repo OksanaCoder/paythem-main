@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import AuthLayout from 'containers/Auth';
-import MemberLayout from 'containers/Member';
+import AuthLayout from '../containers/Auth';
+import MemberLayout from '../containers/Member';
 
 const Layout = ({ isAuth, children, ...rest }) => (
   <>

@@ -18,14 +18,14 @@ import {
   ListItemText,
 } from '@material-ui/core';
 
-import { paramsDefault } from 'actions';
-import { AddIcon, TrashIcon, DoneIcon2 } from 'assets/images/icons';
-import Formik from 'helpers/Formik';
-import { GeneralSettingsSchema, AddSiteUrlSchema } from 'helpers/Formik/validation';
-import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
-import OtherRadio from 'modules/currentGame/components/OtherRadioComponent';
+import { paramsDefault } from '../../../actions';
+import { AddIcon, TrashIcon, DoneIcon2 } from '../../../../assets/images/icons';
+import Formik from '../../../helpers/Formik';
+import { GeneralSettingsSchema, AddSiteUrlSchema } from '../../../helpers/Formik/validation';
+import TabContentComponent from '../components/TabContentComponent';
+import OtherRadio from '../components/OtherRadioComponent';
 
-import css from 'styles/pages/CurrentGame/GeneralSettings.scss';
+import css from '../../../../styles/pages/currentGame/GeneralSettings.scss';
 
 class GeneralSettingsContainer extends React.Component {
   handleOthers = event => {

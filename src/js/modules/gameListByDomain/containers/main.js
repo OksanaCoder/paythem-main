@@ -13,12 +13,12 @@ import {
   gameSelected,
   widgetView,
   getStatisticsByGameId,
-} from 'actions';
-import Fetching from 'components/Fetching';
+} from '../../../actions';
+import Fetching from '../components/Fetching';
 
-import GamesListForDomainComponent from 'modules/gameListByDomain/components/GamesListForDomainComponent';
-import NoGamesComponent from 'modules/gameListByDomain/components/NoGamesComponent';
-import TotalStatisticsComponent from 'modules/gameListByDomain/components/TotalStatisticsComponent';
+import GamesListForDomainComponent from '../../../modules/gameListByDomain/components/GamesListForDomainComponent';
+import NoGamesComponent from '../../../modules/gameListByDomain/components/NoGamesComponent';
+import TotalStatisticsComponent from '../../../modules/gameListByDomain/components/TotalStatisticsComponent';
 
 class GameListByDomain extends Component {
   constructor(props) {

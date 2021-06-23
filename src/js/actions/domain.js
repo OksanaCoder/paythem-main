@@ -1,4 +1,4 @@
-import * as type from 'constants/domain';
+import * as type from '../constants/domain';
 
 export const createDomain = data => ({
   types: [type.CREATE_DOMAIN_REQUEST, type.CREATE_DOMAIN_SUCCESS, type.CREATE_DOMAIN_FAILURE],

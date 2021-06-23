@@ -3,8 +3,8 @@ import cx from 'classnames';
 import { FormControl, Radio, Popover, Button } from '@material-ui/core';
 import { ChromePicker } from 'react-color';
 
-import { ColorIcon } from 'assets/images/icons';
-import css from 'styles/pages/CurrentGame/ChooseColor.scss';
+import { ColorIcon } from '../../../../assets/images/icons';
+import css from '../../../../styles/pages/currentGame/ChooseColor.scss';
 
 // Inspired by blueprintjs
 function StyledRadio(props) {

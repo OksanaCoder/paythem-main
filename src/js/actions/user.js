@@ -1,4 +1,4 @@
-import * as type from 'constants/user';
+import * as type from '../constants/user';
 
 export const register = data => ({
   types: [type.REGISTER_REQUEST, type.REGISTER_SUCCESS, type.REGISTER_FAILURE],

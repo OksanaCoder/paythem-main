@@ -9,14 +9,15 @@ import {
   updateDomain,
   createDomain,
   deleteDomain,
-} from 'actions';
-import Fetching from 'components/Fetching';
-import WelcomeComponent from 'modules/home/components/WelcomeComponent';
-import CurrentDomainContainer from 'modules/CurrentDomain';
-import GameListByDomain from 'modules/GameListByDomain';
-import STORAGE from 'helpers/storage';
+} from '../../../actions';
 
-import css from 'styles/pages/Home.scss';
+import Fetching from '../../../components/Fetching';
+import WelcomeComponent from '../../../modules/home/components/WelcomeComponent';
+import CurrentDomainContainer from '../../../modules/currentDomain/containers/CurrentDomainContainer';
+import GameListByDomain from '../../../modules/currentDomain/components/GamesListComponent';
+import STORAGE from '../../../helpers/storage';
+
+import css from '../../../../styles/pages/Home.scss';
 
 class HomeContainer extends React.Component {
   constructor(props) {

@@ -1,5 +1,5 @@
-import * as type from 'constants/other';
-import { PARAMS_DEFAULT } from 'config';
+import * as type from '../constants/other';
+import { PARAMS_DEFAULT } from '../config';
 
 export const addNotification = data => ({
   type: type.NOTIFICATION_ADD,

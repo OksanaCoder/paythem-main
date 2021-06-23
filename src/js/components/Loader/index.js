@@ -1,5 +1,5 @@
 import React from 'react';
-import css from 'styles/components/Loader.scss';
+import css from '../../../styles/components/Loader.scss';
 
 const Loader = ({ isFetching = false }) => {
   if (isFetching) {

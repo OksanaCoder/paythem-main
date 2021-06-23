@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
-import strings from 'translations';
-import Input from 'components/Form/Input';
-import Formik from 'helpers/Formik';
-import { ForgotPasswordSchema } from 'helpers/Formik/validation';
+import strings from '../../translations';
+import Input from '../../components/Form/Input';
+import Formik from '../../helpers/Formik';
+import { ForgotPasswordSchema } from '../../helpers/Formik/validation';
 
-import css from 'styles/containers/Auth.scss';
+import css from '../../../styles/containers/Auth.scss';
 
 const ForgotPassword = ({ onSubmit, isLoadingAuth }) => (
   <div className={css.content}>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 import { LinearProgress, IconButton, Icon } from '@material-ui/core';
 
-import css from 'styles/components/Notifications.scss';
+import css from '../../../styles/components/Notifications.scss';
 
 const MESSAGES = {
   error: {

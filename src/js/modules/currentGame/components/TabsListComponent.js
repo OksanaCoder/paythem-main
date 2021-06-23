@@ -11,9 +11,9 @@ import {
   CouponIcon,
   ConfigurationIcon2,
   TriggerButtonIcon,
-} from 'assets/images/icons';
+} from '../../../../assets/images/icons';
 
-import InnerTabsListComponent from 'modules/currentgame/components/InnerTabsListComponent';
+import InnerTabsListComponent from './InnerTabsListComponent';
 
 const TabsArr1 = [
   {

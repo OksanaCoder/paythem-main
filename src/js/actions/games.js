@@ -1,4 +1,4 @@
-import * as type from 'constants/games';
+import * as type from '../constants/games';
 
 export const createGame = (params, data) => ({
   types: [type.CREATE_GAME_REQUEST, type.CREATE_GAME_SUCCESS, type.CREATE_GAME_FAILURE],

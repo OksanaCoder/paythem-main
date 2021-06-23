@@ -3,8 +3,8 @@ import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 // import logger from 'redux-logger';
 
-import API from 'config/api';
-import { isTokenExpiredError, resetTokenAndReattemptRequest } from 'helpers/Authorization';
+import API from '../config/api';
+import { isTokenExpiredError, resetTokenAndReattemptRequest } from '../helpers/Authorization';
 import reducer from './reducers';
 
 const client = axios.create({

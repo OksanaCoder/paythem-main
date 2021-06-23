@@ -3,11 +3,11 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { FormControl, FormHelperText, OutlinedInput, TextField, Button } from '@material-ui/core';
 
-import { paramsDefault } from 'actions';
-import { TrashIcon } from 'assets/images/icons';
-import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
+import { paramsDefault } from '../../../actions';
+import { TrashIcon } from '../../../../assets/images/icons';
+import TabContentComponent from '../components/TabContentComponent';
 
-import css from 'styles/pages/CurrentGame/Content.scss';
+import css from '../../../../styles/pages/currentGame/Content.scss';
 
 const validation = errors => {
   let valid = true;

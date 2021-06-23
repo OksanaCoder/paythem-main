@@ -3,7 +3,7 @@ import React, { Component, Suspense, lazy } from 'react';
 import { HashRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import strings, { langLoad } from 'translations';
+import strings, { langLoad } from '../translations';
 import {
   register,
   login,
@@ -12,21 +12,21 @@ import {
   forgotPassword,
   resetPassword,
   addNotification,
-} from 'actions';
+} from '../actions';
 
-import ErrorBoundary from 'containers/ErrorBoundary';
-import Loader from 'components/Loader';
-import { setAuthBearerToken } from 'helpers/Authorization';
-import STORAGE from 'helpers/storage';
-import Layout, { PrivateRoute, PublicRoute } from 'routes/Layout';
+import ErrorBoundary from '../containers/ErrorBoundary';
+import Loader from '../components/Loader';
+import { setAuthBearerToken } from '../helpers/Authorization';
+import STORAGE from '../helpers/storage';
+import Layout, { PrivateRoute, PublicRoute } from './Layout';
 
-const App = lazy(() => import('containers/App'));
-const Registration = lazy(() => import('pages/Register'));
-const Login = lazy(() => import('pages/Login'));
-const ForgotPassword = lazy(() => import('pages/ForgotPassword'));
-const ResetPassword = lazy(() => import('pages/ResetPassword'));
+const App = lazy(() => import('../containers/App'));
+const Registration = lazy(() => import('../pages/Register'));
+const Login = lazy(() => import('../pages/Login'));
+const ForgotPassword = lazy(() => import('../pages/ForgotPassword'));
+const ResetPassword = lazy(() => import('../pages/ResetPassword'));
 
-const Home = lazy(() => import('pages/Admin/Home'));
+const Home = lazy(() => import('../pages/Admin/Home'));
 
 class Routes extends Component {
   componentDidMount() {

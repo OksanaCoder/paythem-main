@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Button } from '@material-ui/core';
 
-import { AddWebsitesIcon2, WebsitesIcon } from 'assets/images/icons';
-import AddWebsiteDialog from 'components/Dialog/AddWebsiteDialog';
+import { AddWebsitesIcon2, WebsitesIcon } from '../../../../assets/images/icons';
+import AddWebsiteDialog from '../../../components/Dialog/AddWebsiteDialog';
 
-import css from 'styles/pages/Home.scss';
+import css from '../../../../styles/pages/Home.scss';
 
 const WelcomeComponent = ({
   openWebsiteDialog,

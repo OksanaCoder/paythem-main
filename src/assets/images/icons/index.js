@@ -21,7 +21,7 @@ import {
   DoneIcon,
   UpgradeIcon,
   CopyIcon,
-} from 'assets/images/icons/siteIcons';
+} from './siteIcons';
 
 import {
   RightArrowIcon,
@@ -37,7 +37,7 @@ import {
   AddIcon,
   DoneIcon2,
   ColorIcon,
-} from 'assets/images/icons/constructorIcons';
+} from './constructorIcons';
 
 export {
   EditIcon,

@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import cx from 'classnames';
 import { Tabs, Tab } from '@material-ui/core';
 
-import strings from 'translations';
-import { loadProfile, updateProfile, addNotification } from 'actions';
-import Fetching from 'components/Fetching';
+import strings from '../../../translations';
+import { loadProfile, updateProfile, addNotification } from '../../../actions';
+import Fetching from '../../../components/Fetching';
 
-import CurrentUserForm from 'modules/currentUser/components/CurrentUserForm';
+import CurrentUserForm from '../components/CurrentUserForm';
 
-import css from 'styles/pages/CurrentUser.scss';
+import css from '../../../../styles/pages/CurrentUser.scss';
 
 class CurrentUserContainer extends Component {
   state = { tabValue: 0 };

@@ -3,12 +3,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
-import strings from 'translations';
-import Input from 'components/Form/Input';
-import SignupSchema from 'helpers/Formik/validation';
-import Formik from 'helpers/Formik';
+import strings from '../../translations';
+import Input from '../../components/Form/Input';
+import SignupSchema from '../../helpers/Formik/validation';
+import Formik from '../../helpers/Formik';
 
-import css from 'styles/containers/Auth.scss';
+import css from '../../../styles/containers/Auth.scss';
 
 const Register = ({ onSubmit, isLoadingAuth }) => (
   <React.Fragment>

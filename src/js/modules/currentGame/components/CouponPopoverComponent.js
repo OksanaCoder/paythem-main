@@ -8,12 +8,12 @@ import {
   Slider,
   FormHelperText,
 } from '@material-ui/core';
-import Formik from 'helpers/Formik';
-import { CouponsSchema } from 'helpers/Formik/validation';
+import Formik from '../../../helpers/Formik';
+import { CouponsSchema } from '../../../helpers/Formik/validation';
 
-import { TrashIcon, DoneIcon2 } from 'assets/images/icons/';
+import { TrashIcon, DoneIcon2 } from '../../../../assets/images/icons';
 
-import css from 'styles/pages/CurrentGame/Coupons.scss';
+import css from '../../../../styles/pages/currentGame/Coupons.scss';
 
 const CouponPopoverComponent = ({
   data: { value, resultText, probability, chanceReal },

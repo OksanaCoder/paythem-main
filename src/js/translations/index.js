@@ -1,8 +1,8 @@
 import LocalizedStrings from 'react-localization';
 
-import translationStrings from 'translations/translationStrings';
-import LANGUAGE from 'config/language';
-import STORAGE from 'helpers/storage';
+import translationStrings from './translationStrings';
+import LANGUAGE from '../config/language';
+import STORAGE from '../helpers/storage';
 
 const strings = new LocalizedStrings(translationStrings);
 

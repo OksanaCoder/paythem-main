@@ -1,4 +1,4 @@
-import { PARAMS_DEFAULT } from 'config';
+import { PARAMS_DEFAULT } from '../../config';
 
 const initialState = {
   data: PARAMS_DEFAULT,

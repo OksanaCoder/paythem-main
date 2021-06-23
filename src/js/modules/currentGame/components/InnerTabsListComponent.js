@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import { Tabs, Tab } from '@material-ui/core';
 
-import css from 'styles/pages/currentGame/TabList.scss';
+import css from '../../../../styles/pages/currentGame/TabList.scss';
 
 const InnerTabsListComponent = ({ tabValue, handleChangeTabsIntegration, tabsArr, tabsTitle }) => {
   return (

@@ -13,24 +13,24 @@ import {
   getGameList,
   paramsDefault,
   widgetView,
-} from 'actions';
-import Loader from 'components/Loader';
+} from '../../../actions';
+import Loader from '../../../components/Loader';
 
-import HeaderCurrentGameComponent from 'modules/currentGame/components/HeaderCurrentGameComponent';
-import TabsListComponent from 'modules/currentGame/components/TabsListComponent';
-import PopupBackgroundContainer from 'modules/currentGame/containers/PopupBackgroundContainer';
-import TriggerButtonContainer from 'modules/currentGame/containers/TriggerButtonContainer';
-import CouponsOptionsContainer from 'modules/currentGame/containers/CouponsOptionsContainer';
-import ColorSchemeContainer from 'modules/currentGame/containers/ColorSchemeContainer';
-import StartScreenContainer from 'modules/currentGame/containers/StartScreenContainer';
-import ProgressScreenContainer from 'modules/currentGame/containers/ProgressScreenContainer';
-import FinishScreenContainer from 'modules/currentGame/containers/FinishScreenContainer';
-import PrimaryIconContainer from 'modules/currentGame/containers/PrimaryIconContainer';
-import GeneralSettingsContainer from 'modules/currentGame/containers/GeneralSettingsContainer';
+import HeaderCurrentGameComponent from '../components/headerCurrentGameComponent';
+import TabsListComponent from '../../../modules/currentGame/components/TabsListComponent';
+import PopupBackgroundContainer from '../../../modules/currentGame/containers/PopupBackgroundContainer';
+import TriggerButtonContainer from '../../../modules/currentGame/containers/TriggerButtonContainer';
+import CouponsOptionsContainer from '../../../modules/currentGame/containers/CouponsOptionsContainer';
+import ColorSchemeContainer from '../../../modules/currentGame/containers/ColorSchemeContainer';
+import StartScreenContainer from '../../../modules/currentGame/containers/StartScreenContainer';
+import ProgressScreenContainer from '../../../modules/currentGame/containers/ProgressScreenContainer';
+import FinishScreenContainer from '../../../modules/currentGame/containers/FinishScreenContainer';
+import PrimaryIconContainer from '../../../modules/currentGame/containers/PrimaryIconContainer';
+import GeneralSettingsContainer from '../../../modules/currentGame/containers/GeneralSettingsContainer';
 
-import PtwModal from 'utils/PtwModal';
+import PtwModal from '../../../utils/PtwModal';
 
-import css from 'styles/pages/CurrentGame/Content.scss';
+import css from '../../../../styles/pages/currentGame/Content.scss';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

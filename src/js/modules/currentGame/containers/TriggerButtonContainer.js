@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FormControl, FormHelperText, OutlinedInput } from '@material-ui/core';
 
-import { paramsDefault } from 'actions';
-import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
-import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
+import { paramsDefault } from '../../../actions';
+import TabContentComponent from '../components/TabContentComponent';
+import ChooseColorContainer from './ChooseColorContainer';
 
-import css from 'styles/pages/CurrentGame.scss';
+import css from '../../../../styles/pages/CurrentGame.scss';
 
 const validation = errors => {
   let valid = true;

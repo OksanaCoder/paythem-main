@@ -2,9 +2,9 @@ import React from 'react';
 import cx from 'classnames';
 import { Button, Dialog } from '@material-ui/core';
 
-import { AttentionIcon, CloseIcon, AddWebsiteIcon } from 'assets/images/icons';
+import { AttentionIcon, CloseIcon, AddWebsiteIcon } from '../../../assets/images/icons';
 
-import css from 'styles/components/Dialog.scss';
+import css from '../../../styles/components/Dialog.scss';
 
 const DeleteWebsiteDialog = ({ openWebsiteDialog, handleClose, handleDeleteWebsite }) => (
   <Dialog open={openWebsiteDialog} onClose={handleClose}>

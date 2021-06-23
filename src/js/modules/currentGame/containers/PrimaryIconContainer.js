@@ -3,12 +3,12 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 
-import { paramsDefault } from 'actions';
-import { TrashIcon } from 'assets/images/icons';
-import { WIDGET_ICONS } from 'config';
-import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
+import { paramsDefault } from '../../../actions';
+import { TrashIcon } from '../../../../assets/images/icons';
+import { WIDGET_ICONS } from '../../../config';
+import TabContentComponent from '../components/TabContentComponent';
 
-import css from 'styles/pages/CurrentGame/PrimaryIcon.scss';
+import css from '../../../../styles/pages/currentGame/PrimaryIcon.scss';
 
 class PrimaryIconContainer extends React.Component {
   constructor(props) {

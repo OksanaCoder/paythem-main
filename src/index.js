@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import Routes from 'routes';
-import store from 'redux/store';
+import Routes from './js/routes';
+import store from './js/redux/store';
 
-import 'styles/main.scss';
+import './styles/main.scss';
 
 const theme = createMuiTheme({
   typography: {

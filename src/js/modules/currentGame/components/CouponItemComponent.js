@@ -2,9 +2,9 @@ import React from 'react';
 import cx from 'classnames';
 import { Button } from '@material-ui/core';
 
-import { CouponIcon, EditIcon } from 'assets/images/icons/';
+import { CouponIcon, EditIcon } from '../../../../assets/images/icons';
 
-import css from 'styles/pages/CurrentGame/Coupons.scss';
+import css from '../../../../styles/pages/currentGame/Coupons.scss';
 
 const CouponItemComponent = ({ data: { value }, handleOpenPopover, truncateString }) => (
   <div className={css.coupon}>

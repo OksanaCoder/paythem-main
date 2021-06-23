@@ -3,18 +3,18 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Button, Drawer } from '@material-ui/core';
 
-import { paramsDefault, widgetView, gameSelected } from 'actions';
-import AddWebsiteDialog from 'components/Dialog/AddWebsiteDialog';
-import DeleteWebsiteDialog from 'components/Dialog/DeleteWebsiteDialog';
-import InstallationCodeDialog from 'components/Dialog/InstallationCodeDialog';
-import GamesListComponent from 'modules/currentDomain/components/GamesListComponent';
-import CurrentGame from 'modules/CurrentGame';
-import { PARAMS_DEFAULT } from 'config';
+import { paramsDefault, widgetView, gameSelected } from '../../../actions';
+import AddWebsiteDialog from '../../../components/Dialog/AddWebsiteDialog';
+import DeleteWebsiteDialog from '../../../components/Dialog/DeleteWebsiteDialog';
+import InstallationCodeDialog from '../../../components/Dialog/InstallationCodeDialog';
+import GamesListComponent from '../components/GamesListComponent';
+import CurrentGame from '../../currentGame';
+import { PARAMS_DEFAULT } from '../../../config';
 
-import { ConfigurationIcon, EditIcon, TrashIcon, AddWidgetIcon } from 'assets/images/icons';
-import UserIcon from 'assets/images/icons/user.svg';
+import { ConfigurationIcon, EditIcon, TrashIcon, AddWidgetIcon } from '../../../../assets/images/icons';
+import UserIcon from '../../../../assets/images/icons/user.svg';
 
-import css from 'styles/pages/Home.scss';
+import css from '../../../../styles/pages/Home.scss';
 
 class CurrentDomainContainer extends React.Component {
   handleChooseGame = data => {

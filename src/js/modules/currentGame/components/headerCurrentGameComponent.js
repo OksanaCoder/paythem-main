@@ -2,8 +2,8 @@ import React from 'react';
 import cx from 'classnames';
 import { Button } from '@material-ui/core';
 
-import { EyeIcon2, CloseIcon2, DoneIcon, AddWidgetIcon } from 'assets/images/icons';
-import css from 'styles/pages/CurrentGame/DialogHeader.scss';
+import { EyeIcon2, CloseIcon2, DoneIcon, AddWidgetIcon } from '../../../../assets/images/icons';
+import css from '../../../../styles/pages/currentGame/DialogHeader.scss';
 
 const headerCurrentGameComponent = ({ handleClose, handleSubmit, handlePreviewWidget }) => {
   return (

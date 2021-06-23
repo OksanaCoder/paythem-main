@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormControlLabel, Radio, Input, InputAdornment } from '@material-ui/core';
 
-import css from 'styles/pages/CurrentGame/GeneralSettings.scss';
+import css from '../../../../styles/pages/currentGame/GeneralSettings.scss';
 
 const OtherRadioComponent = ({
   onChange,

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, OutlinedInput, FormControl, FormHelperText } from '@material-ui/core';
 
-import Formik from 'helpers/Formik';
-import { CurrentUserProfileSchema, CurrentUserPassRecoverySchema } from 'helpers/Formik/validation';
+import Formik from '../../../helpers/Formik';
+import { CurrentUserProfileSchema, CurrentUserPassRecoverySchema } from '../../../helpers/Formik/validation';
 
-import { CloseIcon, AddWebsiteIcon } from 'assets/images/icons';
-import css from 'styles/pages/CurrentUser.scss';
+import { CloseIcon, AddWebsiteIcon } from '../../../../assets/images/icons';
+import css from '../../../../styles/pages/CurrentUser.scss';
 
 const CurrentUserForm = ({ isPasswordRecovery, data, handleSubmitUser, handleClose }) => (
   <React.Fragment>

@@ -1,0 +1,25 @@
+.member {
+  display: grid;
+  height: 100%;
+  width: 100%; }
+  .member__flex {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%; }
+  .member__wrap {
+    background: #E8EFF7;
+    height: 100%;
+    width: 100%; }
+  .member__container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 7.6rem; }
+  .member__content {
+    height: 100%;
+    padding: 2.4rem; }
+
+:global .memberContainerOffsetNone [class*="member__content"] {
+  padding: 0; }

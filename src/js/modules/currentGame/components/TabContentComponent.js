@@ -2,8 +2,8 @@ import React from 'react';
 import cx from 'classnames';
 import { Button } from '@material-ui/core';
 
-import { CloseIcon } from 'assets/images/icons';
-import css from 'styles/pages/CurrentGame/Content.scss';
+import { CloseIcon } from '../../../../assets/images/icons';
+import css from '../../../../styles/pages/currentGame/Content.scss';
 
 const TabContentComponent = ({ tabValue, handleCloseTabContent, title, description, children }) => {
   return (

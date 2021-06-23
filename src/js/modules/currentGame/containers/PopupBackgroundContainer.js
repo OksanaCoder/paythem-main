@@ -2,13 +2,13 @@ import React from 'react';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Button, Slider } from '@material-ui/core';
-import { TrashIcon } from 'assets/images/icons';
+import { TrashIcon } from '../../../../assets/images/icons';
 
-import { paramsDefault } from 'actions';
-import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
-import ChooseColorContainer from 'modules/currentGame/containers/ChooseColorContainer';
+import { paramsDefault } from '../../../actions';
+import TabContentComponent from '../components/TabContentComponent';
+import ChooseColorContainer from './ChooseColorContainer';
 
-import css from 'styles/pages/CurrentGame/Content.scss';
+import css from '../../../../styles/pages/currentGame/Content.scss';
 
 class PopupBackgroundContainer extends React.Component {
   constructor(props) {

@@ -18,10 +18,10 @@ import {
 } from '@material-ui/core';
 
 import strings from 'translations';
-import { loadProfile, getDomains, domainSelected } from 'actions';
-import { NAV_MENU } from 'config';
+import { loadProfile, getDomains, domainSelected } from '../../actions';
+import { NAV_MENU } from '../../config';
 
-import css from 'styles/containers/Navigation.scss';
+import css from '../../../styles/containers/Navigation.scss';
 
 const styles = {
   linearColorPrimary: { backgroundColor: '#f5f5f5' },

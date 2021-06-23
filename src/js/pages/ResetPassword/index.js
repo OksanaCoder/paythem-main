@@ -2,13 +2,13 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
-import strings from 'translations';
-import Input from 'components/Form/Input';
-import { ResetPasswordSchema } from 'helpers/Formik/validation';
-import Formik from 'helpers/Formik';
-import ParsingUrl from 'helpers/ParsingUrl';
+import strings from '../../translations';
+import Input from '../../components/Form/Input';
+import { ResetPasswordSchema } from '../../helpers/Formik/validation';
+import Formik from '../../helpers/Formik';
+import ParsingUrl from '../../helpers/ParsingUrl';
 
-import css from 'styles/containers/Auth.scss';
+import css from '../../../styles/containers/Auth.scss';
 
 const ResetPassword = ({ onSubmit }) => {
   const {

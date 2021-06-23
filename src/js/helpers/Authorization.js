@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import API from 'config/api';
-import STORAGE from 'helpers/storage';
+import API from '../config/api';
+import STORAGE from './storage';
 
 const getTokenStorage = STORAGE.getItem('token');
 let isAlreadyFetchingAccessToken = false;

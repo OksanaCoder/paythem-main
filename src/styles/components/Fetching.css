@@ -1,0 +1,24 @@
+.fetching {
+  position: relative;
+  width: 100%; }
+  .fetching__progress {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 7rem;
+    padding: 1.5rem 0;
+    position: absolute;
+    top: -1.5rem;
+    height: 100%;
+    width: 100%;
+    z-index: 3; }
+    .fetching__progress_initial {
+      position: initial; }
+    .fetching__progress_background {
+      background-color: rgba(241, 241, 243, 0.7); }
+    .fetching__progress_reset {
+      min-height: auto;
+      padding: 0;
+      top: 0; }
+  .fetching_height {
+    height: 100%; }

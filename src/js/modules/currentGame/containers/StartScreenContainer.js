@@ -9,10 +9,10 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import { paramsDefault } from 'actions';
-import TabContentComponent from 'modules/currentGame/components/TabContentComponent';
+import { paramsDefault } from '../../../actions';
+import TabContentComponent from '../components/TabContentComponent';
 
-import css from 'styles/pages/CurrentGame.scss';
+import css from '../../../../styles/pages/CurrentGame.scss';
 
 const validation = errors => {
   let valid = true;

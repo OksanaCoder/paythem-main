@@ -1,3 +1,3 @@
-import CurrentDomain from './containers/CurrentDomainContainer';
+import CurrentDomain from '../.././containers/CurrentDomainContainer';
 
 export default CurrentDomain;

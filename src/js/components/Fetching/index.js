@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import css from 'styles/components/Fetching.scss';
+import css from '../../../styles/components/Fetching.scss';
 
 const Fetching = ({
   color = '#37b759',

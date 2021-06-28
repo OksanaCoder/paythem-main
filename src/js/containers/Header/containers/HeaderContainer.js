@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
 import { Popover, MenuItem, Button, Drawer } from '@material-ui/core';
@@ -22,7 +22,7 @@ import DomainsListComponent from '../components/DomainsListComponent';
 import EditProfileDialog from '../components/EditProfileDialog';
 import AddWebsiteDialog from '../../../components/Dialog/AddWebsiteDialog';
 
-import css from '../../../../styles/containers/Header.scss';
+import '../../../../styles/containers/Header.scss';
 
 class HeaderContainer extends Component {
   constructor(props) {
@@ -147,17 +147,17 @@ class HeaderContainer extends Component {
     const { domains, domainsLoaded } = this.getDomains();
 
     return (
-      <header className={cx(css.header, css.header_global)}>
-        <div className={css.header__container}>
-          <div className={css.header__container_left}>
-            <div className={cx(css.menu, css.header__logo)}>
-              <NavLink to="/home" className={css.header__logo_icon} />
+      <header className='header header_global'>
+        <div className='header__container'>
+          <div className='header__container_left'>
+            <div className='header__logo menu'>
+              <NavLink to="/home" className='header__logo_icon' />
             </div>
-            <div className={css.header__btns}>
+            <div className='header__btns'>
               <Button
                 variant="contained"
                 color="primary"
-                className={cx(css.button__top)}
+                className='button__top'
                 onClick={this.toggleDrawer('left', true)}
                 disabled={domains.length === 0}
               >
@@ -168,7 +168,7 @@ class HeaderContainer extends Component {
               <Button
                 variant="contained"
                 color="primary"
-                className={cx(css.button__top)}
+                className='button__top'
                 onClick={e => this.handleOpen(e, 'openWebsiteDialog')}
               >
                 <AddWebsitesIcon />
@@ -176,14 +176,14 @@ class HeaderContainer extends Component {
               </Button>
             </div>
           </div>
-          <div className={css.header__container_right}>
-            <div className={css.header__trialText}>
+          <div className='header__container_right'>
+            <div className='header__trialText'>
               <p>4 days left trial</p>
             </div>
             <Button
               variant="contained"
               color="primary"
-              className={cx(css.button__top, css.button__top_lightBlue)}
+              className='button__top button__top_lightBlue'
             >
               <UpgradeIcon />
               Upgrade
@@ -192,7 +192,7 @@ class HeaderContainer extends Component {
               <Button
                 variant="contained"
                 color="primary"
-                className={cx(css.button__top, css.header__btns_user)}
+                className='button__top header__btns_user'
                 onClick={e => this.handleOpen(e, 'openUserPopover')}
               >
                 <UserIcon />
@@ -202,7 +202,7 @@ class HeaderContainer extends Component {
           </div>
 
           <Popover
-            className={css.header__user_popover}
+            className='header__user_popover'
             open={openUserPopover}
             anchorEl={anchorEl}
             onClose={this.handleClose('openUserPopover')}

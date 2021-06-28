@@ -152,61 +152,61 @@ class Navigation extends Component {
     return (
       <React.Fragment>
         <aside
-          className={cx(css.aside, css.aside_global)}
+          className='aside aside_global'
           onMouseEnter={this.mouseMenuOver}
           onMouseLeave={this.mouseMenuOut}
         >
           <IconButton
-            className={cx(css.aside__iconButton, css.aside__iconButton_header)}
+            className='aside__iconButton aside__iconButton_header'
             onClick={this.openNavbar}
           >
-            <Icon className={css.aside__iconMenu}>menu</Icon>
+            <Icon className='aside__iconMenu'>menu</Icon>
           </IconButton>
-          <div className={css.aside__wrap}>
-            <header className={css.aside__header}>
-              <div className={css.aside__logo}>
-                <div className={css.aside__logoIcon} />
-                <div className={cx(css.aside__logoText, css.hideitem)} />
+          <div className='aside__wrap'>
+            <header className='aside__header'>
+              <div className='aside__logo'>
+                <div className='aside__logoIcon' />
+                <div className='aside__logoText hideitem' />
               </div>
               <div
-                className={cx(css.aside__iconButton, css.aside__iconButton_desktop)}
+                className='aside__iconButton aside__iconButton_desktop'
                 onClick={this.toggleNavbar}
                 onKeyDown={this.toggleNavbar}
                 role="button"
                 tabIndex={0}
               >
                 {toggle ? (
-                  <div className={css.aside__iconButton__hide} />
+                  <div className='aside__iconButton__hide'/>
                 ) : (
-                  <div className={css.aside__iconButton__show} />
+                  <div className='aside__iconButton__show' />
                 )}
               </div>
               <IconButton
-                className={cx(css.aside__iconButton, css.aside__iconButton_mobile)}
+                className='aside__iconButton aside__iconButton_mobile'
                 onClick={this.closeNavbar}
               >
-                <Icon className={css.aside__iconMenu}>arrow_back</Icon>
+                <Icon className='aside__iconMenu'>arrow_back</Icon>
               </IconButton>
             </header>
 
-            <div className={css.aside__content}>
-              <div className={css.navbar}>
+            <div className='aside__content'>
+              <div className='navbar'>
                 {loading && (
                   <LinearProgress
                     classes={{
                       colorPrimary: classes.linearColorPrimary,
                       barColorPrimary: classes.linearBarColorPrimary,
                     }}
-                    className={css.navbar__progress}
+                    className='navbar__progress'
                   />
                 )}
 
-                <div className={css.navbar__domains}>
-                  <div className={css.hideitem}>
+                <div className='navbar__domains'>
+                  <div className='hideitem'>
                     {/* {domainsLoaded && ( */}
                     <Select
                       value={domainItemSelected.data.domain || ''}
-                      className={css.domains_select}
+                      className='domains_select'
                       onChange={this.handleChange}
                       disabled={domainItemSelected.data.length === 0 || isDomainUrl}
                     >
@@ -224,28 +224,28 @@ class Navigation extends Component {
                       href="/#/game/add"
                       size="small"
                       disabled={domainsLoading || domainItemSelected.data.length === 0}
-                      className={cx(css.button__blue, css.button)}
+                      className='button__blue button'
                     >
                       Create the game
                     </Button>
                   </div>
                 </div>
 
-                <List className={cx(css.menu, css.menu_radius)} component="nav">
+                <List className='menu menu_radius' component="nav">
                   {NAV_MENU.map(item => (
                     <NavLink
                       key={item.to}
                       exact
                       to={item.to}
-                      className={css.menu__link}
-                      activeClassName={css.menu__link_active}
+                      className='menu__link'
+                      activeClassName='menu__link_active'
                     >
-                      <ListItem className={css.menu__item} button>
-                        <ListItemIcon className={css.menu__itemIcon}>
-                          <Icon className={css.menu__icon}>{item.icon}</Icon>
+                      <ListItem className='menu__item' button>
+                        <ListItemIcon className='menu__itemIcon'>
+                          <Icon className='menu__icon'>{item.icon}</Icon>
                         </ListItemIcon>
                         <ListItemText
-                          className={cx(css.menu__text, css.hideitem)}
+                          className='menu__text hideitem'
                           inset
                           primary={item.name}
                         />
@@ -256,22 +256,22 @@ class Navigation extends Component {
                 <Button
                   variant="contained"
                   color="primary"
-                  className={cx(css.button__pink, css.button, css.hideitem)}
+                  className='button__pink button hideitem'
                 >
                   Upgrade now
                 </Button>
               </div>
             </div>
 
-            <div className={css.aside__footer}>
-              <List className={cx(css.menu, css.menu_radius)} component="nav">
-                <NavLink exact to="" onClick={logout} className={css.menu__link}>
-                  <ListItem className={css.menu__item} button>
-                    <ListItemIcon className={css.menu__itemIcon}>
-                      <Icon className={css.menu__icon}>logout</Icon>
+            <div className='aside__footer'>
+              <List className='menu menu_radius' component="nav">
+                <NavLink exact to="" onClick={logout} className='menu__link'>
+                  <ListItem className='menu__item' button>
+                    <ListItemIcon className='menu__itemIcon'>
+                      <Icon className='menu__icon'>logout</Icon>
                     </ListItemIcon>
                     <ListItemText
-                      className={cx(css.menu__text, css.hideitem)}
+                      className='menu__text hideitem'
                       inset
                       primary={strings.buttons.logout}
                     />

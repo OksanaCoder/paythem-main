@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import { AddWebsitesIcon2, WebsitesIcon } from '../../../../assets/images/icons';
 import AddWebsiteDialog from '../../../components/Dialog/AddWebsiteDialog';
 
-import css from '../../../../styles/pages/Home.scss';
+import '../../../../styles/pages/Home.scss';
 
 const WelcomeComponent = ({
   openWebsiteDialog,
@@ -15,9 +15,9 @@ const WelcomeComponent = ({
   target,
 }) => {
   return (
-    <div className={css.home__container}>
-      <div className={css.home__welcome}>
-        <div className={css.home__welcome_img}>
+    <div className='home__container'>
+      <div className='home__welcome'>
+        <div className='home__welcome_img'>
           <WebsitesIcon />
         </div>
 
@@ -26,7 +26,7 @@ const WelcomeComponent = ({
         <Button
           variant="contained"
           color="primary"
-          className={css.button__blue}
+          className='button__blue'
           onClick={handleOpen}
         >
           <AddWebsitesIcon2 />

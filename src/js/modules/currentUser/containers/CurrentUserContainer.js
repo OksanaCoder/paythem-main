@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { Tabs, Tab } from '@material-ui/core';
 
 import strings from '../../../translations';
@@ -9,7 +9,7 @@ import Fetching from '../../../components/Fetching';
 
 import CurrentUserForm from '../components/CurrentUserForm';
 
-import css from '../../../../styles/pages/CurrentUser.scss';
+import '../../../../styles/pages/CurrentUser.scss';
 
 class CurrentUserContainer extends Component {
   state = { tabValue: 0 };
@@ -74,21 +74,21 @@ class CurrentUserContainer extends Component {
       <Fetching isFetching={loading}>
         {loaded && (
           <React.Fragment>
-            <section className={cx(css.tabs__container, css.tabs__container_offset_top)}>
-              <div className={cx(css.tabs, css.tabs_horizontal)}>
-                <nav className={css.tabs__nav}>
+            <section className='tabs__container tabs__container_offset_top'>
+              <div className='tabs tabs_horizontal'>
+                <nav className='tabs__nav'>
                   <Tabs
-                    className={css.tabs__list}
+                    className='tabs__list'
                     indicatorColor="primary"
                     textColor="primary"
                     value={tabValue}
                     onChange={this.handleChangeTabsIntegration}
                   >
-                    <Tab className={css.tabs__list_label} label="User Profile" />
-                    <Tab className={css.tabs__list_label} label="Change Password" />
+                    <Tab className='tabs__list_label' label="User Profile" />
+                    <Tab className='tabs__list_label' label="Change Password" />
                   </Tabs>
                 </nav>
-                <div className={css.tabs__content}>
+                <div className='tabs__content'>
                   {tabValue === 0 && (
                     <CurrentUserForm
                       data={userData}

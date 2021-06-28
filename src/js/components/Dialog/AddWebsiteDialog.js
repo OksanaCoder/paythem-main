@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import {
   Button,
   Dialog,
@@ -13,7 +13,7 @@ import Formik from '../../helpers/Formik';
 import { CreateDomainSchema } from '../../helpers/Formik/validation';
 
 import { AddWebsiteIcon, CloseIcon } from '../../../assets/images/icons';
-import css from '../../../styles/components/Dialog.scss'
+import '../../../styles/components/Dialog.scss'
 
 const addWebsiteDialogComponent = ({
   openWebsiteDialog,
@@ -34,11 +34,11 @@ const addWebsiteDialogComponent = ({
       onSubmit={handleSubmitWebsite}
     >
       {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
-        <form className={css.addWebsite__form}>
-          <div className={css.addWebsite__form_title}>
+        <form className='addWebsite__form'>
+          <div className='addWebsite__form_title'>
             {target === 'dialogAddWebsite' ? <h3>Add New Website</h3> : <h3>Update Website</h3>}
           </div>
-          <div className={css.addWebsite__form_content}>
+          <div className='addWebsite__form_content'>
             {/* <FormControl fullWidth className={css.form_input}>
               <h4>Website title</h4>
               <OutlinedInput
@@ -48,7 +48,7 @@ const addWebsiteDialogComponent = ({
                 value={values.name}
               />
             </FormControl> */}
-            <FormControl fullWidth className={css.form_input}>
+            <FormControl fullWidth className='form_input'>
               <h4>Destination url</h4>
               <OutlinedInput
                 name="domain"
@@ -60,7 +60,7 @@ const addWebsiteDialogComponent = ({
                 aria-describedby="error-text"
               />
               {errors.domain && touched.domain && (
-                <FormHelperText className={css.form_inputError} id="error-text">
+                <FormHelperText className='form_inputError' id="error-text">
                   {errors.domain}
                 </FormHelperText>
               )}
@@ -72,7 +72,7 @@ const addWebsiteDialogComponent = ({
             <Button
               variant="contained"
               color="primary"
-              className={cx(css.button__blue)}
+              className='button__blue'
               disabled={isSubmitting}
               onClick={handleSubmit}
               type="submit"
@@ -85,7 +85,7 @@ const addWebsiteDialogComponent = ({
               onClick={handleClose}
               variant="contained"
               color="primary"
-              className={cx(css.button__top)}
+              className='button__top'
             >
               <CloseIcon />
               Discard

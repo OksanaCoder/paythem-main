@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Button, Drawer } from '@material-ui/core';
 
@@ -14,7 +14,7 @@ import { PARAMS_DEFAULT } from '../../../config';
 import { ConfigurationIcon, EditIcon, TrashIcon, AddWidgetIcon } from '../../../../assets/images/icons';
 import UserIcon from '../../../../assets/images/icons/user.svg';
 
-import css from '../../../../styles/pages/Home.scss';
+import '../../../../styles/pages/Home.scss';
 
 class CurrentDomainContainer extends React.Component {
   handleChooseGame = data => {
@@ -46,11 +46,11 @@ class CurrentDomainContainer extends React.Component {
 
     return (
       <React.Fragment>
-        <div className={css.home__container}>
-          <div className={css.home__websiteBlock}>
-            <div className={css.home__websiteBlock_left}>
-              <div className={css.home__websiteBlock_info}>
-                <div className={css.home__websiteBlock_img}>
+        <div className='home__container'>
+          <div className='home__websiteBlock'>
+            <div className='home__websiteBlock_left'>
+              <div className='home__websiteBlock_info'>
+                <div className='home__websiteBlock_img'>
                   <img src={UserIcon} alt="UserIcon" />
                 </div>
                 <div>
@@ -68,11 +68,11 @@ class CurrentDomainContainer extends React.Component {
               </div>
             </div>
 
-            <div className={css.home__websiteBlock_right}>
+            <div className='home__websiteBlock_right'>
               <Button
                 variant="contained"
                 color="primary"
-                className={cx(css.button__top, css.button__top_lightBlue)}
+                className='button__top button__top_lightBlue'
                 onClick={handleOpen('openInstallationCodeDialog')}
               >
                 <ConfigurationIcon />
@@ -82,7 +82,7 @@ class CurrentDomainContainer extends React.Component {
               <Button
                 variant="contained"
                 color="primary"
-                className={cx(css.button__top, css.button__top_lightBlue, css.button__top_icon)}
+                className='button__top button__top_lightBlue button__top_icon'
                 onClick={handleOpen('openUpdateWebsiteDialog')}
               >
                 <EditIcon />
@@ -91,7 +91,7 @@ class CurrentDomainContainer extends React.Component {
               <Button
                 variant="contained"
                 color="primary"
-                className={cx(css.button__top, css.button__top_lightBlue, css.button__top_icon)}
+                className='button__top button__top_lightBlue button__top_icon'
                 onClick={handleOpen('openDeleteWebsiteDialog')}
               >
                 <TrashIcon />
@@ -100,7 +100,7 @@ class CurrentDomainContainer extends React.Component {
               <Button
                 variant="contained"
                 color="primary"
-                className={cx(css.button__blue, css.home__websiteBlock_btnAddGame)}
+                className='button__blue home__websiteBlock_btnAddGame'
                 onClick={toggleDrawer('rightPanel', true)}
               >
                 <AddWidgetIcon />

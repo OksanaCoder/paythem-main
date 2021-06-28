@@ -17,7 +17,7 @@ import strings from 'translations';
 // import LANGUAGE from 'config/language';
 import STORAGE from 'helpers/storage';
 
-import css from 'styles/containers/Header.scss';
+import 'styles/containers/Header.scss';
 
 class Header extends Component {
   constructor(props) {
@@ -76,9 +76,9 @@ class Header extends Component {
     //   ? LANGUAGE.find(item => item.code.includes(STORAGE.getItem('lang')))
     //   : storageLangCode;
     return (
-      <header className={cx(css.header, css.header_global)}>
-        <div className={css.header__container}>
-          <List className={cx(css.menu, css.header__menu)}>
+      <header className='header header_global'>
+        <div className='header__container'>
+          <List className='menu header__menu'>
             {/* {LANGUAGE.length >= 2 && (
               <ListItem className={css.menu__item} button onClick={this.handleOpen}>
                 <ListItemIcon className={css.menu__itemIcon}>
@@ -115,12 +115,12 @@ class Header extends Component {
                 className={css.navbar__progress}
               />
                 )} */}
-            <ListItem className={css.menu__item} button onClick={this.handleOpen}>
-              {loaded && <ListItemText className={css.menu__text} inset primary={userData.name} />}
+            <ListItem className='menu__item' button onClick={this.handleOpen}>
+              {loaded && <ListItemText className='menu__text' inset primary={userData.name} />}
             </ListItem>
-            <ListItem className={css.menu__item} button onClick={logout}>
-              <ListItemIcon className={css.menu__itemIcon}>
-                <Icon className={css.menu__icon}>logout</Icon>
+            <ListItem className='menu__item' button onClick={logout}>
+              <ListItemIcon className='menu__itemIcon'>
+                <Icon className='menu__icon'>logout</Icon>
               </ListItemIcon>
             </ListItem>
           </List>

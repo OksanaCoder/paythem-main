@@ -8,7 +8,7 @@ import { ResetPasswordSchema } from '../../helpers/Formik/validation';
 import Formik from '../../helpers/Formik';
 import ParsingUrl from '../../helpers/ParsingUrl';
 
-import css from '../../../styles/containers/Auth.scss';
+import '../../../styles/containers/Auth.scss';
 
 const ResetPassword = ({ onSubmit }) => {
   const {
@@ -16,8 +16,8 @@ const ResetPassword = ({ onSubmit }) => {
   } = ParsingUrl(window.location.search);
 
   return (
-    <div className={css.auth__content}>
-      <h2 className={css.auth__title}>{strings.other.reset_password}</h2>
+    <div className='auth__content'>
+      <h2 className='auth__title'>{strings.other.reset_password}</h2>
       <Formik
         initialValues={{
           res,
@@ -28,7 +28,7 @@ const ResetPassword = ({ onSubmit }) => {
         onSubmit={onSubmit}
       >
         {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
-          <form className={css.auth__form}>
+          <form className='auth__form'>
             <Input
               label=""
               variant="outlined"
@@ -38,6 +38,7 @@ const ResetPassword = ({ onSubmit }) => {
               onChange={handleChange}
             />
             <Input
+              className='auth__form_input'
               label={`${strings.form.password_new} *`}
               variant="outlined"
               type="password"
@@ -48,6 +49,7 @@ const ResetPassword = ({ onSubmit }) => {
               onChange={handleChange}
             />
             <Input
+            className='auth__form_input'
               label={`${strings.form.password_new_confirm} *`}
               variant="outlined"
               type="password"
@@ -63,7 +65,7 @@ const ResetPassword = ({ onSubmit }) => {
               type="submit"
               color="primary"
               variant="contained"
-              className={css.auth__button}
+              className='auth__button'
               disabled={isSubmitting || values.res === ''}
               onClick={handleSubmit}
             >

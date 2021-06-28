@@ -10,16 +10,16 @@ import css from '../../../../styles/containers/Header.scss';
 const DomainsListComponent = ({ handleDomainSelect, domains, toggleDrawer, activeDomain }) => {
   console.log(domains);
   return (
-    <section className={css.domains__list}>
+    <section className='domains__list'>
       <button
         type="button"
-        className={css.domains__list_close}
+        className='domains__list_close'
         onClick={toggleDrawer('left', false)}
       >
         Close
       </button>
       <h2>My Websites</h2>
-      <List className={css.domains__list}>
+      <List className='domains__list'>
         {domains &&
           domains.map(item => {
             return (
@@ -33,7 +33,7 @@ const DomainsListComponent = ({ handleDomainSelect, domains, toggleDrawer, activ
                 href="#"
                 onClick={handleDomainSelect(item)}
               >
-                <div className={css.domains__list_img}>
+                <div className='domains__list_img'>
                   <img src={UserIcon} alt="UserIcon" />
                 </div>
 

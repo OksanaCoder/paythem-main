@@ -7,20 +7,20 @@ import Input from '../../components/Form/Input';
 import Formik from '../../helpers/Formik';
 import { ForgotPasswordSchema } from '../../helpers/Formik/validation';
 
-import css from '../../../styles/containers/Auth.scss';
+import '../../../styles/containers/Auth.scss';
 
 const ForgotPassword = ({ onSubmit, isLoadingAuth }) => (
-  <div className={css.content}>
-    <h2 className={css.auth__title}>{strings.other.recovery}</h2>
+  <div className='content'>
+    <h2 className='auth__title'>{strings.other.recovery}</h2>
     <Formik
       initialValues={{ email: '' }}
       validationSchema={ForgotPasswordSchema}
       onSubmit={onSubmit}
     >
       {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
-        <form className={css.auth__form}>
+        <form className='auth__form'>
           <Input
-            className={css.auth__form_input}
+            className='auth__form_input'
             label={`${strings.form.email} *`}
             type="email"
             name="email"
@@ -34,11 +34,11 @@ const ForgotPassword = ({ onSubmit, isLoadingAuth }) => (
             type="submit"
             color="primary"
             variant="contained"
-            className={css.auth__button}
+            className='auth__button'
             disabled={isSubmitting || isLoadingAuth}
             onClick={handleSubmit}
           >
-            <span className={css.auth__button_icon} />
+            <span className='auth__button_icon' />
             {strings.buttons.send}
           </Button>
         </form>

@@ -7,12 +7,12 @@ import Input from '../../components/Form/Input';
 import Formik from '../../helpers/Formik';
 import { LoginSchema } from '../../helpers/Formik/validation';
 
-import css from '../../../styles/containers/Auth.scss';
+import '../../../styles/containers/Auth.scss';
 
 const Login = ({ onSubmit, isLoadingAuth }) => (
-  <div className={css.auth__content}>
-    <h2 className={css.auth__title}>{strings.other.login_account}</h2>
-    <h3 className={css.auth__subtitle}>
+  <div className='auth__content'>
+    <h2 className='auth__title'>{strings.other.login_account}</h2>
+    <h3 className='auth__subtitle'>
       Welcome to Playthem service! Please login to start using our service
     </h3>
     <Formik
@@ -21,9 +21,9 @@ const Login = ({ onSubmit, isLoadingAuth }) => (
       onSubmit={onSubmit}
     >
       {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
-        <form className={css.auth__form}>
+        <form className='auth__form'>
           <Input
-            className={css.auth__form_input}
+            className='auth__form_input'
             label={strings.form.email}
             type="email"
             name="email"
@@ -34,7 +34,7 @@ const Login = ({ onSubmit, isLoadingAuth }) => (
             onChange={handleChange}
           />
           <Input
-            className={css.auth__form_input}
+            className='auth__form_input'
             label={strings.form.password}
             type="password"
             name="password"
@@ -47,13 +47,13 @@ const Login = ({ onSubmit, isLoadingAuth }) => (
 
           <Button
             type="submit"
-            className={css.auth__button}
+            className='auth__button'
             variant="contained"
             disabled={isSubmitting || isLoadingAuth}
             color="primary"
             onClick={handleSubmit}
           >
-            <span className={css.auth__button_icon} />
+            <span className='auth__button_icon' />
             {strings.buttons.login}
           </Button>
         </form>

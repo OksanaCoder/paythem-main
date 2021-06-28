@@ -8,12 +8,12 @@ import Input from '../../components/Form/Input';
 import SignupSchema from '../../helpers/Formik/validation';
 import Formik from '../../helpers/Formik';
 
-import css from '../../../styles/containers/Auth.scss';
+import '../../../styles/containers/Auth.scss';
 
 const Register = ({ onSubmit, isLoadingAuth }) => (
   <React.Fragment>
-    <div className={css.auth__content}>
-      <h2 className={css.auth__title}>{strings.other.registration}</h2>
+    <div className='auth__content'>
+      <h2 className='auth__title'>{strings.other.registration}</h2>
       <Formik
         initialValues={{
           email: '',
@@ -25,9 +25,9 @@ const Register = ({ onSubmit, isLoadingAuth }) => (
         onSubmit={onSubmit}
       >
         {({ values, errors, touched, handleChange, handleSubmit, isSubmitting }) => (
-          <form className={css.auth__form}>
+          <form className='auth__form'>
             <Input
-              className={css.auth__form_input}
+              className='auth__form_input'
               label="Name"
               variant="outlined"
               type="name"
@@ -38,7 +38,7 @@ const Register = ({ onSubmit, isLoadingAuth }) => (
               onChange={handleChange}
             />
             <Input
-              className={css.auth__form_input}
+              className='auth__form_input'
               label={`${strings.form.email} *`}
               variant="outlined"
               type="email"
@@ -49,7 +49,7 @@ const Register = ({ onSubmit, isLoadingAuth }) => (
               onChange={handleChange}
             />
             <Input
-              className={css.auth__form_input}
+              className='auth__form_input'
               label={`${strings.form.password} *`}
               variant="outlined"
               type="password"
@@ -60,7 +60,7 @@ const Register = ({ onSubmit, isLoadingAuth }) => (
               onChange={handleChange}
             />
             <Input
-              className={css.auth__form_input}
+              className='auth__form_input'
               label={`${strings.form.password_confirm} *`}
               variant="outlined"
               type="password"
@@ -74,7 +74,7 @@ const Register = ({ onSubmit, isLoadingAuth }) => (
             />
             <p>
               {strings.other.privacy[0]}
-              <a className={css.auth__privicyLink} target="_blank" href="/">
+              <a className='auth__privicyLink' target="_blank" href="/">
                 {strings.other.privacy[1]}
               </a>
             </p>
@@ -82,11 +82,11 @@ const Register = ({ onSubmit, isLoadingAuth }) => (
               type="submit"
               color="primary"
               variant="contained"
-              className={css.auth__button}
+              className='auth__button'
               disabled={isSubmitting || isLoadingAuth}
               onClick={handleSubmit}
             >
-              <span className={css.auth__button_icon} />
+              <span className='auth__button_icon' />
               {strings.buttons.register}
             </Button>
           </form>

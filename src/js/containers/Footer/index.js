@@ -1,10 +1,10 @@
 import React from 'react';
 
-import css from '../../../styles/containers/Footer.scss';
+import '../../../styles/containers/Footer.scss';
 
 const Footer = () => (
-  <footer className={css.footer}>
-    <div className={css.footer__container}>
+  <footer className='footer'>
+    <div className='footer__container'>
       <p>
         {'@ '}
         {new Date().getFullYear()}

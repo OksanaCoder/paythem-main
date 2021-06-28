@@ -30,7 +30,7 @@ import GeneralSettingsContainer from '../../../modules/currentGame/containers/Ge
 
 import PtwModal from '../../../utils/PtwModal';
 
-import css from '../../../../styles/pages/currentGame/Content.scss';
+import '../../../../styles/pages/currentGame/Content.scss';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -215,9 +215,9 @@ class Main extends React.Component {
             handlePreviewWidget={this.handlePreviewWidget}
           />
 
-          <div className={css.currentGame__content}>
-            <div className={css.currentGame__content_inner}>
-              <div className={css.currentGame__content_leftMenu}>
+          <div className='currentGame__content'>
+            <div className='currentGame__content_inner'>
+              <div className='currentGame__content_leftMenu'>
                 <h3>Customizations</h3>
                 <p>Here you can customize the appereance and data of your popup on this section.</p>
 
@@ -294,8 +294,8 @@ class Main extends React.Component {
                 )}
               </div>
 
-              <div className={css.currentGame__content_game}>
-                <div className={css.currentGame__content_gameBlock}>
+              <div className='currentGame__content_game'>
+                <div className='currentGame__content_gameBlock'>
                   <PtwModal
                     getParamsDefault={getParamsDefault}
                     widgetViewValue={widgetViewValue}

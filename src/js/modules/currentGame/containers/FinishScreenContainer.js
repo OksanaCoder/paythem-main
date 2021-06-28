@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { connect } from 'react-redux';
 import { FormControl, FormHelperText, OutlinedInput, TextField, Button } from '@material-ui/core';
 
@@ -7,7 +7,7 @@ import { paramsDefault } from '../../../actions';
 import { TrashIcon } from '../../../../assets/images/icons';
 import TabContentComponent from '../components/TabContentComponent';
 
-import css from '../../../../styles/pages/currentGame/Content.scss';
+import '../../../../styles/pages/currentGame/Content.scss';
 
 const validation = errors => {
   let valid = true;
@@ -154,7 +154,7 @@ class FinishScreenContainer extends React.Component {
         handleCloseTabContent={this.handleSubmitForm}
       >
         <form>
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Title</h4>
             <OutlinedInput
               name="title"
@@ -164,11 +164,11 @@ class FinishScreenContainer extends React.Component {
               aria-describedby="error-text"
             />
             {errors.title.length > 0 && (
-              <FormHelperText className={css.form_inputError}>{errors.title}</FormHelperText>
+              <FormHelperText className='form_inputError'>{errors.title}</FormHelperText>
             )}
           </FormControl>
 
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Sub Title</h4>
             <TextField
               name="subtitle"
@@ -179,20 +179,20 @@ class FinishScreenContainer extends React.Component {
               value={subtitle}
             />
             {errors.subtitle.length > 0 && (
-              <FormHelperText className={css.form_inputError}>{errors.subtitle}</FormHelperText>
+              <FormHelperText className='form_inputError'>{errors.subtitle}</FormHelperText>
             )}
           </FormControl>
 
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Company Logo</h4>
-            <div className={css.currentGame__imageBlock}>
+            <div className='currentGame__imageBlock'>
               {content.finish.company_logo ? (
                 <>
                   <img src={content.finish.company_logo} alt="Background" />
                   <Button
                     variant="contained"
                     color="primary"
-                    className={cx(css.button__top)}
+                    className='button__top'
                     onClick={this.handleDeleteImage}
                   >
                     <TrashIcon />
@@ -210,10 +210,10 @@ class FinishScreenContainer extends React.Component {
                 />
               )}
             </div>
-            {bigSize && <p className={css.form_inputError}>Image size has to be max 9Mb</p>}
+            {bigSize && <p className='form_inputError'>Image size has to be max 9Mb</p>}
           </FormControl>
 
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Disclamer Text</h4>
             <TextField
               name="privacy"
@@ -224,7 +224,7 @@ class FinishScreenContainer extends React.Component {
               value={privacy}
             />
             {errors.privacy.length > 0 && (
-              <FormHelperText className={css.form_inputError}>{errors.privacy}</FormHelperText>
+              <FormHelperText className='form_inputError'>{errors.privacy}</FormHelperText>
             )}
           </FormControl>
         </form>

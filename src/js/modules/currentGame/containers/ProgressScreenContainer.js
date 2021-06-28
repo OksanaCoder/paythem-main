@@ -106,13 +106,13 @@ class ProgressScreenContainer extends React.Component {
               aria-describedby="error-text"
             />
             {errors.title.length > 0 && (
-              <FormHelperText className={css.form_inputError} id="error-text">
+              <FormHelperText className='form_inputError' id="error-text">
                 {errors.title}
               </FormHelperText>
             )}
           </FormControl>
 
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Sub Title</h4>
             <TextField
               name="subtitle"
@@ -123,7 +123,7 @@ class ProgressScreenContainer extends React.Component {
               value={subtitle}
             />
             {errors.subtitle.length > 0 && (
-              <FormHelperText className={css.form_inputError} id="error-text">
+              <FormHelperText className='form_inputError' id="error-text">
                 {errors.subtitle}
               </FormHelperText>
             )}

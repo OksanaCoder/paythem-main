@@ -1,12 +1,12 @@
 import React from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { Tabs, Tab } from '@material-ui/core';
 
 import css from '../../../../styles/pages/currentGame/TabList.scss';
 
 const InnerTabsListComponent = ({ tabValue, handleChangeTabsIntegration, tabsArr, tabsTitle }) => {
   return (
-    <div className={css.currentGame__content_menuBlock}>
+    <div className='currentGame__content_menuBlock'>
       <h4>{tabsTitle}</h4>
       <Tabs
         classes={{
@@ -25,7 +25,7 @@ const InnerTabsListComponent = ({ tabValue, handleChangeTabsIntegration, tabsArr
                 wrapper: css.currentGame__tabs_iconLabelWrapper,
                 labelContainer: css.currentGame__tabs_labelContainer,
               }}
-              className={cx(css.button__constructor)}
+              className='button__constructor'
               label={item.label}
               icon={<item.icon />}
               value={item.value}

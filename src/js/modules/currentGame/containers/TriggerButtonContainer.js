@@ -6,7 +6,7 @@ import { paramsDefault } from '../../../actions';
 import TabContentComponent from '../components/TabContentComponent';
 import ChooseColorContainer from './ChooseColorContainer';
 
-import css from '../../../../styles/pages/CurrentGame.scss';
+import '../../../../styles/pages/CurrentGame.scss';
 
 const validation = errors => {
   let valid = true;
@@ -97,7 +97,7 @@ class TriggerButtonContainer extends React.Component {
         handleCloseTabContent={this.handleSubmitTitle}
       >
         <form>
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Title</h4>
             <OutlinedInput
               name="title"
@@ -107,7 +107,7 @@ class TriggerButtonContainer extends React.Component {
               aria-describedby="error-text"
             />
             {errors.title.length > 0 && (
-              <FormHelperText className={css.form_inputError} id="error-text">
+              <FormHelperText className='form_inputError' id="error-text">
                 {errors.title}
               </FormHelperText>
             )}

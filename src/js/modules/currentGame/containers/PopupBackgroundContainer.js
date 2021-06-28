@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Button, Slider } from '@material-ui/core';
 import { TrashIcon } from '../../../../assets/images/icons';
@@ -8,7 +8,7 @@ import { paramsDefault } from '../../../actions';
 import TabContentComponent from '../components/TabContentComponent';
 import ChooseColorContainer from './ChooseColorContainer';
 
-import css from '../../../../styles/pages/currentGame/Content.scss';
+import '../../../../styles/pages/currentGame/Content.scss';
 
 class PopupBackgroundContainer extends React.Component {
   constructor(props) {
@@ -108,14 +108,14 @@ class PopupBackgroundContainer extends React.Component {
         handleCloseTabContent={handleCloseTabContent}
       >
         <h4>Background image</h4>
-        <div className={css.currentGame__imageBlock}>
+        <div className='currentGame__imageBlock'>
           {popupBg.bg_image ? (
             <>
               <img src={popupBg.bg_image} alt="Background" />
               <Button
                 variant="contained"
                 color="primary"
-                className={cx(css.button__top)}
+                className='button__top'
                 onClick={this.handleDeleteImage}
               >
                 <TrashIcon />
@@ -133,7 +133,7 @@ class PopupBackgroundContainer extends React.Component {
             />
           )}
         </div>
-        {bigSize && <p className={css.form_inputError}>Image size has to be max 9Mb</p>}
+        {bigSize && <p className='form_inputError'>Image size has to be max 9Mb</p>}
 
         <ChooseColorContainer
           title="Overlay color"
@@ -143,7 +143,7 @@ class PopupBackgroundContainer extends React.Component {
 
         <h4>Overlay Opacity</h4>
         <Slider
-          className={css.form_slider}
+          className='form_slider'
           onChange={this.handleChangeSliderRange}
           value={opacity}
           defaultValue={20}

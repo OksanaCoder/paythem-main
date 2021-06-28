@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormControlLabel, Radio, Input, InputAdornment } from '@material-ui/core';
 
-import css from '../../../../styles/pages/currentGame/GeneralSettings.scss';
+import '../../../../styles/pages/currentGame/GeneralSettings.scss';
 
 const OtherRadioComponent = ({
   onChange,
@@ -22,7 +22,7 @@ const OtherRadioComponent = ({
       label={
         value ? (
           <Input
-            className={css.currentGame__settings_input}
+            className='currentGame__settings_input'
             disabled={disabledInput}
             onChange={onTextChange}
             name={name}

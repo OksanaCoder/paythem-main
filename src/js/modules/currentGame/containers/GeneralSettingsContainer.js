@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { connect } from 'react-redux';
 import Scrollbars from 'react-custom-scrollbars';
 import {
@@ -25,7 +25,7 @@ import { GeneralSettingsSchema, AddSiteUrlSchema } from '../../../helpers/Formik
 import TabContentComponent from '../components/TabContentComponent';
 import OtherRadio from '../components/OtherRadioComponent';
 
-import css from '../../../../styles/pages/currentGame/GeneralSettings.scss';
+import '../../../../styles/pages/currentGame/GeneralSettings.scss';
 
 class GeneralSettingsContainer extends React.Component {
   handleOthers = event => {
@@ -135,8 +135,8 @@ class GeneralSettingsContainer extends React.Component {
             handleCloseTabContent={handleSubmit}
           >
             <Scrollbars style={{ height: '90%' }}>
-              <form className={css.currentGame__settings}>
-                <div className={css.form_input}>
+              <form className='currentGame__settings'>
+                <div className='form_input'>
                   <h4>When display the game</h4>
                   {display_game.map(item => {
                     return (
@@ -155,10 +155,10 @@ class GeneralSettingsContainer extends React.Component {
                   })}
                 </div>
 
-                <FormControl fullWidth className={css.form_input}>
+                <FormControl fullWidth className='form_input'>
                   <h4>Show the game when user is leaving the site</h4>
                   <RadioGroup
-                    className={css.form_radioGorizontal}
+                    className='form_radioGorizontal'
                     name="show_on_leaving"
                     value={show_on_leaving ? 'yes' : 'no'}
                     onChange={this.handleRadioChange}
@@ -176,9 +176,9 @@ class GeneralSettingsContainer extends React.Component {
                   onSubmit={this.handleAddSiteUrl}
                 >
                   {subformik => (
-                    <FormControl fullWidth className={css.form_input}>
+                    <FormControl fullWidth className='form_input'>
                       <h4>Show the game on specific pages</h4>
-                      <List className={css.currentGame__settings_list}>
+                      <List className='currentGame__settings_list'>
                         {where_game_show.length > 0 &&
                           where_game_show.map(item => (
                             <ListItem key={item}>
@@ -193,11 +193,11 @@ class GeneralSettingsContainer extends React.Component {
                               <Button
                                 variant="contained"
                                 color="primary"
-                                className={cx(
-                                  css.button__top,
-                                  css.button__top_lightBlue,
-                                  css.button__top_icon,
-                                )}
+                                className='
+                                  button__top
+                                  button__top_lightBlue
+                                  button__top_icon
+                                '
                                 onClick={this.handleDeleteSiteUrl(item)}
                               >
                                 <TrashIcon />
@@ -207,7 +207,7 @@ class GeneralSettingsContainer extends React.Component {
                       </List>
 
                       <Input
-                        className={css.currentGame__settings_input}
+                        className='currentGame__settings_input'
                         name="siteUrl"
                         variant="filled"
                         value={subformik.values.siteUrl}
@@ -216,7 +216,7 @@ class GeneralSettingsContainer extends React.Component {
                         placeholder="my-blog-page"
                         startAdornment={
                           <InputAdornment
-                            className={css.currentGame__settings_inputAdornment}
+                            className='currentGame__settings_inputAdornment'
                             position="start"
                           >
                             {domainSelected.data.domain}
@@ -225,18 +225,18 @@ class GeneralSettingsContainer extends React.Component {
                         }
                       />
                       {subformik.errors.siteUrl && subformik.touched.siteUrl && (
-                        <FormHelperText className={css.form_inputError}>
+                        <FormHelperText className='form_inputError'>
                           {subformik.errors.siteUrl}
                         </FormHelperText>
                       )}
                       <Button
                         variant="contained"
                         color="primary"
-                        className={cx(
-                          css.button__top,
-                          css.button__top_lightBlue,
-                          css.currentGame__settings_btnAdd,
-                        )}
+                        className='
+                          button__top
+                          button__top_lightBlue
+                          currentGame__settings_btnAdd
+                        '
                         onClick={subformik.handleSubmit}
                       >
                         <AddIcon />
@@ -246,10 +246,10 @@ class GeneralSettingsContainer extends React.Component {
                   )}
                 </Formik>
 
-                <FormControl fullWidth className={css.form_input}>
+                <FormControl fullWidth className='form_input'>
                   <h4>Show trigger button on the site</h4>
                   <RadioGroup
-                    className={css.form_radioGorizontal}
+                    className='form_radioGorizontal'
                     name="trigger_button"
                     value={trigger_button ? 'yes' : 'no'}
                     onChange={this.handleRadioChange}
@@ -259,10 +259,10 @@ class GeneralSettingsContainer extends React.Component {
                   </RadioGroup>
                 </FormControl>
 
-                <FormControl fullWidth className={css.form_input}>
+                <FormControl fullWidth className='form_input'>
                   <h4>Allow user to play with the same email</h4>
                   <RadioGroup
-                    className={css.form_radioGorizontal}
+                    className='form_radioGorizontal'
                     name="email_repeat"
                     value={email_repeat ? 'yes' : 'no'}
                     onChange={this.handleRadioChange}
@@ -304,10 +304,10 @@ class GeneralSettingsContainer extends React.Component {
                   </RadioGroup>
                 </FormControl> */}
 
-                <FormControl fullWidth className={css.form_input}>
+                <FormControl fullWidth className='form_input'>
                   <h4>Send coupon to the user email</h4>
                   <RadioGroup
-                    className={css.form_radioGorizontal}
+                    className='form_radioGorizontal'
                     name="send_on_email"
                     value={send_on_email ? 'yes' : 'no'}
                     onChange={this.handleRadioChange}
@@ -317,10 +317,10 @@ class GeneralSettingsContainer extends React.Component {
                   </RadioGroup>
                 </FormControl>
 
-                <FormControl fullWidth className={css.form_input}>
+                <FormControl fullWidth className='form_input'>
                   <h4>Show the user coundown time when coupon expires</h4>
                   <Input
-                    className={css.currentGame__settings_input50}
+                    className='currentGame__settings_input50'
                     onChange={e => {
                       handleChange(e);
                       this.handleChangeParams(e);
@@ -336,7 +336,7 @@ class GeneralSettingsContainer extends React.Component {
                     }
                   />
                   {errors.exp_copied && touched.exp_copied && (
-                    <FormHelperText className={css.form_inputError}>
+                    <FormHelperText className='form_inputError'>
                       {errors.exp_copied}
                     </FormHelperText>
                   )}

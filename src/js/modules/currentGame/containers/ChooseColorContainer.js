@@ -111,7 +111,7 @@ class ChooseColorContainer extends React.Component {
 
     return (
       <>
-        <FormControl fullWidth className={css.form_input}>
+        <FormControl fullWidth className='form_input'>
           <h4>{title}</h4>
           <div>
             {defaultColors.map(item => (

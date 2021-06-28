@@ -126,7 +126,7 @@ class StartScreenContainer extends React.Component {
         handleCloseTabContent={this.handleSubmitForm}
       >
         <form>
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Title</h4>
             <OutlinedInput
               name="title"
@@ -136,13 +136,13 @@ class StartScreenContainer extends React.Component {
               aria-describedby="error-title"
             />
             {errors.title.length > 0 && (
-              <FormHelperText className={css.form_inputError} id="error-title">
+              <FormHelperText className='form_inputError' id="error-title">
                 {errors.title}
               </FormHelperText>
             )}
           </FormControl>
 
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Sub Title</h4>
             <TextField
               name="subtitle"
@@ -154,13 +154,13 @@ class StartScreenContainer extends React.Component {
               aria-describedby="error-subtitle"
             />
             {errors.subtitle.length > 0 && (
-              <FormHelperText className={css.form_inputError} id="error-subtitle">
+              <FormHelperText className='form_inputError' id="error-subtitle">
                 {errors.subtitle}
               </FormHelperText>
             )}
           </FormControl>
 
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Start Button Label</h4>
             <OutlinedInput
               name="button"
@@ -170,13 +170,13 @@ class StartScreenContainer extends React.Component {
               aria-describedby="error-button"
             />
             {errors.button.length > 0 && (
-              <FormHelperText className={css.form_inputError} id="error-button">
+              <FormHelperText className='form_inputError' id="error-button">
                 {errors.button}
               </FormHelperText>
             )}
           </FormControl>
 
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Enable Form Inputs</h4>
             <FormControlLabel
               classes={{ root: css.form_checkboxLabel }}

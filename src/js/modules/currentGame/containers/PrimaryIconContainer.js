@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 
@@ -88,7 +88,7 @@ class PrimaryIconContainer extends React.Component {
         handleCloseTabContent={handleCloseTabContent}
       >
         <h4>Predefined Icons</h4>
-        <ul className={css.currentGame__iconsList}>
+        <ul className='currentGame__iconsList'>
           {WIDGET_ICONS.map(icon => (
             <li
               key={icon.id}
@@ -106,14 +106,14 @@ class PrimaryIconContainer extends React.Component {
           ))}
         </ul>
         <h4>Custom Icon</h4>
-        <div className={css.currentGame__imageBlock}>
+        <div className='currentGame__imageBlock'>
           {image ? (
             <>
               <img src={image} alt="Background" />
               <Button
                 variant="contained"
                 color="primary"
-                className={cx(css.button__top)}
+                className='button__top'
                 onClick={this.handleDeleteImage}
               >
                 <TrashIcon />
@@ -131,7 +131,7 @@ class PrimaryIconContainer extends React.Component {
             />
           )}
         </div>
-        {bigSize && <p className={css.form_inputError}>Image size has to be max 9Mb</p>}
+        {bigSize && <p className='form_inputError'>Image size has to be max 9Mb</p>}
         <h5>Note: Please use the PNG format with a transparent background.</h5>
       </TabContentComponent>
     );

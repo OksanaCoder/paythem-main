@@ -10,10 +10,10 @@ import css from '../../../../styles/pages/Home.scss';
 
 const GamesListComponent = ({ toggleDrawer, handleChooseGame }) => {
   return (
-    <section className={css.games__list}>
+    <section className='games__list'>
       <button
         type="button"
-        className={css.games__list_close}
+        className='games__list_close'
         onClick={toggleDrawer('rightPanel', false)}
       >
         Close
@@ -23,7 +23,7 @@ const GamesListComponent = ({ toggleDrawer, handleChooseGame }) => {
         {GAMES.map(item => {
           return (
             <li key={item.name}>
-              <div className={css.games__list_img}>
+              <div className='games__list_img'>
                 <img src={UserIcon} alt="UserIcon" />
               </div>
 
@@ -31,7 +31,7 @@ const GamesListComponent = ({ toggleDrawer, handleChooseGame }) => {
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
                 <div style={{ display: 'flex' }}>
-                  <Button variant="contained" color="primary" className={css.button__top}>
+                  <Button variant="contained" color="primary" className='button__top'>
                     <EyeIcon />
                     Preview
                   </Button>
@@ -43,7 +43,7 @@ const GamesListComponent = ({ toggleDrawer, handleChooseGame }) => {
                   <Button
                     variant="contained"
                     color="primary"
-                    className={css.button__top}
+                    className='button__top'
                     onClick={() => handleChooseGame(item)}
                   >
                     <AddWebsitesIcon />

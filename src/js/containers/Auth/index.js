@@ -29,10 +29,10 @@ class Auth extends Component {
     const isLoadingAuth = this.loadingAuth();
 
     return (
-      <section className={css.auth}>
-        <div className={css.auth__wrap}>
-          <div className={css.auth__logo} />
-          <div className={css.auth__container}>
+      <section className='auth'>
+        <div className='auth__wrap'>
+          <div className='auth__logo' />
+          <div className='auth__container'>
             {isLoadingAuth && (
               <LinearProgress
                 classes={{
@@ -44,13 +44,13 @@ class Auth extends Component {
             )}
             {children}
           </div>
-          <div className={css.auth__circle1} />
-          <div className={css.auth__circle2} />
-          <div className={css.auth__circle3} />
-          <div className={css.auth__circle4} />
-          <div className={css.auth__circle5} />
-          <div className={css.auth__circle6} />
-          <div className={css.auth__circle7} />
+          <div className='auth__circle1' />
+          <div className='auth__circle2' />
+          <div className='auth__circle3' />
+          <div className='auth__circle4' />
+          <div className='auth__circle5' />
+          <div className='auth__circle6' />
+          <div className='auth__circle7' />
         </div>
       </section>
     );

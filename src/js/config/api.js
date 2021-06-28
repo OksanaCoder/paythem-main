@@ -1,5 +1,5 @@
 const API = {
-  baseUrl: 'http://157.230.112.210:5000/api',
+  baseUrl: 'https://playthem-back.herokuapp.com/api',
   redirect_uri: window.location.origin,
 };
 

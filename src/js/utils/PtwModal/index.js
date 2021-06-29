@@ -29,9 +29,9 @@ const PtwModal = ({
     backgroundImage: `url("${gameStyle.icon}")`,
     backgroundColor: gameStyle.color_scheme.bg_window,
   };
-  const styleContent = {
-    color: gameStyle.color_scheme.text_content,
-  };
+  // const styleContent = {
+  //   color: gameStyle.color_scheme.text_content,
+  // };
   const styleButton = {
     backgroundColor: gameStyle.color_scheme.bg_indicator_button,
     color: gameStyle.color_scheme.text_button,
@@ -65,13 +65,13 @@ const PtwModal = ({
         <div className={css.PtwModalRoot__dialog} style={styleDialog}>
           <div className={css.PtwModalRoot__icon} style={styleIcon} />
           <div className={css.PtwModalRoot__inner}>
-            <h2 className={css.PtwModalRoot__title} style={styleContent}>
+            {/* <h2 className={css.PtwModalRoot__title} style={styleContent}>
               {truncateString(content[widgetViewValue].title, 50)}
-            </h2>
+            </h2> */}
 
-            <h3 className={css.PtwModalRoot__subtitle} style={styleContent}>
+            {/* <h3 className={css.PtwModalRoot__subtitle} style={styleContent}>
               {truncateString(content[widgetViewValue].subtitle, 70)}
-            </h3>
+            </h3> */}
 
             {widgetViewValue === 'start' && (
               <form className={css.PtwModalRootForm}>

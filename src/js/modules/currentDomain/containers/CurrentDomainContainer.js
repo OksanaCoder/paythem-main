@@ -132,6 +132,7 @@ class CurrentDomainContainer extends React.Component {
 
             <Drawer anchor="right" open={rightPanel} onClose={toggleDrawer('rightPanel', false)}>
               <GamesListComponent
+                foo="bar"
                 toggleDrawer={toggleDrawer}
                 handleChooseGame={this.handleChooseGame}
               />

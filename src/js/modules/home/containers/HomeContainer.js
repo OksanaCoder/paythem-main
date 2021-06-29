@@ -9,8 +9,10 @@ import {
   updateDomain,
   createDomain,
   deleteDomain,
+  widgetView,
+  gameSelected
 } from '../../../actions';
-
+import { PARAMS_DEFAULT } from '../../../config';
 import Fetching from '../../../components/Fetching';
 import WelcomeComponent from '../../../modules/home/components/WelcomeComponent';
 import CurrentDomainContainer from '../../../modules/currentDomain/containers/CurrentDomainContainer';
@@ -32,6 +34,16 @@ class HomeContainer extends React.Component {
       rightPanel: false,
     };
   }
+  handleChooseGame = data => {
+    console.log('eee');
+    console.log(this.props);
+    const { gameSelectedAction, widgetViewAction, paramsDefaultAction } = this.props;
+    this.handleOpen('openGameFullscreenDialog')();
+    widgetViewAction('start');
+    paramsDefaultAction(PARAMS_DEFAULT);
+    gameSelectedAction(data);
+    console.log(gameSelectedAction, widgetViewAction, paramsDefaultAction )
+  };
 
   loadDomains = () => {
     const { getDomainsAction, domainSelectedAction } = this.props;
@@ -170,6 +182,7 @@ class HomeContainer extends React.Component {
                     toggleDrawer={this.toggleDrawer}
                     rightPanel={rightPanel}
                     handleOpen={this.handleOpen}
+                    handleChooseGame={this.handleChooseGame}
                   />
                 </React.Fragment>
               )}
@@ -203,5 +216,8 @@ export default connect(
     updateDomainAction: (domainId, data) => dispatch(updateDomain(domainId, data)),
     deleteDomainAction: params => dispatch(deleteDomain(params)),
     createDomainAction: data => dispatch(createDomain(data)),
+    widgetViewAction: data => dispatch(widgetView(data)),
+    paramsDefaultAction: data => dispatch(paramsDefault(data)),
+    gameSelectedAction: data => dispatch(gameSelected(data)),
   }),
-)(HomeContainer);
+)(HomeContainer)

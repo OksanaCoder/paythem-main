@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 import { GAMES } from '../../../config';
 import UserIcon from '../../../../assets/images/icons/user.svg';
 import { EyeIcon, AddWebsitesIcon } from '../../../../assets/images/icons';
-import css from '../../../../styles/pages/Home.scss';
+import '../../../../styles/pages/Home.scss';
 
 const GamesListComponent = ({ toggleDrawer, handleChooseGame }) => {
   return (

@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable */
 import React from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import { CSVLink, CSVDownload } from 'react-csv';
 import { withStyles, Switch, Button } from '@material-ui/core';
 
 import UserIcon from '../../../../assets/images/icons/user.svg';
 import { DownloadIcon, ResetIcon, EditIcon, TrashIcon, EyeIcon } from '../../../../assets/images/icons';
-import css from '../../../../styles/pages/Home.scss';
+import '../../../../styles/pages/Home.scss';
 
 const CustomSwitch = withStyles({
   root: {
@@ -77,12 +77,12 @@ const GamesListForDomainComponent = ({
     <div>
       <h3>Website Games</h3>
       {gameList.map(gameItem => (
-        <div key={gameItem._id} className={css.games__listDomain}>
-          <div className={css.games__listDomain_left}>
-            <div className={css.games__listDomain_img}>
+        <div key={gameItem._id} className='games__listDomain'>
+          <div className='games__listDomain_left'>
+            <div className='games__listDomain_img'>
               <img src={UserIcon} alt="game preview" />
             </div>
-            <div className={css.games__listDomain_info}>
+            <div className='games__listDomain_info'>
               <div>
                 <CustomSwitch
                   checked={gameItem.status}
@@ -109,7 +109,7 @@ const GamesListForDomainComponent = ({
                 </li>
               </ul>
               <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                <Button variant="contained" color="primary" className={css.button__top}>
+                <Button variant="contained" color="primary" className='button__top'>
                   <ResetIcon />
                   Reset Cookies
                 </Button>
@@ -117,7 +117,7 @@ const GamesListForDomainComponent = ({
                 <Button
                   variant="contained"
                   color="primary"
-                  className={css.button__top}
+                  className='button__top'
                   onClick={handleGetStatisticsByGameId(gameItem._id, gameItem.game)}
                 >
                   <DownloadIcon />
@@ -136,11 +136,11 @@ const GamesListForDomainComponent = ({
               </div>
             </div>
           </div>
-          <div className={css.games__listDomain_right} key={gameItem._id}>
+          <div className='games__listDomain_right' key={gameItem._id}>
             <Button
               variant="contained"
               color="primary"
-              className={cx(css.button__top, css.button__top_lightBlue)}
+              className='button__top button__top_lightBlue'
               onClick={handlePreviewWidget}
             >
               <EyeIcon />
@@ -156,7 +156,7 @@ const GamesListForDomainComponent = ({
             <Button
               variant="contained"
               color="primary"
-              className={cx(css.button__top, css.button__top_lightBlue, css.button__top_icon)}
+              className='button__top button__top_lightBlue button__top_icon'
               onClick={handleChooseGame(gameItem)}
             >
               <EditIcon />
@@ -164,7 +164,7 @@ const GamesListForDomainComponent = ({
             <Button
               variant="contained"
               color="primary"
-              className={cx(css.button__top, css.button__top_lightBlue, css.button__top_icon)}
+              className='button__top button__top_lightBlue button__top_icon'
               onClick={handleRemoveGame(gameItem._id)}
             >
               <TrashIcon />

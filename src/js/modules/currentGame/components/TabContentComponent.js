@@ -17,7 +17,7 @@ const TabContentComponent = ({ tabValue, handleCloseTabContent, title, descripti
       <Button
         variant="contained"
         color="primary"
-        className={cx(css.button__top, css.currentGame__btnClose)}
+        className='css.button__top currentGame__btnClose'
         onClick={handleCloseTabContent}
       >
         <CloseIcon />

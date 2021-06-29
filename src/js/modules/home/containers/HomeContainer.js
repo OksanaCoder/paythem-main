@@ -19,7 +19,7 @@ import CurrentDomainContainer from '../../../modules/currentDomain/containers/Cu
 import GameListByDomain from '../../../modules/currentDomain/components/GamesListComponent';
 import STORAGE from '../../../helpers/storage';
 
-import css from '../../../../styles/pages/Home.scss';
+import '../../../../styles/pages/Home.scss';
 
 class HomeContainer extends React.Component {
   constructor(props) {
@@ -155,7 +155,6 @@ class HomeContainer extends React.Component {
 <!-- End Playthem Widget -->`;
 
     return (
-      <section className={css.home__container}>
         <Fetching isFetching={domainsLoading}>
           {domainsLoaded && (
             <React.Fragment>
@@ -199,7 +198,6 @@ class HomeContainer extends React.Component {
             </React.Fragment>
           )}
         </Fetching>
-      </section>
     );
   }
 }

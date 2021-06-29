@@ -3,6 +3,9 @@
 @import '../modules/menu';
 @import '../modules/buttons';
 
+.MuiButton-label {
+  margin-right: 20px;
+}
 .header {
   background-color: $color-bg-header;
   box-shadow: $box-shadow-header;
@@ -42,7 +45,7 @@
       height: 16px;
       background: $color-blue-light;
     }
-    
+
     &_icon {
       // @extend .logo;
       background-image: url('../../assets/images/icons/logo_label.svg');
@@ -131,9 +134,9 @@
     }
   }
   &_global {
-    
+
     @include mobile-lg {
-     
+
     }
   }
 }
@@ -167,7 +170,7 @@
         border: 1px solid $color-blue-light;
       }
     }
-    
+
 
     &_img{
       @include flex(center, center);

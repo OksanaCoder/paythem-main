@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { connect } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 /* eslint-disable */
 import { addNotification, removeNotification } from '../../actions';
 import Message from '../../components/Notifications/message';
 
-import css from '../../../styles/components/Notifications.scss';
+import '../../../styles/components/Notifications.scss';
 
 class Notifications extends Component {
   removeNotification = id => {
@@ -26,7 +26,7 @@ class Notifications extends Component {
 
     return (
       <section>
-        <TransitionGroup className={cx(css.notifications, css.notifications_fixed)} component="ul">
+        <TransitionGroup className='notifications notifications_fixed' component="ul">
           {data.map(notice => (
             <CSSTransition
               con

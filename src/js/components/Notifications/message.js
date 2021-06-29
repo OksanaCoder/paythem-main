@@ -88,8 +88,8 @@ class Message extends Component {
         onMouseEnter={this.onEnter}
         onMouseLeave={this.onLeave}
       >
-        <div className={css.notifications__content}>
-          <div className={css.notifications__wrap}>
+        <div className='notifications__content'>
+          <div className='notifications__wrap'>
             <div
               className={cx(
                 css.notifications__icon,
@@ -107,8 +107,8 @@ class Message extends Component {
               >
                 {MESSAGES[notice.type].title}
               </h5>
-              <p className={css.notifications__text}>{notice.text}</p>
-              <IconButton className={css.notifications__close} onClick={handleRemove(notice.id)}>
+              <p className='notifications__text'>{notice.text}</p>
+              <IconButton className='notifications__close' onClick={handleRemove(notice.id)}>
                 <Icon>close</Icon>
               </IconButton>
             </div>

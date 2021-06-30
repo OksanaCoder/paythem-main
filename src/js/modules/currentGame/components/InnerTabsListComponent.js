@@ -21,10 +21,11 @@ const InnerTabsListComponent = ({ tabValue, handleChangeTabsIntegration, tabsArr
           return (
             <Tab
               key={item.value}
-              classes={{
-                wrapper: css.currentGame__tabs_iconLabelWrapper,
-                labelContainer: css.currentGame__tabs_labelContainer,
-              }}
+              // className='currentGame__tabs_iconLabelWrapper currentGame__tabs_labelContainer button__constructor'
+              // classes={{
+              //   wrapper: css.currentGame__tabs_iconLabelWrapper,
+              //   labelContainer: css.currentGame__tabs_labelContainer,
+              // }}
               className='button__constructor'
               label={item.label}
               icon={<item.icon />}

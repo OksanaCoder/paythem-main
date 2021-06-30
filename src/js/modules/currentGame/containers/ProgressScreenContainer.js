@@ -5,7 +5,7 @@ import { FormControl, FormHelperText, OutlinedInput, TextField } from '@material
 import { paramsDefault } from '../../../actions';
 import TabContentComponent from '../components/TabContentComponent';
 
-import css from '../../../../styles/pages/CurrentGame.scss';
+import '../../../../styles/pages/CurrentGame.scss';
 
 const validation = errors => {
   let valid = true;
@@ -96,7 +96,7 @@ class ProgressScreenContainer extends React.Component {
         handleCloseTabContent={this.handleSubmitForm}
       >
         <form>
-          <FormControl fullWidth className={css.form_input}>
+          <FormControl fullWidth className='form_input'>
             <h4>Title</h4>
             <OutlinedInput
               name="title"

@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { paramsDefault } from '../../../actions';
 import TabContentComponent from '../components/TabContentComponent';
 
-import css from '../../../../styles/pages/CurrentGame.scss';
+import '../../../../styles/pages/CurrentGame.scss';
 
 const validation = errors => {
   let valid = true;
@@ -179,12 +179,12 @@ class StartScreenContainer extends React.Component {
           <FormControl fullWidth className='form_input'>
             <h4>Enable Form Inputs</h4>
             <FormControlLabel
-              classes={{ root: css.form_checkboxLabel }}
+              classes='form_checkboxLabel'
               control={<Checkbox disabled checked color="secondary" name="email" />}
               label="Email Address"
             />
             <FormControlLabel
-              classes={{ root: css.form_checkboxLabel }}
+              classes='form_checkboxLabel'
               control={
                 <Checkbox
                   checked={name}
@@ -197,7 +197,7 @@ class StartScreenContainer extends React.Component {
               label="Full Name"
             />
             <FormControlLabel
-              classes={{ root: css.form_checkboxLabel }}
+              classes='form_checkboxLabel'
               control={
                 <Checkbox
                   checked={phone}
